@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ClosetItemEntity" representedClassName="ClosetItemEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+        <attribute name="isAvailable" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="itemDate" optional="YES" attributeType="Binary"/>
+        <attribute name="itemStyle" optional="YES" attributeType="String"/>
+        <attribute name="itemType" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="outfits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="items" inverseEntity="OutfitEntity"/>
+    </entity>
+    <entity name="OutfitEntity" representedClassName="OutfitEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="outfitID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="outfitName" optional="YES" attributeType="String"/>
+        <attribute name="outfitPic" optional="YES" attributeType="Binary"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClosetItemEntity" inverseName="outfits" inverseEntity="ClosetItemEntity"/>
+    </entity>
+    <configuration name="userWardrobe" usedWithCloudKit="YES">
+        <memberEntity name="OutfitEntity"/>
+        <memberEntity name="ClosetItemEntity"/>
+    </configuration>
+</model>
