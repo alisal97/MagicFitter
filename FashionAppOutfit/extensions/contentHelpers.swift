@@ -95,6 +95,11 @@ struct ItemLabel: View {
     }
 }
 
+extension Array where Element == [ClosetItemEntity] {
+    func flatten() -> [ClosetItemEntity] {
+        return self.flatMap { $0 }
+    }
+}
 
 struct SectionView: View {
     let title: String
