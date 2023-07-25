@@ -53,7 +53,7 @@ struct AddItemView: View {
                 ZStack(alignment: .topTrailing) { // Set the alignment to topTrailing
                     Rectangle()
                         .foregroundColor(.black)
-                        .frame(width: 335, height: 370)
+                        .frame(width: 335 * 0.67, height: 370 * 0.67)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
@@ -66,7 +66,7 @@ struct AddItemView: View {
                             .resizable()
                             .scaledToFill()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 335, height: 370)
+                            .frame(width: 335 * 0.67, height: 370 * 0.67)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
@@ -88,10 +88,10 @@ struct AddItemView: View {
                             Image(systemName: "plus")
                                 .font(.title)
                                 .foregroundColor(.white)
-                                .frame(width: 75, height: 75)
+                                .frame(width: 75 * 0.67, height: 75 * 0.67)
                                 .background(Color.gray)
                                 .clipShape(Circle())
-                                .offset(x: -130, y: 150)
+                                .offset(x: -130 * 0.67 , y: 150 * 0.67)
                                 .onTapGesture {
                                     showContextMenu = true
                                 }

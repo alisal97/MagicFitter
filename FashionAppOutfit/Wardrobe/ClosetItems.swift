@@ -196,16 +196,18 @@ class ClosetManager: ObservableObject {
         }
         
         var matchingStyles: [ItemStyle] = []
+        
         if itemStyle == .both {
-            matchingStyles = [.casual, .formal]
+            matchingStyles = [.casual, .formal, .both]
+        } else if itemStyle == .casual {
+            matchingStyles = [.casual, .both]
+        } else if itemStyle == .formal {
+        matchingStyles = [.formal, .both]
         } else {
             matchingStyles = [itemStyle]
         }
-
-        // Shuffle the colorCombinations array to generate outfits randomly
-        let shuffledCombinations_0 = colorCombinations.shuffled()
-        let shuffledCombinations_1 = shuffledCombinations_0.shuffled()
-        let shuffledCombinations = shuffledCombinations_1.shuffled()
+        
+        let shuffledCombinations = colorCombinations.shuffled()
 
         for combination in shuffledCombinations {
             if combination.contains(color) {

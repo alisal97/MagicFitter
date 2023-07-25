@@ -21,17 +21,17 @@ struct FullView: View {
     
     var body: some View {
         NavigationStack {
+            HStack {
+                Text(item.name ?? "")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.accentColor)
+                    .bold()
+                    .padding(.leading)
+                    .frame(maxWidth: 300, alignment: .leading) // Center the text
+            }
+
             ScrollView {
-                Spacer(minLength: 23)
-                HStack {
-                    Text(item.name ?? "")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.accentColor)
-                        .bold()
-                        .padding(.leading)
-                        .frame(maxWidth: 300, alignment: .leading) // Center the text
-                }
                 
                 VStack(spacing: 15) {
                     ZStack {
@@ -225,6 +225,7 @@ struct FullView: View {
             .ultraThinMaterial
             ,for: .navigationBar
         )
+        .navigationBarTitleDisplayMode(.inline)
 
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

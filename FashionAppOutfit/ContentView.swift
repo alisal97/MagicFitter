@@ -284,9 +284,8 @@ struct WardrobeView: View {
                     Text("Tops").tag("tops")
                     Text("Bottoms").tag("bottoms")
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal)
-
+                .frame(width: 330 )
+                .pickerStyle(.segmented)
                 List {
                     ForEach(sortedItems, id: \.id) { item in
                         NavigationLink(
@@ -306,7 +305,7 @@ struct WardrobeView: View {
                                                     .stroke(Color.accentColor, lineWidth: 2)
                                             )
                                     }
-
+                                    
                                     VStack(alignment: .leading) {
                                         ItemLabel(title: "Name", value: item.name ?? "")
                                         ItemLabel(title: "Color", value: item.color ?? "")
@@ -316,13 +315,14 @@ struct WardrobeView: View {
                                 }
                             }
                         )
-                        .padding(.vertical, 8)
+                        //                        .padding(.vertical, 8)
                     }
                 }
-                .padding()
-                .onAppear {
-                    closetManager.getAllItems()
-                }
+                .listStyle(.plain)
+
+            }
+            .onAppear {
+                closetManager.getAllItems()
             }
             .navigationTitle("Wardrobe")
             .navigationBarTitleDisplayMode(.large)
