@@ -103,6 +103,18 @@ struct FullView: View {
                                         .fontWeight(.regular)
                                         .foregroundColor(.accentColor)
                                 }
+                                
+                                HStack {
+                                    Label("", systemImage: "wand.and.stars")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.accentColor)
+                                    Text(item.itemStyle ?? "")
+                                        .font(.headline)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(.accentColor)
+                                }
+
                                 Spacer()
                                 HStack {
                                     if let itemType = ItemType(rawValue: item.itemType ?? ""), itemType != .jackets {

@@ -15,20 +15,20 @@ enum ItemType: String {
     case jackets
 }
 
-enum ItemStyle: String {
+enum ItemStyle: String, CaseIterable {
     case formal
     case casual
     case both
-    // if item is both, it can be matched with each style
-    // if chosen item is both, the user must choose whether he wants to wear a formal or a casual outfit.
+    // if item is both, it can be matched with either casual or formal
 }
+
 struct ClosetItem {
     var name: String
     var color: String
-//    let itemStyle: ItemStyle
+    let itemStyle: ItemStyle
     let itemType: ItemType
     var image: UIImage
-//    var itemDate = Date()
+    var itemDate = Date()
     var isAvailable = true
     var id = UUID()
 }
@@ -118,7 +118,7 @@ class ClosetManager: ObservableObject {
         getAllItems()
     }
     
-    func addItem(name: String, color: String, itemType: ItemType, image: UIImage, isAvailable: Bool) {
+    func addItem(name: String, color: String, itemType: ItemType, itemStyle: ItemStyle, image: UIImage, isAvailable: Bool) {
         let context = CoreDataStack.shared.context
         
         let newItem = ClosetItemEntity(context: context)
@@ -127,6 +127,8 @@ class ClosetManager: ObservableObject {
         newItem.id = UUID()
         newItem.isAvailable = true
         newItem.itemType = itemType.rawValue
+        newItem.itemStyle = itemStyle.rawValue
+        newItem.itemDate = Date()
         newItem.imageData = image.jpegData(compressionQuality: 69)
         
         CoreDataStack.shared.saveContext()
@@ -141,9 +143,10 @@ class ClosetManager: ObservableObject {
         }
     }
 
-    func editItem(id: UUID, itemType: ItemType, newName: String, newColor: String, newImage: UIImage?) {
+    func editItem(id: UUID, itemType: ItemType, itemStyle: ItemStyle, newName: String, newColor: String, newImage: UIImage?) {
         if let item = items.first(where: { $0.id == id }) {
             item.itemType = itemType.rawValue
+            item.itemStyle = itemStyle.rawValue
             item.name = newName
             item.color = newColor
             

@@ -18,7 +18,8 @@ struct EditView: View {
     @State private var selectedColor: String
     @State private var selectedItemType: ItemType
     @State private var selectedImage: UIImage?
-    
+    @State private var selectedItemStyle: ItemStyle = .casual
+
     
     @State private var showContextMenu = false
     @State private var showImagePicker = false
@@ -151,9 +152,27 @@ struct EditView: View {
                         .padding(.trailing, 75)
                     }
                     .padding(.trailing)
+                    HStack {
+                        Text("Style:")
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                            .padding(.leading)
+
+                        Picker("Style", selection: $selectedItemStyle) {
+                            ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
+                                Text(itemStyle.rawValue.capitalized).tag(itemStyle)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: .infinity) // Expand the picker to fill the available width
+                        .padding(.trailing, 75)
+                    }
+                    .padding(.trailing)
+
 
                 }
                 .padding(.trailing)
+                
 
 
                 Spacer(minLength: 35)
@@ -216,9 +235,10 @@ struct EditView: View {
         item.name = itemName
         item.color = selectedColor
         item.itemType = selectedItemType.rawValue
+        item.itemStyle = selectedItemStyle.rawValue
         
         // Save the changes using the ClosetManager
-        closetManager.editItem(id: item.id!, itemType: selectedItemType, newName: itemName, newColor: selectedColor, newImage: selectedImage)
+        closetManager.editItem(id: item.id!, itemType: selectedItemType, itemStyle: selectedItemStyle, newName: itemName, newColor: selectedColor, newImage: selectedImage)
         
         // Set isEditing to false to dismiss the view
         isEditing = false

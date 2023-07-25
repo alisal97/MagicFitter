@@ -11,6 +11,7 @@ struct AddItemView: View {
     @State private var itemName = ""
     @State private var selectedColor = "White"
     @State private var selectedItemType: ItemType = .tops
+    @State private var selectedItemStyle: ItemStyle = .casual
     @State private var selectedImage: UIImage?
     @State private var showContextMenu = false
     @State private var showImagePicker = false
@@ -21,6 +22,7 @@ struct AddItemView: View {
     let colors = ["Yellow", "Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray"];
 
     var itemTypes: [ItemType] = [.jackets, .tops, .bottoms] // Replace with actual cases
+    
     
     let closetManager: ClosetManager
     
@@ -145,6 +147,21 @@ struct AddItemView: View {
                         .padding(.trailing, 75)
                     }
                     .padding(.trailing)
+                    HStack {
+                        Text("Style:")
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                            .padding(.leading)
+
+                        Picker("Style", selection: $selectedItemStyle) {
+                            ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
+                                Text(itemStyle.rawValue.capitalized).tag(itemStyle)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: .infinity) // Expand the picker to fill the available width
+                        .padding(.trailing, 75)
+                    }
 
                 }
                 .padding(.trailing)
@@ -203,7 +220,7 @@ struct AddItemView: View {
     private func saveItem() {
         guard let image = selectedImage else { return }
 
-        closetManager.addItem(name: itemName, color: selectedColor, itemType: selectedItemType, image: image, isAvailable: true)
+        closetManager.addItem(name: itemName, color: selectedColor, itemType: selectedItemType, itemStyle: selectedItemStyle, image: image, isAvailable: true)
 
 
         presentationMode.wrappedValue.dismiss()

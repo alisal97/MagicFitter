@@ -172,11 +172,6 @@ class CamView: UIViewController, ObservableObject {
             })
         })
     }
-//    @objc private func openPhotoPicker() {
-//        let photoPicker = PhotoPickerView()
-//        photoPicker.delegate = self
-//        present(photoPicker, animated: true, completion: nil)
-//    }
 }
 
 extension CamView: PhotoPickerDelegate {
