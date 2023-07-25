@@ -182,44 +182,6 @@ struct SavedOutfitView: View {
 
     }
 
-struct ItemLabel: View {
-    let title: String
-    let value: String
-    
-    var body: some View {
-        HStack {
-            getImageForTitle(title)
-                .font(.system(size: 20))
-                .foregroundColor(.accentColor)
-            
-            Text("\(title):")
-                .font(.headline)
-                .foregroundColor(.accentColor)
-                .fontWeight(.bold)
-            
-            Text(value)
-                .font(.headline)
-                .foregroundColor(.accentColor)
-                .fontWeight(.regular)
-        }
-    }
-    
-    func getImageForTitle(_ title: String) -> Image {
-        switch title {
-        case "Name":
-            return Image(systemName: "tag")
-        case "Color":
-            return Image(systemName: "eyedropper")
-        case "Type":
-            return Image(systemName: "tag.fill")
-        case "Style":
-            return Image(systemName: "wand.and.rays")
-        default:
-            return Image(systemName: "questionmark")
-        }
-    }
-}
-
 extension OutfitEntity {
     var closetItemArray: [ClosetItemEntity] {
         let set = items as? Set<ClosetItemEntity> ?? []

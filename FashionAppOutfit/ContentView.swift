@@ -264,65 +264,82 @@ extension Array where Element == [ClosetItemEntity] {
 }
 
 
-
 struct WardrobeView: View {
     @State private var showModal = false // Added state variable
     @ObservedObject var closetManager: ClosetManager // Use the same instance of ClosetManager
-    
-    
+    @State private var selectedItemType: String = "All"
+
+    var sortedItems: [ClosetItemEntity] {
+        return closetManager.items
+            .filter { selectedItemType == "All" || $0.itemType == selectedItemType }
+            .sorted(by: { $0.itemDate! > $1.itemDate! })
+    }
+
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack {
-                    Spacer()
-                    if closetManager.items.isEmpty {
-                        Spacer(minLength: 235)
-                        
-                        Text("Your wardrobe is empty. Tap the \"+\" button in the top right corner to start populating your wardrobe.")
-                            .font(.headline)
-                            .foregroundColor(.gray.opacity(0.7))
-                            .padding(.vertical, 16)
-                            .multilineTextAlignment(.center)
-                        
-                    } else {
-                        if !closetManager.items.filter({ $0.itemType == ItemType.jackets.rawValue }).isEmpty {
-                            SectionView(title: "Coats & Jackets", items: closetManager.items.filter { $0.itemType == ItemType.jackets.rawValue }, closetManager: closetManager)
-                        }
-                        if !closetManager.items.filter({ $0.itemType == ItemType.tops.rawValue }).isEmpty {
-                            SectionView(title: "Tops", items: closetManager.items.filter { $0.itemType == ItemType.tops.rawValue }, closetManager: closetManager)
-                        }
-                        if !closetManager.items.filter({ $0.itemType == ItemType.bottoms.rawValue }).isEmpty {
-                            SectionView(title: "Bottoms", items: closetManager.items.filter { $0.itemType == ItemType.bottoms.rawValue }, closetManager: closetManager)
-                        }
+        NavigationView {
+            VStack {
+                Picker(selection: $selectedItemType, label: Text("Filter")) {
+                    Text("All").tag("All")
+                    Text("Jackets").tag("jackets")
+                    Text("Tops").tag("tops")
+                    Text("Bottoms").tag("bottoms")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
+
+                List {
+                    ForEach(sortedItems, id: \.id) { item in
+                        NavigationLink(
+                            destination: FullView(item: item, closetManager: closetManager),
+                            label: {
+                                HStack {
+                                    if let imageData = item.imageData, let image = UIImage(data: imageData) {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 100, height: 100)
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+
+                                    VStack(alignment: .leading) {
+                                        ItemLabel(title: "Name", value: item.name ?? "")
+                                        ItemLabel(title: "Color", value: item.color ?? "")
+                                        ItemLabel(title: "Type", value: item.itemType ?? "")
+                                        ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                                    }
+                                }
+                            }
+                        )
+                        .padding(.vertical, 8)
                     }
-                    Spacer()
                 }
                 .padding()
-            }
-            .onAppear {
-                closetManager.getAllItems()
+                .onAppear {
+                    closetManager.getAllItems()
+                }
             }
             .navigationTitle("Wardrobe")
             .navigationBarTitleDisplayMode(.large)
-
             .navigationBarItems(trailing:
-                                    Button(action: {
-                showModal = true
-            }) {
-                Image(systemName: "plus")
-                    .font(.system(size: 21, weight: .bold))
-                    .padding(15)
-                
-            }
+                Button(action: {
+                    showModal = true
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 21, weight: .bold))
+                        .padding(15)
+                }
             )
             .sheet(isPresented: $showModal) {
                 AddItemView(closetManager: closetManager)
             }
         }
-        .toolbarBackground(
-            .ultraThinMaterial
-            ,for: .navigationBar
-        )
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .scrollIndicators(.hidden)
     }
 }

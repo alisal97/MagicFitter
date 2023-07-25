@@ -76,7 +76,6 @@
 				1017BFB62A2B7396001D39A7 /* contentHelpers.swift */,
 				1017BFB42A28D30E001D39A7 /* generatedOutfitView.swift */,
 				10E677D62A2E73E7004AEBCF /* savedOutfitView.swift */,
-				1017BFB82A2B7BBD001D39A7 /* ItemFullView.swift */,
 			);
 			path = "View Helpers";
 			sourceTree = "<group>";
@@ -87,6 +86,7 @@
 				10CAE7392A1E340B009C4084 /* ClosetItems.swift */,
 				1017BFBA2A2B7EF0001D39A7 /* EditView.swift */,
 				10B8AD7B2A1FEAB1009D6A02 /* AddItemView.swift */,
+				1017BFB82A2B7BBD001D39A7 /* ItemFullView.swift */,
 			);
 			path = Wardrobe;
 			sourceTree = "<group>";
