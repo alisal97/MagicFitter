@@ -319,7 +319,6 @@ struct WardrobeView: View {
                     }
                 }
                 .listStyle(.plain)
-
             }
             .onAppear {
                 closetManager.getAllItems()

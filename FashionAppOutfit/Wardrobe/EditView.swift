@@ -107,6 +107,7 @@ struct EditView: View {
                         }
                     }
                 }
+                
                 TextField("Name", text: $itemName)
                     .textFieldStyle(.roundedBorder)
                     .foregroundColor(.accentColor)
