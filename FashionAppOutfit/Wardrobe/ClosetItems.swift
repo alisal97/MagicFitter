@@ -19,7 +19,6 @@ enum ItemStyle: String, CaseIterable {
     case formal
     case casual
     case both
-    // if item is both, it can be matched with either casual or formal
 }
 
 struct ClosetItem {

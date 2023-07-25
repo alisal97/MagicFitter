@@ -6,18 +6,27 @@
 //
 
 import SwiftUI
+import UIKit
+import CoreData
 
-struct WardrobeView: View {
+struct ClosetView: View {
     @State private var showModal = false // Added state variable
     @ObservedObject var closetManager: ClosetManager // Use the same instance of ClosetManager
     @State private var selectedItemType: String = "All"
-
+    @State private var searchText = ""
+    
     var sortedItems: [ClosetItemEntity] {
-        return closetManager.items
+        let filteredItems = closetManager.items
             .filter { selectedItemType == "All" || $0.itemType == selectedItemType }
-            .sorted(by: { $0.itemDate! > $1.itemDate! })
+            .filter { $0.isAvailable }
+        
+        if searchText.isEmpty {
+            return filteredItems.sorted(by: { $0.itemDate! > $1.itemDate! })
+        } else {
+            return filteredItems.filter { $0.name?.localizedCaseInsensitiveContains(searchText) ?? false }
+        }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -58,7 +67,6 @@ struct WardrobeView: View {
                                 }
                             }
                         )
-                        //                        .padding(.vertical, 8)
                     }
                 }
                 .listStyle(.plain)
@@ -66,7 +74,7 @@ struct WardrobeView: View {
             .onAppear {
                 closetManager.getAllItems()
             }
-            .navigationTitle("Wardrobe")
+            .navigationTitle("Closet")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
                 Button(action: {
@@ -77,6 +85,7 @@ struct WardrobeView: View {
                         .padding(15)
                 }
             )
+            .searchable(text: $searchText, prompt: "Search")
             .sheet(isPresented: $showModal) {
                 AddItemView(closetManager: closetManager)
             }
@@ -87,5 +96,5 @@ struct WardrobeView: View {
 }
 
 #Preview {
-    WardrobeView(closetManager: ClosetManager())
+    ClosetView(closetManager: ClosetManager())
 }

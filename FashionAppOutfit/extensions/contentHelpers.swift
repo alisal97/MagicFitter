@@ -8,54 +8,6 @@
 import SwiftUI
 import UIKit
 
-// Helper view to present the UIImagePickerController
-struct ImagePickerView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = UIImagePickerController
-    typealias SourceType = UIImagePickerController.SourceType
-    
-    let sourceType: SourceType
-    let completionHandler: (UIImage?) -> Void
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(completionHandler: completionHandler)
-    }
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = sourceType
-        imagePickerController.delegate = context.coordinator
-        return imagePickerController
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
-        // No need to update the view controller
-    }
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let completionHandler: (UIImage?) -> Void
-        
-        init(completionHandler: @escaping (UIImage?) -> Void) {
-            self.completionHandler = completionHandler
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                completionHandler(image)
-            } else {
-                completionHandler(nil)
-            }
-            
-            picker.dismiss(animated: true, completion: nil)
-        }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            completionHandler(nil)
-            picker.dismiss(animated: true, completion: nil)
-        }
-    }
-}
-
-
 
 struct ItemLabel: View {
     let title: String
@@ -88,7 +40,7 @@ struct ItemLabel: View {
         case "Type":
             return Image(systemName: "tag.fill")
         case "Style":
-            return Image(systemName: "wand.and.rays")
+            return Image(systemName: "sparkle")
         default:
             return Image(systemName: "questionmark")
         }

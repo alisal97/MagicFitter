@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import UIKit
+import CoreData
 
-struct outfitsView: View {
+struct OutfitsView: View {
     @State private var generatedOutfit: [[ClosetItemEntity]] = []
     @ObservedObject var closetManager: ClosetManager
     
@@ -228,5 +230,5 @@ struct outfitsView: View {
 
 
 #Preview {
-    outfitsView(closetManager: ClosetManager())
+    OutfitsView(closetManager: ClosetManager())
 }

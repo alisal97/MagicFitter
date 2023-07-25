@@ -72,7 +72,7 @@ struct FullView: View {
                                             .frame(width: 20, height: 20)
                                             .foregroundColor(isAvailable ? .accentColor : .gray)
                                     }
-                                    Text("Available")
+                                    Text(item.isAvailable ? "Available" : "In Laundry")
                                         .foregroundColor(.primary)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -106,7 +106,7 @@ struct FullView: View {
                                 .padding(.bottom, 15)
                                 
                                 HStack {
-                                    Label("", systemImage: "wand.and.rays")
+                                    Label("", systemImage: "sparkle")
                                         .font(.headline)
                                         .fontWeight(.bold)
                                         .foregroundColor(.accentColor)
@@ -118,7 +118,7 @@ struct FullView: View {
 
                                 Spacer()
                                 HStack {
-                                    if let itemType = ItemType(rawValue: item.itemType ?? ""), itemType != .jackets {
+                                    if let itemType = ItemType(rawValue: item.itemType ?? ""), itemType != .jackets && item.isAvailable {
                                         Toggle(isOn: $includeJacket) {
                                             Text("Include Jacket")
                                                 .fontWeight(.bold)
@@ -144,7 +144,7 @@ struct FullView: View {
                     if showFeedback {
                         Text("No matching items were found in your wardrobe")
                             .foregroundColor(.red)
-                            .font(.headline)
+                            .font(.subheadline)
                     }
                     
                     Spacer()

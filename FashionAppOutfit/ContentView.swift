@@ -11,26 +11,46 @@ import CoreData
 
 struct ContentView: View {
     
-    let closetManager = ClosetManager() // Create an instance of ClosetManager
-    @Environment(\.colorScheme) var colorScheme // Access the color scheme
+    let closetManager = ClosetManager()
+    @Environment(\.colorScheme) var colorScheme
+    @State private var selection = 3
+
     var body: some View {
-        TabView {
-            
-            WardrobeView(closetManager: closetManager) // Pass the closetManager to WardrobeView
+        TabView(selection:$selection) {
+            LaundryView(closetManager: closetManager)
+                .tabItem {
+                    Image(systemName: "washer.fill")
+                    Text("Laundry")
+                }
+                .tag(1)
+
+            ClosetView(closetManager: closetManager)
                 .tabItem {
                     Image(systemName: "tshirt.fill")
-                    Text("Wardrobe")
-                    
+                    Text("Closet")
                 }
-            
-            
-            outfitsView(closetManager: closetManager) // Pass the closetManager to HistoryView
+                .tag(2)
+
+            GenerateView()
                 .tabItem {
-                    Image(systemName: "bookmark.circle")
+                    Image(systemName: "wand.and.stars.inverse")
+                    Text("Generate")
+                }
+                .tag(3)
+            
+            OutfitsView(closetManager: closetManager)
+                .tabItem {
+                    Image(systemName: "bookmark.fill")
                     Text("Outfits")
                 }
+                .tag(4)
 
-            
+            TipsView()
+                .tabItem {
+                    Image(systemName: "lightbulb.fill")
+                    Text("Tips")
+                }
+                .tag(5)
         }
         .accentColor(colorScheme == .dark ? Color.white : Color.black)
         .background(colorScheme == .dark ? Color.black : Color.white)
