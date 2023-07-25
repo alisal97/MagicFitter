@@ -36,7 +36,7 @@ struct LaundryView: View {
                     Text("Tops").tag("tops")
                     Text("Bottoms").tag("bottoms")
                 }
-                .frame(width: 330 )
+                .frame(width: .infinity)
                 .pickerStyle(.segmented)
                 List {
                     ForEach(sortedItems, id: \.id) { item in
