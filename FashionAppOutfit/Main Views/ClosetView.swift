@@ -37,8 +37,8 @@ struct ClosetView: View {
                     Text("Bottoms").tag("bottoms")
                 }
                 .pickerStyle(.segmented)
-                .frame(width: .infinity)
-                
+                .frame(maxWidth: .infinity, alignment: .center)
+
                 List {
                     ForEach(sortedItems, id: \.id) { item in
                         NavigationLink(

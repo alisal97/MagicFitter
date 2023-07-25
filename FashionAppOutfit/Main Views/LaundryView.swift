@@ -36,7 +36,7 @@ struct LaundryView: View {
                     Text("Tops").tag("tops")
                     Text("Bottoms").tag("bottoms")
                 }
-                .frame(width: .infinity)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .pickerStyle(.segmented)
                 List {
                     ForEach(sortedItems, id: \.id) { item in
@@ -74,7 +74,7 @@ struct LaundryView: View {
             .onAppear {
                 closetManager.getAllItems()
             }
-            .navigationTitle("Laundry Room")
+            .navigationTitle("Laundry")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
                 Button(action: {
