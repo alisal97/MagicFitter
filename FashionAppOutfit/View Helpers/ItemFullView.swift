@@ -103,9 +103,10 @@ struct FullView: View {
                                         .fontWeight(.regular)
                                         .foregroundColor(.accentColor)
                                 }
+                                .padding(.bottom, 15)
                                 
                                 HStack {
-                                    Label("", systemImage: "wand.and.stars")
+                                    Label("", systemImage: "wand.and.rays")
                                         .font(.headline)
                                         .fontWeight(.bold)
                                         .foregroundColor(.accentColor)

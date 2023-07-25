@@ -91,6 +91,7 @@ struct SavedOutfitView: View {
                             ItemLabel(title: "Name", value: item.name ?? "")
                             ItemLabel(title: "Color", value: item.color ?? "")
                             ItemLabel(title: "Type", value: item.itemType ?? "")
+                            ItemLabel(title: "Style", value: item.itemStyle ?? "")
                         }
                     }
                     .onTapGesture {
@@ -211,6 +212,8 @@ struct ItemLabel: View {
             return Image(systemName: "eyedropper")
         case "Type":
             return Image(systemName: "tag.fill")
+        case "Style":
+            return Image(systemName: "wand.and.rays")
         default:
             return Image(systemName: "questionmark")
         }
