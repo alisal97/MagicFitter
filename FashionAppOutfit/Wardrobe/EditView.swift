@@ -18,7 +18,7 @@ struct EditView: View {
     @State private var selectedColor: String
     @State private var selectedItemType: ItemType
     @State private var selectedImage: UIImage?
-    @State private var selectedItemStyle: ItemStyle = .casual
+    @State private var selectedItemStyle: ItemStyle
 
     
     @State private var showContextMenu = false
@@ -44,6 +44,7 @@ struct EditView: View {
         self._selectedColor = State(initialValue: item.color ?? "")
         self._selectedItemType = State(initialValue: ItemType(rawValue: item.itemType ?? "") ?? .tops)
         self._selectedImage = State(initialValue: item.imageData.flatMap(UIImage.init))
+        self._selectedItemStyle = State(initialValue: ItemStyle(rawValue: item.itemStyle ?? "") ?? .both)
     }
     
     var body: some View {

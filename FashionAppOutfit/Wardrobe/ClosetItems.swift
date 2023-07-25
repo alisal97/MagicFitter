@@ -172,7 +172,7 @@ class ClosetManager: ObservableObject {
     func generatedOutfitItems(chosenItem: ClosetItemEntity, includeJacket: Bool) {
         generatedOutfitItems = []
         
-        if let matchingOutfit = generateMatchingOutfit(chosenItem: chosenItem, includeJacket: includeJacket) {
+        if let matchingOutfit = generateMatchingOutfit(chosenItem: chosenItem, itemStyle: ItemStyle(rawValue: chosenItem.itemStyle ?? "") ?? .both, includeJacket: includeJacket) {
             if matchingOutfit.isEmpty {
                 print("No outfit generated.")
             } else {
@@ -182,8 +182,7 @@ class ClosetManager: ObservableObject {
             }
         }
     }
-
-    private func generateMatchingOutfit(chosenItem: ClosetItemEntity, includeJacket: Bool) -> [String: ClosetItemEntity]? {
+    private func generateMatchingOutfit(chosenItem: ClosetItemEntity, itemStyle: ItemStyle, includeJacket: Bool) -> [String: ClosetItemEntity]? {
         guard let itemType = chosenItem.itemType, let color = chosenItem.color else {
             return nil
         }
@@ -195,17 +194,28 @@ class ClosetManager: ObservableObject {
         if includeJacket {
             remainingItemTypes.append("jackets")
         }
+        
+        var matchingStyles: [ItemStyle] = []
+        if itemStyle == .both {
+            matchingStyles = [.casual, .formal]
+        } else {
+            matchingStyles = [itemStyle]
+        }
 
         // Shuffle the colorCombinations array to generate outfits randomly
         let shuffledCombinations_0 = colorCombinations.shuffled()
         let shuffledCombinations_1 = shuffledCombinations_0.shuffled()
         let shuffledCombinations = shuffledCombinations_1.shuffled()
 
-        // Iterate through shuffled color combinations
         for combination in shuffledCombinations {
             if combination.contains(color) {
                 for itemType in remainingItemTypes {
-                    let matchingItems = items.filter { $0.itemType == itemType && combination.contains($0.color ?? "") && $0.isAvailable }
+                    let matchingItems = items.filter { item in
+                        guard let itemStyle = ItemStyle(rawValue: item.itemStyle ?? "") else {
+                            return false
+                        }
+                        return item.itemType == itemType && combination.contains(item.color ?? "") && item.isAvailable && matchingStyles.contains(itemStyle)
+                    }
 
                     if matchingItems.count >= 1 {
                         let matchingItem = matchingItems.randomElement()!
@@ -226,12 +236,11 @@ class ClosetManager: ObservableObject {
                 if !includeJacket {
                     if matchingOutfit.count == 2 {
                         return matchingOutfit
-                        
                     }
                 }
             }
         }
-        
+
         return nil
     }
 
