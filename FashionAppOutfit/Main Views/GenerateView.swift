@@ -10,11 +10,18 @@ import UIKit
 import CoreData
 
 struct GenerateView: View {
+    let item: ClosetItemEntity
+    @ObservedObject var closetManager: ClosetManager
+    @State private var includeJacket = true
+    @State var generatedOutfitItems: [ClosetItemEntity] = []
+    @State private var showFeedback = false
+    @State var showGeneratedOutfit = false
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Hello, World!")
     }
 }
 
 #Preview {
-    GenerateView()
+    GenerateView(item: ClosetItemEntity() , closetManager: ClosetManager())
 }

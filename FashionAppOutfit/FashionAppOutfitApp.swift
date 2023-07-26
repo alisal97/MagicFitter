@@ -16,7 +16,7 @@ struct FashionAppOutfitApp: App {
     
     var body: some Scene {
         WindowGroup {
-                    ContentView()
+                    ContentView(item: ClosetItemEntity())
                         .environment(\.managedObjectContext, CoreDataStack.shared.context)
                         .environmentObject(ClosetManager())
                         .scrollDismissesKeyboard(.immediately)

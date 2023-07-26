@@ -12,13 +12,13 @@ struct FullView: View {
     @ObservedObject var closetManager: ClosetManager
     @State private var isEditing = false
     @State var showGeneratedOutfit = false
-    @State var generatedOutfitItems: [ClosetItemEntity] = [] // Update the type to [ClosetItemEntity]
+    @State var generatedOutfitItems: [ClosetItemEntity] = []
     @State private var showFeedback = false
     @Environment(\.presentationMode) var presentationMode
-    @State private var includeJacket = true // Track user's selection for including a jacket item
-    @State private var showDeleteConfirmation = false // Track whether the delete confirmation should be shown
-    @State private var isAvailable = true // Track the availability of the item
-    
+    @State private var includeJacket = true
+    @State private var showDeleteConfirmation = false
+    @State private var isAvailable = true
+
     var body: some View {
         NavigationStack {
             HStack {
@@ -52,9 +52,7 @@ struct FullView: View {
                                             .cornerRadius(8)
                                             .clipShape(RoundedRectangle(cornerRadius: 8))
                                     }
-
                                 }
-
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color.accentColor, lineWidth: 2)
