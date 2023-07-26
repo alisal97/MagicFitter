@@ -214,7 +214,7 @@ struct FullView: View {
                 .listStyle(PlainListStyle())
 
                 .sheet(isPresented: $showGeneratedOutfit) {
-                    GeneratedOutfitView(outfitItems: generatedOutfitItems, item: item) // Update the reference to generatedOutfitItems
+                    GeneratedOutfitView(outfitItems: generatedOutfitItems, item: item) 
                 }
             }
             

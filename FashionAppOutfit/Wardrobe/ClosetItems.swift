@@ -181,7 +181,7 @@ class ClosetManager: ObservableObject {
             }
         }
     }
-    private func generateMatchingOutfit(chosenItem: ClosetItemEntity, itemStyle: ItemStyle, includeJacket: Bool) -> [String: ClosetItemEntity]? {
+    public func generateMatchingOutfit(chosenItem: ClosetItemEntity, itemStyle: ItemStyle, includeJacket: Bool) -> [String: ClosetItemEntity]? {
         guard let itemType = chosenItem.itemType, let color = chosenItem.color else {
             return nil
         }

@@ -10,8 +10,7 @@ import UIKit
 import CoreData
 
 struct LaundryView: View {
-    @State private var showModal = false // Added state variable
-    @ObservedObject var closetManager: ClosetManager // Use the same instance of ClosetManager
+    @ObservedObject var closetManager: ClosetManager
     @State private var selectedItemType: String = "All"
     @State private var searchText = ""
     
@@ -76,19 +75,8 @@ struct LaundryView: View {
             }
             .navigationTitle("Laundry")
             .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    showModal = true
-                }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 21, weight: .bold))
-                        .padding(15)
-                }
-            )
+//            .navigationBarItems(trailing:            )
             .searchable(text: $searchText, prompt: "Search")
-            .sheet(isPresented: $showModal) {
-                AddItemView(closetManager: closetManager)
-            }
         }
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .scrollIndicators(.hidden)
