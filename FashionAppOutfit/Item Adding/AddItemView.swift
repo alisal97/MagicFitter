@@ -104,7 +104,7 @@ struct AddItemView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.gray.opacity(0.2))
                     .edgesIgnoringSafeArea(.all)
-                    .frame(width: 373, height: 350)
+                    .frame(width: 373, height: 377)
                 VStack {
                     VStack(alignment: .leading) {
                         TextField("Name", text: $itemName)
