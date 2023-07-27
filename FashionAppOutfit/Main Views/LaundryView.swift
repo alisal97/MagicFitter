@@ -153,6 +153,7 @@ struct LaundryView: View {
                 }
             )
         }
+        .searchable(text: $searchText, prompt: "Search")
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .scrollIndicators(.hidden)
         

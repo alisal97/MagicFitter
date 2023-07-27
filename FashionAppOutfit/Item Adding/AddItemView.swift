@@ -208,7 +208,7 @@ struct AddItemView: View {
         }
         .scrollDismissesKeyboard(.immediately)
         .onTapGesture {
-            endEditing() // Dismiss the keyboard when tapped outside the text field
+            endEditing() 
         }
 
     }
