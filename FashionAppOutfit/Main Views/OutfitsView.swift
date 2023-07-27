@@ -26,10 +26,8 @@ struct OutfitsView: View {
     
     var filteredOutfits: [OutfitEntity] {
         if selectedSegment == 0 {
-            // Show all outfits
             return Array(allOutfits)
         } else {
-            // Show favorite outfits
             return Array(allOutfits.filter { $0.isFavorite })
         }
     }
@@ -140,17 +138,43 @@ struct OutfitsView: View {
                             Button(action: {
                                 showDeleteConfirmation = true
                             }) {
-                                Text("Delete")
+                                Text("Delete Outfits")
                                     .padding()
                                     .foregroundColor(.red)
                                     .cornerRadius(12)
                             }
+                            
+                            Spacer()
+                            
+                            if selectedSegment == 0 {                            Button(action: {
+                                for outfit in selectedOutfits {
+                                    outfit.isFavorite = true
+                                }
+                            }) {
+                                Text("Add to Favorites")
+                                    .padding()
+                                    .foregroundColor(.blue)
+                                    .cornerRadius(12)
+                            }
+                            }
+                            else if selectedSegment == 1 {
+                                Button(action: {
+                                    for outfit in selectedOutfits {
+                                        outfit.isFavorite = false
+                                    }
+                                }) {
+                                    Text("Remove from Favorites")
+                                        .padding()
+                                        .foregroundColor(.blue)
+                                        .cornerRadius(12)
+                                }
+                            }
                         }
+                        .padding()
                     }
                 }
             }
-            
-            .alert(isPresented: $showDeleteConfirmation) {
+        .alert(isPresented: $showDeleteConfirmation) {
                 Alert(
                     title: Text("Delete Outfits"),
                     message: Text("Are you sure you want to delete the selected outfits?"),

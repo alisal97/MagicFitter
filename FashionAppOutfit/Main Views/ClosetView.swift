@@ -14,8 +14,11 @@ struct ClosetView: View {
     @State private var selectedItemType: String = "All"
     @State private var searchText = ""
     @State private var selectedItems: Set<ClosetItemEntity> = Set()
+    @State private var selectedItem: ClosetItemEntity?
     @State private var isSelecting: Bool = false
-    
+    @State private var laundryFeedback = false
+    @State private var showDeleteConfirmation = false
+
     var sortedItems: [ClosetItemEntity] {
         let filteredItems = closetManager.items
             .filter { selectedItemType == "All" || $0.itemType == selectedItemType }
@@ -28,7 +31,7 @@ struct ClosetView: View {
         }
     }
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Picker(selection: $selectedItemType, label: Text("Filter")) {
                     Text("All").tag("All")
@@ -41,47 +44,51 @@ struct ClosetView: View {
                 
                 List {
                     ForEach(sortedItems, id: \.id) { item in
-                        HStack {
-                            if isSelecting {
-                                // Show checkboxes in selection mode
-                                Image(systemName: selectedItems.contains(item) ? "checkmark.circle.fill" : "circle")
-                                    .onTapGesture {
-                                        toggleSelection(item)
-                                    }
-                            }
-
-                            if let imageData = item.imageData, let image = UIImage(data: imageData) {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 100, height: 100)
-                                    .scaledToFill()
-                                    .aspectRatio(contentMode: .fill)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.accentColor, lineWidth: 2)
-                                    )
-                            }
-                            
-                            VStack(alignment: .leading) {
-                                ItemLabel(title: "Name", value: item.name ?? "")
-                                ItemLabel(title: "Color", value: item.color ?? "")
-                                ItemLabel(title: "Type", value: item.itemType ?? "")
-                                ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                        NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
+                            HStack {
+                                if isSelecting {
+                                    Image(systemName: selectedItems.contains(item) ? "checkmark.square.fill" : "square")
+                                        .onTapGesture {
+                                            toggleSelection(item)
+                                        }
+                                }
+                                
+                                if let imageData = item.imageData, let image = UIImage(data: imageData) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 100, height: 100)
+                                        .scaledToFill()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(Color.accentColor, lineWidth: 2)
+                                        )
+                                }
+                                VStack(alignment: .leading) {
+                                    ItemLabel(title: "Name", value: item.name ?? "")
+                                    ItemLabel(title: "Color", value: item.color ?? "")
+                                    ItemLabel(title: "Type", value: item.itemType ?? "")
+                                    ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                                }
+                                
                             }
                         }
                         .onTapGesture {
                             if isSelecting {
-                                toggleSelection(item)
-                            } else {
-                                NavigationStack {
-                                    FullView(item: item, closetManager: closetManager)
+                                // Toggle the selection state of the item
+                                if selectedItems.contains(item) {
+                                    selectedItems.remove(item)
+                                } else {
+                                    selectedItems.insert(item)
                                 }
                             }
+                        
                         }
                     }
                 }
+                
                 .listStyle(.plain)
             }
             .onAppear {
@@ -100,28 +107,11 @@ struct ClosetView: View {
                 }
             }
             
-            if isSelecting {
+            if isSelecting && selectedItems.count > 0 {
                 HStack {
                     Button(action: {
-                        for item in selectedItems {
-                            item.isAvailable = false
-                        }
-                        selectedItems.removeAll()
-                        isSelecting.toggle()
-                    }) {
+                        showDeleteConfirmation = true
                         
-                        Text("Add to Laundry")
-                            .foregroundColor(.accentColor)
-                            .padding()
-                            .cornerRadius(12)
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        for item in selectedItems {
-                            closetManager.deleteItem(id: item.id!)
-                        }
                         selectedItems.removeAll()
                         isSelecting.toggle()
                     }) {
@@ -130,15 +120,67 @@ struct ClosetView: View {
                             .padding()
                             .cornerRadius(12)
                     }
+                    Spacer()
+                    
+                    Button(action: {
+                        for item in selectedItems {
+                            toggleLaundry(for: item)
+                        }
+                        selectedItems.removeAll()
+                        isSelecting.toggle()
+                    }) {
+                        
+                        Text("Add to Laundry")
+                            .foregroundColor(.blue)
+                            .padding()
+                            .cornerRadius(12)
+                    }
+               
 
                 }
+
                 .padding()
             }
         }
+        .alert(isPresented: $showDeleteConfirmation) {
+            Alert(
+                title: Text("Delete Items"),
+                message: Text("Are you sure you want to delete the selected Items?"),
+                primaryButton: .cancel(Text("Cancel").foregroundColor(.accentColor)),
+                secondaryButton: .destructive(Text("Delete")) {
+                    for item in selectedItems {
+                        DispatchQueue.main.async {
+                            closetManager.deleteItem(id: item.id!)
+                        }
+                    }
+                }
+            )
+            
+        }
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .scrollIndicators(.hidden)
+        
     }
     
+    func toggleLaundry(for item: ClosetItemEntity) {
+        item.isAvailable.toggle()
+        CoreDataStack.shared.saveContext()
+        
+        let feedbackMessage = "Added to Laundry"
+        let feedbackAlert = UIAlertController(title: nil, message: feedbackMessage, preferredStyle: .alert)
+        
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first?.rootViewController {
+              rootViewController.present(feedbackAlert, animated: true, completion: nil)
+        }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                feedbackAlert.dismiss(animated: true, completion: nil)
+                
+            }
+        }
+
     private func toggleSelection(_ item: ClosetItemEntity) {
         if selectedItems.contains(item) {
             selectedItems.remove(item)
