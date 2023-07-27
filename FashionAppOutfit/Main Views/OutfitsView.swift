@@ -125,11 +125,21 @@ struct OutfitsView: View {
                         Button(action: cancelSelection) {
                             Text("Cancel")
                                 .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 6)
+                                .background(Color.gray)
+                                .cornerRadius(20)
                         }
                     } else {
                         Button(action: enterSelectMode) {
                             Text("Select")
                                 .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 6)
+                                .background(Color.gray)
+                                .cornerRadius(20)
                         }
                     }
                 }

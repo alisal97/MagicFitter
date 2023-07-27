@@ -30,6 +30,22 @@ struct ClosetView: View {
             return filteredItems.filter { $0.name?.localizedCaseInsensitiveContains(searchText) ?? false }
         }
     }
+    
+    var cancelButton: some View {
+        Button(action: {
+            isSelecting.toggle()
+            selectedItems.removeAll()
+        }) {
+            Text(isSelecting ? "Cancel" : "Select")
+                .foregroundColor(.white)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 6)
+        }
+        .background(Color.gray)
+        .cornerRadius(20)
+        .frame(height: 36) // Set the height of the button
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -103,7 +119,15 @@ struct ClosetView: View {
                         selectedItems.removeAll()
                     }) {
                         Text(isSelecting ? "Cancel" : "Select")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 6)
+                            .background(Color.gray)
+                            .cornerRadius(20)
+                        
                     }
+                    
                 }
                 ToolbarItem(placement: .bottomBar) {
                     if isSelecting && selectedItems.count > 0 {

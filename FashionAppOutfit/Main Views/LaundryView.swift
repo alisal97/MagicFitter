@@ -103,6 +103,12 @@ struct LaundryView: View {
                         selectedItems.removeAll()
                     }) {
                         Text(isSelecting ? "Cancel" : "Select")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 6)
+                            .background(Color.gray)
+                            .cornerRadius(20)
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
