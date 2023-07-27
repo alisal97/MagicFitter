@@ -105,41 +105,34 @@ struct ClosetView: View {
                         Text(isSelecting ? "Cancel" : "Select")
                     }
                 }
-            }
-            
-            if isSelecting && selectedItems.count > 0 {
-                HStack {
-                    Button(action: {
-                        showDeleteConfirmation = true
-                        
-                        selectedItems.removeAll()
-                        isSelecting.toggle()
-                    }) {
-                        Text("Delete Items")
-                            .foregroundColor(.red)
-                            .padding()
-                            .cornerRadius(12)
-                    }
-                    Spacer()
-                    
-                    Button(action: {
-                        for item in selectedItems {
-                            toggleLaundry(for: item)
+                ToolbarItem(placement: .bottomBar) {
+                    if isSelecting && selectedItems.count > 0 {
+                        HStack {
+                            Button(action: {
+                                showDeleteConfirmation = true
+                            }) {
+                                Text("Delete Items")
+                                    .foregroundColor(.red)
+                                    .padding()
+                                    .cornerRadius(12)
+                            }
+                            Spacer()
+                            Button(action: {
+                                for item in selectedItems {
+                                    toggleLaundry(for: item)
+                                }
+                                selectedItems.removeAll()
+                                isSelecting.toggle()
+                            }) {
+                                Text("Add to Laundry")
+                                    .foregroundColor(.blue)
+                                    .padding()
+                                    .cornerRadius(12)
+                            }
                         }
-                        selectedItems.removeAll()
-                        isSelecting.toggle()
-                    }) {
-                        
-                        Text("Add to Laundry")
-                            .foregroundColor(.blue)
-                            .padding()
-                            .cornerRadius(12)
+                        .padding()
                     }
-               
-
                 }
-
-                .padding()
             }
         }
         .alert(isPresented: $showDeleteConfirmation) {
@@ -148,20 +141,23 @@ struct ClosetView: View {
                 message: Text("Are you sure you want to delete the selected Items?"),
                 primaryButton: .cancel(Text("Cancel").foregroundColor(.accentColor)),
                 secondaryButton: .destructive(Text("Delete")) {
-                    for item in selectedItems {
-                        DispatchQueue.main.async {
-                            closetManager.deleteItem(id: item.id!)
-                        }
-                    }
+                    deleteSelectedItems()
+                    selectedItems.removeAll()
+                    isSelecting.toggle()
                 }
             )
-            
         }
+
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .scrollIndicators(.hidden)
         
     }
     
+    func deleteSelectedItems() {
+        for item in selectedItems {
+            closetManager.deleteItem(id: item.id!)
+        }
+    }
     func toggleLaundry(for item: ClosetItemEntity) {
         item.isAvailable.toggle()
         CoreDataStack.shared.saveContext()

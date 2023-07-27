@@ -115,6 +115,7 @@ struct OutfitsView: View {
                     showDeleteConfirmation = true
                 }
             }
+            .listStyle(.plain)
             .navigationTitle("Outfits")
             .navigationBarTitleDisplayMode(.large)
             
