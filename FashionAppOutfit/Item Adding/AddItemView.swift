@@ -40,177 +40,174 @@ struct AddItemView: View {
     
     var body: some View {
         NavigationStack {
-                VStack {
-                    Text("Add an item!")
-                        .font(.headline)
-                        .bold()
-                        .padding()
-                        .foregroundColor(.accentColor)
-                    Form {
-                        Section {
-                            ZStack(alignment: .topTrailing) {
-                                Rectangle()
-                                    .foregroundColor(.black)
-                                    .frame(width: 335, height: 370)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.accentColor, lineWidth: 1)
-                                    )
-                                
-                                
-                                if let image = selectedImage {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 335, height: 370)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.accentColor, lineWidth: 1)
-                                        )
-                                    
-                                    Button(action: {
-                                    }) {
-                                        Image(systemName: "xmark.octagon.fill")
-                                            .font(.title)
-                                            .foregroundColor(.red)
-                                            .padding()
-                                    }
-                                    .simultaneousGesture(TapGesture()
-                                        .onEnded({ _ in
-                                            selectedImage = nil
-                                        }))
-                                    .padding(8)
-                                    
-                                } else {
-                                    HStack {
-                                        Image(systemName: "plus")
-                                            .font(.title)
-                                            .foregroundColor(.white)
-                                            .frame(width: 75, height: 75)
-                                            .background(Color.gray)
-                                            .clipShape(Circle())
-                                            .offset(x: -130, y: 150)
-                                            .onTapGesture {
-                                                showContextMenu = true
-                                            }
-                                        
-                                    }
-                                }
-                            }
-                        }
-                        Section {
-                            TextField("Name", text: $itemName)
-                                .textFieldStyle(.roundedBorder)
+            VStack {
+                Text("Add an item!")
+                    .font(.headline)
+                    .bold()
+                    .padding()
+                    .foregroundColor(.accentColor)
+                ZStack(alignment: .topTrailing) {
+                    Rectangle()
+                        .foregroundColor(.black)
+                        .frame(width: 335 * 0.67, height: 370 * 0.67)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.accentColor, lineWidth: 1)
+                        )
+                    
+                    
+                    if let image = selectedImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 335 * 0.67, height: 370 * 0.67)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.accentColor, lineWidth: 1)
+                            )
+                        
+                        Button(action: {
+                        }) {
+                            Image(systemName: "xmark.octagon.fill")
+                                .font(.title)
+                                .foregroundColor(.red)
                                 .padding()
-                                .foregroundColor(.accentColor)
+                        }
+                        .simultaneousGesture(TapGesture()
+                            .onEnded({ _ in
+                                selectedImage = nil
+                            }))
+                        .padding(8)
+                        
+                    } else {
+                        HStack {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .frame(width: 75 * 0.67, height: 75 * 0.67)
+                                .background(Color.gray)
+                                .clipShape(Circle())
+                                .offset(x: -130 * 0.67 , y: 150 * 0.67)
                                 .onTapGesture {
-                                    endEditing()
-                                    
+                                    showContextMenu = true
                                 }
                             
-                            VStack(alignment: .trailing) {
-                                HStack {
-                                    Text("Color:")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.accentColor)
-                                        .padding(.leading)
-                                    Picker(selection: $selectedColor, label: Text("")) {
-                                        ForEach(colors, id: \.self) { color in
-                                            HStack {
-                                                Circle()
-                                                    .fill(Color(color))
-                                                    .frame(width: 23)
-                                                    .overlay(
-                                                        Circle()
-                                                            .stroke(Color.accentColor, lineWidth: 1)
-                                                    )
+                        }
+                    }
+                }
+            }
+            
+            ZStack  {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.gray.opacity(0.2))
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(width: 373, height: 350)
+                VStack {
+                    VStack(alignment: .leading) {
+                        TextField("Name", text: $itemName)
+                            .textFieldStyle(.roundedBorder)
+                            .padding()
+                            .foregroundColor(.accentColor)
+                            .onTapGesture {
+                                endEditing()
+                            }
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Color")
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                            .padding(.leading)
 
-                                                Text(color)
-                                            }
-                                        }
-                                    }
-                                    .pickerStyle(.navigationLink)
-                                    .padding(.trailing, 75)
-                                    .frame(maxWidth: .infinity)
-                                }
-                                
+                        Picker(selection: $selectedColor, label: Text("")) {
+                            ForEach(colors, id: \.self) { color in
                                 HStack {
-                                    Text("Type:")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.accentColor)
-                                        .padding(.leading)
+                                    Circle()
+                                        .fill(Color(color))
+                                        .frame(width: 23)
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color.accentColor, lineWidth: 1.5)
+                                        )
                                     
-                                    
-                                    Picker(selection: $selectedItemType, label: Text("")) {
-                                        ForEach(itemTypes, id: \.self) { itemType in
-                                            Text(itemType.rawValue.capitalized).tag(itemType)
-                                        }
-                                    }
-                                    
-                                    .pickerStyle(.menu)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.trailing, 75)
+                                    Text(color)
                                 }
-                                .padding(.trailing)
-                                HStack {
-                                    Text("Style:")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.accentColor)
-                                        .padding(.leading)
-                                    
-                                    
-                                    Picker(selection: $selectedItemStyle, label: Text("")) {
-                                        ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
-                                            Text(itemStyle.rawValue.capitalized).tag(itemStyle)
-                                        }
-                                    }
-                                    .pickerStyle(.menu)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.trailing, 75)
-                                }
-                                
                             }
-                            .padding(.trailing)
-                            Button( action: {
-                            }) {
-                                Text("Save")
-                                    .foregroundColor(.accentColor.opacity(saveButtonOpacity))
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding()
-                                    .fontWeight(.bold)
-                                    .background(Color.gray.opacity(0.35))
-                                    .cornerRadius(12)
+                        }
+                        .pickerStyle(.navigationLink)
+                        .padding(.trailing, 150)
+                        .frame(maxWidth: .infinity)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Type")
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                            .padding(.leading)
+
+                        Picker(selection: $selectedItemType, label: Text("")) {
+                            ForEach(itemTypes, id: \.self) { itemType in
+                                Text(itemType.rawValue.capitalized).tag(itemType)
                             }
-                            .simultaneousGesture(TapGesture()
-                                .onEnded({ _ in
-                                    saveItem()
-                                }))
+                        }
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: .infinity)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Style")
+                            .fontWeight(.bold)
+                            .foregroundColor(.accentColor)
+                            .padding(.leading)
+
+                        
+                        Picker(selection: $selectedItemStyle, label: Text("")) {
+                            ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
+                                Text(itemStyle.rawValue.capitalized).tag(itemStyle)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: .infinity)
+                    }
+                    
+                    HStack {
+                        Button(action: {
+                            saveItem()
+                        }) {
+                            Text("Save")
+                                .foregroundColor(.accentColor.opacity(saveButtonOpacity))
+                                .frame(maxWidth: 300, alignment: .center)
+                                .padding()
+                                .fontWeight(.bold)
+                                .background(Color.gray.opacity(0.35))
+                                .cornerRadius(12)
                         }
                     }
-                    .actionSheet(isPresented: $showContextMenu) {
-                        ActionSheet(title: Text("Add Image"), buttons: [
-                            .default(Text("Take Photo")) {
-                                showCameraView = true
-                            },
-                            .default(Text("Choose from Gallery")) {
-                                showImagePicker = true
-                            },
-                            .cancel()
-                        ])
+                }
+            
+                .actionSheet(isPresented: $showContextMenu) {
+                    ActionSheet(title: Text("Add Image"), buttons: [
+                        .default(Text("Take Photo")) {
+                            showCameraView = true
+                        },
+                        .default(Text("Choose from Gallery")) {
+                            showImagePicker = true
+                        },
+                        .cancel()
+                    ])
+                }
+                .sheet(isPresented: $showImagePicker) {
+                    ImagePickerView(sourceType: .photoLibrary) { image in
+                        selectedImage = image
                     }
-                    .sheet(isPresented: $showImagePicker) {
-                        ImagePickerView(sourceType: .photoLibrary) { image in
-                            selectedImage = image
-                        }
-                    }
-                    .fullScreenCover(isPresented: $showCameraView) {
-                        CamViewWrapper { image in
-                            selectedImage = image
-                            showCameraView = false
-                        }
+                }
+                .fullScreenCover(isPresented: $showCameraView) {
+                    CamViewWrapper { image in
+                        selectedImage = image
+                        showCameraView = false
                     }
                 }
                 .scrollIndicators(.never)
@@ -219,6 +216,7 @@ struct AddItemView: View {
                     endEditing()
                 }
             }
+        }
         }
     func endEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
