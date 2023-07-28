@@ -42,13 +42,12 @@ struct EditView: View {
         self.closetManager = closetManager
         self._isEditing = isEditing
         
-        // Initialize the state properties
         self._itemName = State(initialValue: "")
         self._selectedColor = State(initialValue: "")
         self._selectedItemType = State(initialValue: .tops)
         self._selectedImage = State(initialValue: nil)
+        self._selectedItemStyle = State(initialValue: .both)
         
-        // Set the state properties after the initializers
         self._itemName = State(initialValue: item.name ?? "")
         self._selectedColor = State(initialValue: item.color ?? "")
         self._selectedItemType = State(initialValue: ItemType(rawValue: item.itemType ?? "") ?? .tops)
