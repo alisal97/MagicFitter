@@ -57,16 +57,13 @@ struct EditView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                Spacer()
                 Text("Item Details")
                     .font(.headline)
                     .foregroundColor(.accentColor)
                     .padding()
-                
-                Spacer() 
-                
+                                
                 ZStack(alignment: .topTrailing) {
                     Rectangle()
                         .foregroundColor(.black)
@@ -74,7 +71,7 @@ struct EditView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.accentColor, lineWidth: 2)
+                                .stroke(Color.accentColor, lineWidth: 1)
                         )
                     
                     
@@ -87,7 +84,7 @@ struct EditView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.accentColor, lineWidth: 2)
+                                    .stroke(Color.accentColor, lineWidth: 1)
                             )
                         
                         Button(action: {
@@ -112,16 +109,14 @@ struct EditView: View {
                                 .onTapGesture {
                                     showContextMenu = true
                                 }
-                            
                         }
                     }
                 }
-                
                 ZStack  {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.gray.opacity(0.2))
                         .edgesIgnoringSafeArea(.all)
-                        .frame(width: 373, height: 377)
+                        .frame(width: 373, height: 420)
                     VStack {
                         VStack(alignment: .leading) {
                             TextField("Name", text: $itemName)
@@ -133,6 +128,7 @@ struct EditView: View {
                                 }
                         }
                         Divider()
+                            .frame(width: 370)
                         VStack(alignment: .leading) {
                             Text("Color")
                                 .fontWeight(.bold)
@@ -159,6 +155,7 @@ struct EditView: View {
                             .frame(maxWidth: .infinity)
                         }
                         Divider()
+                            .frame(width: 370)
                         VStack(alignment: .leading) {
                             Text("Type")
                                 .fontWeight(.bold)
@@ -174,6 +171,7 @@ struct EditView: View {
                             .frame(maxWidth: .infinity)
                         }
                         Divider()
+                            .frame(width: 370)
                         VStack(alignment: .leading) {
                             Text("Style")
                                 .fontWeight(.bold)
@@ -190,6 +188,7 @@ struct EditView: View {
                             .frame(maxWidth: .infinity)
                         }
                         Divider()
+                            .frame(width: 370)
                         HStack {
                             Button(action: {
                                 saveItem()
@@ -206,7 +205,6 @@ struct EditView: View {
                     }
                 }
             }
-            
             .actionSheet(isPresented: $showContextMenu) {
                 ActionSheet(title: Text("Add Image"), buttons: [
                     .default(Text("Take Photo")) {
@@ -233,12 +231,6 @@ struct EditView: View {
             
             .onTapGesture {
                 endEditing()
-            }
-            .onAppear {
-                itemName = item.name ?? ""
-                selectedColor = item.color ?? ""
-                selectedItemType = ItemType(rawValue: item.itemType ?? "") ?? .tops
-                selectedItemStyle = ItemStyle(rawValue: item.itemStyle ?? "") ?? .casual
             }
         }
     }

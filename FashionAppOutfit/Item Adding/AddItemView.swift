@@ -55,8 +55,6 @@ struct AddItemView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color.accentColor, lineWidth: 1)
                         )
-                    
-                    
                     if let image = selectedImage {
                         Image(uiImage: image)
                             .resizable()
@@ -104,7 +102,7 @@ struct AddItemView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.gray.opacity(0.2))
                     .edgesIgnoringSafeArea(.all)
-                    .frame(width: 373, height: 377)
+                    .frame(width: 373, height: 420)
                 VStack {
                     VStack(alignment: .leading) {
                         TextField("Name", text: $itemName)
@@ -116,12 +114,13 @@ struct AddItemView: View {
                             }
                     }
                     Divider()
+                        .frame(width: 370)
                     VStack(alignment: .leading) {
                         Text("Color")
                             .fontWeight(.bold)
                             .foregroundColor(.accentColor)
                             .padding(.leading)
-
+                        
                         Picker(selection: $selectedColor, label: Text("")) {
                             ForEach(colors, id: \.self) { color in
                                 HStack {
@@ -142,12 +141,13 @@ struct AddItemView: View {
                         .frame(maxWidth: .infinity)
                     }
                     Divider()
+                        .frame(width: 370)
                     VStack(alignment: .leading) {
                         Text("Type")
                             .fontWeight(.bold)
                             .foregroundColor(.accentColor)
                             .padding(.leading)
-
+                        
                         Picker(selection: $selectedItemType, label: Text("")) {
                             ForEach(itemTypes, id: \.self) { itemType in
                                 Text(itemType.rawValue.capitalized).tag(itemType)
@@ -157,12 +157,13 @@ struct AddItemView: View {
                         .frame(maxWidth: .infinity)
                     }
                     Divider()
+                        .frame(width: 370)
                     VStack(alignment: .leading) {
                         Text("Style")
                             .fontWeight(.bold)
                             .foregroundColor(.accentColor)
                             .padding(.leading)
-
+                        
                         
                         Picker(selection: $selectedItemStyle, label: Text("")) {
                             ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
@@ -173,6 +174,7 @@ struct AddItemView: View {
                         .frame(maxWidth: .infinity)
                     }
                     Divider()
+                        .frame(width: 370)
                     HStack {
                         Button(action: {
                             saveItem()
@@ -187,7 +189,7 @@ struct AddItemView: View {
                         }
                     }
                 }
-            
+            }
                 .actionSheet(isPresented: $showContextMenu) {
                     ActionSheet(title: Text("Add Image"), buttons: [
                         .default(Text("Take Photo")) {
@@ -216,7 +218,6 @@ struct AddItemView: View {
                     endEditing()
                 }
             }
-        }
         }
     func endEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
