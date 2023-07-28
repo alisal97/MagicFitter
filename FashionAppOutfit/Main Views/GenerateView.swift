@@ -78,9 +78,9 @@ struct GenerateView: View {
             .padding()
             .sheet(isPresented: $showGeneratedOutfit) {
                 GeneratedOutfitView(outfitItems: generatedOutfitItems, item: item)
-            }
-            .onAppear {
-                closetManager.getAllItems()
+                    .onAppear {
+                        closetManager.getAllItems()
+                    }
             }
             .navigationTitle("Generate Outfit")
             .navigationBarTitleDisplayMode(.large)
@@ -105,7 +105,6 @@ struct GenerateView: View {
     func generatedOutfitItems(includeJacket: Bool) {
         generatedOutfitItems = []
 
-        // Choose a random item based on the selected style
         var chosenItem: ClosetItemEntity?
         if selectedStyle == .casual {
             chosenItem = closetManager.getRandomItem(ofStyle: .casual)

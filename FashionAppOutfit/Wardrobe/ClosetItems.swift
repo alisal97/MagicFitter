@@ -167,6 +167,16 @@ class ClosetManager: ObservableObject {
             print("Failed to fetch items: \(error)")
         }
     }
+    
+    func fetchItems(completion: @escaping () -> Void) {
+        let fetchRequest: NSFetchRequest<ClosetItemEntity> = ClosetItemEntity.fetchRequest()
+        
+        do {
+            self.items = try CoreDataStack.shared.context.fetch(fetchRequest)
+        } catch {
+            print("Failed to fetch items: \(error)")
+        }
+    }
 
     func generatedOutfitItems(chosenItem: ClosetItemEntity, includeJacket: Bool) {
         generatedOutfitItems = []

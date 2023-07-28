@@ -28,7 +28,7 @@ struct FullView: View {
                     .foregroundColor(.accentColor)
                     .bold()
                     .padding(.leading)
-                    .frame(maxWidth: 300, alignment: .leading) // Center the text
+                    .frame(maxWidth: 300, alignment: .leading)
             }
 
             ScrollView {
@@ -56,9 +56,7 @@ struct FullView: View {
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color.accentColor, lineWidth: 2)
-
                                 )
-
                                 HStack {
                                     Button(action: {
                                         isAvailable.toggle()
@@ -187,7 +185,7 @@ struct FullView: View {
                     .padding(.horizontal, 32)
                     Spacer()
                     Button(action: {
-                        showDeleteConfirmation = true // Show the delete confirmation alert
+                        showDeleteConfirmation = true
                     }) {
                         Text("Delete Item")
                             .foregroundColor(.red)
@@ -230,7 +228,7 @@ struct FullView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    isEditing = true // Set isEditing to true to show the edit sheet
+                    isEditing = true
                 }) {
                     Text("Edit")
                         .foregroundColor(.accentColor)
