@@ -224,7 +224,9 @@ struct FullView: View {
             ,for: .navigationBar
         )
         .navigationBarTitleDisplayMode(.inline)
-
+        .onAppear {
+            closetManager.getAllItems()
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {

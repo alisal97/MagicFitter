@@ -11,23 +11,32 @@ import SwiftUI
 struct EditView: View {
     let item: ClosetItemEntity
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var closetManager: ClosetManager // Add the observed object
-    @Binding var isEditing: Bool // Add the binding for the isEditing state
+    @ObservedObject var closetManager: ClosetManager
+    @Binding var isEditing: Bool
     
     @State private var itemName: String
     @State private var selectedColor: String
     @State private var selectedItemType: ItemType
     @State private var selectedImage: UIImage?
     @State private var selectedItemStyle: ItemStyle
-
+    
     
     @State private var showContextMenu = false
     @State private var showImagePicker = false
     @State private var showCameraView = false
-
-    var itemTypes: [ItemType] = [.jackets, .tops, .bottoms] // Replace with actual cases
+    
+    var itemTypes: [ItemType] = [.jackets, .tops, .bottoms]
     let colors = ["Yellow", "Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray"];
-
+    
+    var saveButtonOpacity: Double {
+        if selectedImage != nil && !itemName.isEmpty {
+            return 1.0
+        } else {
+            return 0.15
+        }
+    }
+    
+    
     init(item: ClosetItemEntity, closetManager: ClosetManager, isEditing: Binding<Bool>) {
         self.item = item
         self.closetManager = closetManager
@@ -55,10 +64,10 @@ struct EditView: View {
                     .font(.headline)
                     .foregroundColor(.accentColor)
                     .padding()
-
-                Spacer() // Add a spacer to push the ZStack to the top
                 
-                ZStack(alignment: .topTrailing) { // Set the alignment to topTrailing
+                Spacer() 
+                
+                ZStack(alignment: .topTrailing) {
                     Rectangle()
                         .foregroundColor(.black)
                         .frame(width: 335 * 0.67, height: 370 * 0.67)
@@ -67,8 +76,8 @@ struct EditView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color.accentColor, lineWidth: 2)
                         )
-
-
+                    
+                    
                     if let image = selectedImage {
                         Image(uiImage: image)
                             .resizable()
@@ -80,7 +89,7 @@ struct EditView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.accentColor, lineWidth: 2)
                             )
-
+                        
                         Button(action: {
                             selectedImage = nil
                         }) {
@@ -89,8 +98,8 @@ struct EditView: View {
                                 .foregroundColor(.red)
                                 .padding()
                         }
-                        .padding(8) // Add padding to the button
-                    
+                        .padding(8)
+                        
                     } else {
                         HStack {
                             Image(systemName: "plus")
@@ -103,135 +112,140 @@ struct EditView: View {
                                 .onTapGesture {
                                     showContextMenu = true
                                 }
-
+                            
                         }
                     }
                 }
                 
-                TextField("Name", text: $itemName)
-                    .textFieldStyle(.roundedBorder)
-                    .foregroundColor(.accentColor)
-                    .padding()
-                
-                
-                Spacer(minLength: 15)
-                
-                VStack(alignment: .trailing) {
-                    HStack {
-                        Text("Color:")
-                            .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
-                            .padding(.leading)
-                        Picker("Color", selection: $selectedColor) {
-                            ForEach(colors, id: \.self) { color in
-                                Text(color).tag(color)
+                ZStack  {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.gray.opacity(0.2))
+                        .edgesIgnoringSafeArea(.all)
+                        .frame(width: 373, height: 377)
+                    VStack {
+                        VStack(alignment: .leading) {
+                            TextField("Name", text: $itemName)
+                                .textFieldStyle(.roundedBorder)
+                                .padding()
+                                .foregroundColor(.accentColor)
+                                .onTapGesture {
+                                    endEditing()
+                                }
+                        }
+                        Divider()
+                        VStack(alignment: .leading) {
+                            Text("Color")
+                                .fontWeight(.bold)
+                                .foregroundColor(.accentColor)
+                                .padding(.leading)
+                            
+                            Picker(selection: $selectedColor, label: Text("")) {
+                                ForEach(colors, id: \.self) { color in
+                                    HStack {
+                                        Circle()
+                                            .fill(Color(color))
+                                            .frame(width: 23)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.accentColor, lineWidth: 1.5)
+                                            )
+                                        
+                                        Text(color)
+                                    }
+                                }
+                            }
+                            .pickerStyle(.navigationLink)
+                            .padding(.trailing, 150)
+                            .frame(maxWidth: .infinity)
+                        }
+                        Divider()
+                        VStack(alignment: .leading) {
+                            Text("Type")
+                                .fontWeight(.bold)
+                                .foregroundColor(.accentColor)
+                                .padding(.leading)
+                            
+                            Picker(selection: $selectedItemType, label: Text("")) {
+                                ForEach(itemTypes, id: \.self) { itemType in
+                                    Text(itemType.rawValue.capitalized).tag(itemType)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .frame(maxWidth: .infinity)
+                        }
+                        Divider()
+                        VStack(alignment: .leading) {
+                            Text("Style")
+                                .fontWeight(.bold)
+                                .foregroundColor(.accentColor)
+                                .padding(.leading)
+                            
+                            
+                            Picker(selection: $selectedItemStyle, label: Text("")) {
+                                ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
+                                    Text(itemStyle.rawValue.capitalized).tag(itemStyle)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .frame(maxWidth: .infinity)
+                        }
+                        Divider()
+                        HStack {
+                            Button(action: {
+                                saveItem()
+                            }) {
+                                Text("Save")
+                                    .foregroundColor(.accentColor.opacity(saveButtonOpacity))
+                                    .frame(maxWidth: 300, alignment: .center)
+                                    .padding()
+                                    .fontWeight(.bold)
+                                    .background(Color.gray.opacity(0.35))
+                                    .cornerRadius(12)
                             }
                         }
-                        .pickerStyle(.menu)
-                        .frame(maxWidth: .infinity) // Expand the picker to fill the available width
-                        .padding(.trailing, 57.5)
-
-
                     }
-                    .padding(.trailing)
-
-                    .padding(.bottom, 15)
-                    
-                    HStack {
-                        Text("Type:")
-                            .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
-                            .padding(.leading)
-
-                        
-                        Picker("Type", selection: $selectedItemType) {
-                            ForEach(itemTypes, id: \.self) { itemType in
-                                Text(itemType.rawValue.capitalized).tag(itemType)
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .frame(maxWidth: .infinity) // Expand the picker to fill the available width
-                        .padding(.trailing, 75)
-                    }
-                    .padding(.trailing)
-                    HStack {
-                        Text("Style:")
-                            .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
-                            .padding(.leading)
-
-                        Picker("Style", selection: $selectedItemStyle) {
-                            ForEach(ItemStyle.allCases, id: \.self) { itemStyle in
-                                Text(itemStyle.rawValue.capitalized).tag(itemStyle)
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .frame(maxWidth: .infinity) // Expand the picker to fill the available width
-                        .padding(.trailing, 75)
-                    }
-                    .padding(.trailing)
-
-
                 }
-                .padding(.trailing)
-                
-
-
-                Spacer(minLength: 35)
-
-                Button( action: {
-                    saveItem()
-                }) {
-                    Text("Save")
-                    .foregroundColor(.accentColor)
-                    .frame(maxWidth: 175)
-                    .fontWeight(.bold)
-                    .padding()
-                    .background(Color.gray.opacity(0.35))
-                    .cornerRadius(12)
-                }
-                .padding()
-                .padding(.bottom)
-                
             }
             
-        }
-        .actionSheet(isPresented: $showContextMenu) {
-            ActionSheet(title: Text("Add Image"), buttons: [
-                .default(Text("Take Photo")) {
-                    showCameraView = true
-                },
-                .default(Text("Choose from Gallery")) {
-                    showImagePicker = true
-                },
-                .cancel()
-            ])
-        }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePickerView(sourceType: .photoLibrary) { image in
-                selectedImage = image
+            .actionSheet(isPresented: $showContextMenu) {
+                ActionSheet(title: Text("Add Image"), buttons: [
+                    .default(Text("Take Photo")) {
+                        showCameraView = true
+                    },
+                    .default(Text("Choose from Gallery")) {
+                        showImagePicker = true
+                    },
+                    .cancel()
+                ])
+            }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePickerView(sourceType: .photoLibrary) { image in
+                    selectedImage = image
+                }
+            }
+            .fullScreenCover(isPresented: $showCameraView) {
+                ImagePickerView(sourceType: .camera) { image in
+                    selectedImage = image
+                }
+            }
+            .scrollIndicators(.never)
+            .scrollDismissesKeyboard(.immediately)
+            
+            .onTapGesture {
+                endEditing()
+            }
+            .onAppear {
+                itemName = item.name ?? ""
+                selectedColor = item.color ?? ""
+                selectedItemType = ItemType(rawValue: item.itemType ?? "") ?? .tops
+                selectedItemStyle = ItemStyle(rawValue: item.itemStyle ?? "") ?? .casual
             }
         }
-        .fullScreenCover(isPresented: $showCameraView) {
-            ImagePickerView(sourceType: .camera) { image in
-                selectedImage = image
-            }
-        }
-
-        .onTapGesture {
-            endEditing() // Dismiss the keyboard when tapped outside the text field
-        }
-        .onAppear {
-            itemName = item.name ?? ""
-            selectedColor = item.color ?? ""
-            selectedItemType = ItemType(rawValue: item.itemType ?? "") ?? .tops
-        }
-        .padding(.top, 15) // Adjust the top padding to move the content lower
     }
     func endEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
-
+    
     private func saveItem() {
         // Update the item properties
         item.name = itemName
@@ -245,12 +259,6 @@ struct EditView: View {
         // Set isEditing to false to dismiss the view
         isEditing = false
     }
-
+    
 }
 
-
-//struct EditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditView(item: item, closetManager: closetManager, isEditing: true)
-//    }
-//}

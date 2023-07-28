@@ -115,7 +115,7 @@ struct AddItemView: View {
                                 endEditing()
                             }
                     }
-                    
+                    Divider()
                     VStack(alignment: .leading) {
                         Text("Color")
                             .fontWeight(.bold)
@@ -141,7 +141,7 @@ struct AddItemView: View {
                         .padding(.trailing, 150)
                         .frame(maxWidth: .infinity)
                     }
-                    
+                    Divider()
                     VStack(alignment: .leading) {
                         Text("Type")
                             .fontWeight(.bold)
@@ -156,7 +156,7 @@ struct AddItemView: View {
                         .pickerStyle(.menu)
                         .frame(maxWidth: .infinity)
                     }
-                    
+                    Divider()
                     VStack(alignment: .leading) {
                         Text("Style")
                             .fontWeight(.bold)
@@ -172,7 +172,7 @@ struct AddItemView: View {
                         .pickerStyle(.menu)
                         .frame(maxWidth: .infinity)
                     }
-                    
+                    Divider()
                     HStack {
                         Button(action: {
                             saveItem()

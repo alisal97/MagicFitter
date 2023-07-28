@@ -122,6 +122,9 @@ struct GeneratedOutfitView: View {
 
             .padding(.top, 23)
         }
+        .onAppear {
+            closetManager.getAllItems()
+        }
     }
     
 

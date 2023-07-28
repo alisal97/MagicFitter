@@ -21,6 +21,10 @@ struct FashionAppOutfitApp: App {
                         .environmentObject(ClosetManager())
                         .scrollDismissesKeyboard(.immediately)
                         .scrollIndicators(.never)
+                        .onAppear {
+                            ClosetManager().getAllItems()
+                        }
+
         }
     }
 }
