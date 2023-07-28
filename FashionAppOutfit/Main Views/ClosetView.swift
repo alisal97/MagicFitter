@@ -58,54 +58,64 @@ struct ClosetView: View {
                 .pickerStyle(.segmented)
                 .frame(maxWidth: .infinity, alignment: .center)
                 
-                List {
-                    ForEach(sortedItems, id: \.id) { item in
-                        NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
-                            HStack {
+                if closetManager.items.isEmpty {
+                    Spacer()
+                    Text("Your closet is empty. Go to Generate & Tap the \"+\" button in the top right corner to start populating your virtual closet.")
+                        .font(.headline)
+                        .foregroundColor(.gray.opacity(0.7))
+                        .padding(.vertical, 16)
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(sortedItems, id: \.id) { item in
+                            NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
+                                HStack {
+                                    if isSelecting {
+                                        Image(systemName: selectedItems.contains(item) ? "checkmark.square.fill" : "square")
+                                            .onTapGesture {
+                                                toggleSelection(item)
+                                            }
+                                    }
+                                    
+                                    if let imageData = item.imageData, let image = UIImage(data: imageData) {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 100, height: 100)
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    VStack(alignment: .leading) {
+                                        ItemLabel(title: "Name", value: item.name ?? "")
+                                        ItemLabel(title: "Color", value: item.color ?? "")
+                                        ItemLabel(title: "Type", value: item.itemType ?? "")
+                                        ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                                    }
+                                    
+                                }
+                            }
+                            .onTapGesture {
                                 if isSelecting {
-                                    Image(systemName: selectedItems.contains(item) ? "checkmark.square.fill" : "square")
-                                        .onTapGesture {
-                                            toggleSelection(item)
-                                        }
-                                }
-                                
-                                if let imageData = item.imageData, let image = UIImage(data: imageData) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 100, height: 100)
-                                        .scaledToFill()
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.accentColor, lineWidth: 2)
-                                        )
-                                }
-                                VStack(alignment: .leading) {
-                                    ItemLabel(title: "Name", value: item.name ?? "")
-                                    ItemLabel(title: "Color", value: item.color ?? "")
-                                    ItemLabel(title: "Type", value: item.itemType ?? "")
-                                    ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                                    // Toggle the selection state of the item
+                                    if selectedItems.contains(item) {
+                                        selectedItems.remove(item)
+                                    } else {
+                                        selectedItems.insert(item)
+                                    }
                                 }
                                 
                             }
-                        }
-                        .onTapGesture {
-                            if isSelecting {
-                                // Toggle the selection state of the item
-                                if selectedItems.contains(item) {
-                                    selectedItems.remove(item)
-                                } else {
-                                    selectedItems.insert(item)
-                                }
-                            }
-                        
                         }
                     }
+                    
+                    .listStyle(.plain)
                 }
-                
-                .listStyle(.plain)
             }
             .onAppear {
                 closetManager.getAllItems()
@@ -118,13 +128,15 @@ struct ClosetView: View {
                         isSelecting.toggle()
                         selectedItems.removeAll()
                     }) {
-                        Text(isSelecting ? "Cancel" : "Select")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 6)
-                            .background(Color.gray)
-                            .cornerRadius(20)
+                        if !closetManager.items.isEmpty {
+                            Text(isSelecting ? "Cancel" : "Select")
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 6)
+                                .background(Color.gray)
+                                .cornerRadius(20)
+                        }
                         
                     }
                     
