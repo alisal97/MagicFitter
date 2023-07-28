@@ -110,7 +110,7 @@ struct GenerateView: View {
             chosenItem = closetManager.getRandomItem(ofStyle: .casual)
         } else if selectedStyle == .formal {
             chosenItem = closetManager.getRandomItem(ofStyle: .formal)
-        }
+        } 
 
         if let chosenItem = chosenItem {
             if let matchingOutfit = closetManager.generateMatchingOutfit(chosenItem: chosenItem, itemStyle: ItemStyle(rawValue: chosenItem.itemStyle!) ?? .casual, includeJacket: includeJacket) {
