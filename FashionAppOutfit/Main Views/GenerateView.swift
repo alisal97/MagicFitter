@@ -24,7 +24,7 @@ struct GenerateView: View {
             VStack {
                 
                 if showFeedback {
-                    Text("No matching items matching item found for the selected style")
+                    Text("No matching items found for the selected style")
                     
                         .foregroundColor(.red)
                         .font(.headline)
