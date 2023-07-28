@@ -131,7 +131,7 @@ struct ClosetView: View {
                         if !closetManager.items.isEmpty {
                             Text(isSelecting ? "Cancel" : "Select")
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.accentColor)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
                                 .background(Color.gray)
