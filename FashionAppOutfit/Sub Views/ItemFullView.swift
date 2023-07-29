@@ -45,7 +45,7 @@ struct FullView: View {
                                 updateAvailability()
                             }) {
                                 HStack {
-                                    Image(systemName: item.isAvailable ? "square.fill" : "checkmark.square.fill")
+                                    Image(systemName: item.isAvailable ? "square" : "checkmark.square")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                         .foregroundColor(.accentColor)
