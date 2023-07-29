@@ -53,6 +53,8 @@ extension Array where Element == [ClosetItemEntity] {
     }
 }
 
+
+//not used anymore
 struct SectionView: View {
     let title: String
     let items: [ClosetItemEntity]
@@ -77,6 +79,9 @@ struct SectionView: View {
         }
     }
 }
+
+
+//not used anymore
 
 struct CardView: View {
     let item: ClosetItemEntity

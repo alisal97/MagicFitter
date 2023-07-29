@@ -23,21 +23,25 @@ struct FullView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    if let imageData = item.imageData, let image = UIImage(data: imageData) {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 370 * 0.75 , height: 335 * 0.75)
-                            .shadow(radius: 10)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.accentColor, lineWidth: 1)
-                            )
-
+                    Spacer()
+                    HStack {
+                        if let imageData = item.imageData, let image = UIImage(data: imageData) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 370 * 0.75 , height: 335 * 0.75)
+                                .shadow(radius: 10)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.accentColor, lineWidth: 1)
+                                )
+                            
+                        }
                     }
                     HStack {
+                        
                         Button(action: {
                             isAvailable.toggle()
                             updateAvailability()
@@ -50,9 +54,23 @@ struct FullView: View {
                                 Text(isAvailable ? "Add to Laundry" : "In Laundry")
                                     .foregroundColor(.accentColor)
                             }
+                            
                             .padding(10)
                             .cornerRadius(8)
                         }
+                        .padding(.leading)
+
+                        Button(action: {
+                            showDeleteConfirmation = true
+                        }) {
+                            Image(systemName: "trash.fill")
+                                .tint(.red)
+                                .padding()
+                                .font(.title3)
+                        }
+                        .padding(.trailing)
+                    }
+                                                
                     }
                     VStack(alignment: .leading, spacing: 16) {
                         ItemLabel(title: "Name", value: item.name ?? "")
@@ -76,11 +94,14 @@ struct FullView: View {
                             .disabled(true)
                         }
                     }
+                    .padding()
+                
                     if showFeedback {
                         Text("No matching items were found in your wardrobe")
                             .foregroundColor(.red)
                             .font(.subheadline)
                     }
+                
                     Button(action: {
                         if item.isAvailable {
                             closetManager.generatedOutfitItems(chosenItem: item, includeJacket: includeJacket)
@@ -97,28 +118,28 @@ struct FullView: View {
                             }
                         }
                     }) {
-                        Text("Match")
-                            .foregroundColor(item.isAvailable ? .accentColor : .gray)
-                            .frame(maxWidth: .infinity)
-                            .fontWeight(.bold)
-                            .padding()
-                            .background(Color.gray.opacity(0.35))
-                            .cornerRadius(12)
-                            .opacity(item.isAvailable ? 1.0 : 0.7)
-                            .allowsHitTesting(item.isAvailable)
+                        HStack {
+                            Text("Match")
+                                .foregroundColor(item.isAvailable ? .accentColor : .gray)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 47)
+                                .padding(.vertical, 13)
+                                .opacity(item.isAvailable ? 1.0 : 0.7)
+                                .padding(.leading)
+                            
+                            Image(systemName: "wand.and.stars.inverse")
+                                .resizable()
+                                .frame(width: 65, height: 65)
+                                .foregroundColor(item.isAvailable ? .accentColor : .gray)
+                                .opacity(item.isAvailable ? 1.0 : 0.7)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundColor(Color.gray.opacity(0.35))
+                        )
+                        .opacity(item.isAvailable ? 1.0 : 0.7)
+                        .allowsHitTesting(item.isAvailable)
                     }
-                    Button(action: {
-                        showDeleteConfirmation = true
-                    }) {
-                        Text("Delete Item")
-                            .foregroundColor(.red)
-                            .frame(maxWidth: 175)
-                            .padding()
-                            .background(Color.gray.opacity(0.35))
-                            .cornerRadius(12)
-                    }
-                }
-                .padding(.horizontal, 20)
                 .alert(isPresented: $showDeleteConfirmation) {
                     Alert(
                         title: Text("Delete Item"),
