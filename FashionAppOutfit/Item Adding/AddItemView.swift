@@ -50,9 +50,9 @@ struct AddItemView: View {
                     Rectangle()
                         .foregroundColor(.black)
                         .frame(width: 335 * 0.67, height: 370 * 0.67)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
+                            RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.accentColor, lineWidth: 1)
                         )
                     if let image = selectedImage {
@@ -61,9 +61,9 @@ struct AddItemView: View {
                             .scaledToFill()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 335 * 0.67, height: 370 * 0.67)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.accentColor, lineWidth: 1)
                             )
                         

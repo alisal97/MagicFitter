@@ -85,9 +85,9 @@ struct ClosetView: View {
                                             .frame(width: 100, height: 100)
                                             .scaledToFill()
                                             .aspectRatio(contentMode: .fill)
-                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
                                             .overlay(
-                                                RoundedRectangle(cornerRadius: 8)
+                                                RoundedRectangle(cornerRadius: 12)
                                                     .stroke(Color.accentColor, lineWidth: 2)
                                             )
                                     }
