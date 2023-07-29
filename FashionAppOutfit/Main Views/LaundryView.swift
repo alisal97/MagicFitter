@@ -85,7 +85,7 @@ struct LaundryView: View {
                                                         .stroke(Color.accentColor, lineWidth: 1.5)
                                                 )
                                             
-                                            Text(item.color!)
+                                            Text(item.color ?? "")
                                         }
                                     }
 

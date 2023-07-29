@@ -97,7 +97,7 @@ struct FullView: View {
                                         .stroke(Color.accentColor, lineWidth: 1.5)
                                 )
                             
-                            Text(item.color!)
+                            Text(item.color ?? "")
                         }
                     }
                         ItemLabel(title: "Type", value: item.itemType ?? "")
