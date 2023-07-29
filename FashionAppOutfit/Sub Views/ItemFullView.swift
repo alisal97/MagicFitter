@@ -128,7 +128,6 @@ struct FullView: View {
                             .foregroundColor(.red)
                             .font(.subheadline)
                     }
-                
                     Button(action: {
                         if item.isAvailable {
                             closetManager.generatedOutfitItems(chosenItem: item, includeJacket: includeJacket)
