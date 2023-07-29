@@ -78,9 +78,28 @@ struct FullView: View {
                     }
                                                 
                     }
-                    VStack(alignment: .leading, spacing: 16) {
-                        ItemLabel(title: "Name", value: item.name ?? "")
-                        ItemLabel(title: "Color", value: item.color ?? "")
+                VStack(alignment: .leading, spacing: 16) {
+                    ItemLabel(title: "Name", value: item.name ?? "")
+                    HStack{
+                        Image(systemName: "eyedropper")
+                            .font(.system(size: 20))
+                            .foregroundColor(.accentColor)
+                        Text("Color:")
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
+                            .fontWeight(.bold)
+                        HStack {
+                            Circle()
+                                .fill(Color(item.color ?? "Color"))
+                                .frame(width: 15)
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color.accentColor, lineWidth: 1.5)
+                                )
+                            
+                            Text(item.color!)
+                        }
+                    }
                         ItemLabel(title: "Type", value: item.itemType ?? "")
                         ItemLabel(title: "Style", value: item.itemStyle ?? "")
                     }
@@ -200,4 +219,6 @@ struct FullView: View {
         }
     }
 }
+
+
 

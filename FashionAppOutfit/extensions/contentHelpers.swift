@@ -37,6 +37,7 @@ struct ItemLabel: View {
             return Image(systemName: "tag")
         case "Color":
             return Image(systemName: "eyedropper")
+            
         case "Type":
             return Image(systemName: "tag.fill")
         case "Style":
