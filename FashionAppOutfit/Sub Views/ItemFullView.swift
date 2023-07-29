@@ -41,32 +41,38 @@ struct FullView: View {
                         }
                     }
                     HStack {
-                        
-                        Button(action: {
-                            isAvailable.toggle()
-                            updateAvailability()
-                        }) {
-                            HStack {
-                                Image(systemName: isAvailable ? "square.fill" : "checkmark.square.fill")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.accentColor)
-                                Text(isAvailable ? "Add to Laundry" : "In Laundry")
-                                    .foregroundColor(.accentColor)
+                        VStack {
+                            Button(action: {
+                                isAvailable.toggle()
+                                updateAvailability()
+                            }) {
+                                HStack {
+                                    Image(systemName: isAvailable ? "square.fill" : "checkmark.square.fill")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(.accentColor)
+                                    Text(isAvailable ? "Add to Laundry" : "In Laundry")
+                                        .foregroundColor(.accentColor)
+                                }
+                                .cornerRadius(8)
+                                .padding(10)
                             }
-                            
-                            .padding(10)
-                            .cornerRadius(8)
                         }
                         .padding(.leading)
-
-                        Button(action: {
-                            showDeleteConfirmation = true
-                        }) {
-                            Image(systemName: "trash.fill")
-                                .tint(.red)
-                                .padding()
-                                .font(.title3)
+                        VStack {
+                            Button(action: {
+                                showDeleteConfirmation = true
+                            }) {
+                                Image(systemName: "trash.fill")
+                                    .font(.title3)
+                                    .foregroundColor(.white)
+                                    .padding(7)
+                                    .background(
+                                        Rectangle()
+                                            .foregroundColor(.red)
+                                    )
+                            }
+                            .cornerRadius(8)
                         }
                         .padding(.trailing)
                     }
