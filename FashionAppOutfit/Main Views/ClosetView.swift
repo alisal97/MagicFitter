@@ -43,7 +43,7 @@ struct ClosetView: View {
         }
         .background(Color.gray)
         .cornerRadius(20)
-        .frame(height: 36) // Set the height of the button
+        .frame(height: 36)
     }
 
     var body: some View {
