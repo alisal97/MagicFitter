@@ -17,7 +17,6 @@ struct FullView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var includeJacket = true
     @State private var showDeleteConfirmation = false
-    @State private var isAvailable = true
 
     var body: some View {
         NavigationStack {
@@ -43,15 +42,14 @@ struct FullView: View {
                     HStack {
                         VStack {
                             Button(action: {
-                                isAvailable.toggle()
                                 updateAvailability()
                             }) {
                                 HStack {
-                                    Image(systemName: isAvailable ? "square.fill" : "checkmark.square.fill")
+                                    Image(systemName: item.isAvailable ? "square.fill" : "checkmark.square.fill")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                         .foregroundColor(.accentColor)
-                                    Text(isAvailable ? "Add to Laundry" : "In Laundry")
+                                    Text(item.isAvailable ? "Add to Laundry" : "In Laundry")
                                         .foregroundColor(.accentColor)
                                 }
                                 .cornerRadius(8)
@@ -84,6 +82,7 @@ struct FullView: View {
                         Image(systemName: "eyedropper")
                             .font(.system(size: 20))
                             .foregroundColor(.accentColor)
+
                         Text("Color:")
                             .font(.headline)
                             .foregroundColor(.accentColor)
@@ -207,7 +206,7 @@ struct FullView: View {
     }
     
     func updateAvailability() {
-        item.isAvailable = isAvailable
+        item.isAvailable.toggle() 
         CoreDataStack.shared.saveContext()
     }
     
