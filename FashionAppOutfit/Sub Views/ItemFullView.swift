@@ -49,6 +49,7 @@ struct FullView: View {
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                         .foregroundColor(.accentColor)
+                                        .padding(3)
                                     Text(item.isAvailable ? "Add to Laundry" : "In Laundry")
                                         .foregroundColor(.accentColor)
                                 }
@@ -62,46 +63,48 @@ struct FullView: View {
                                 showDeleteConfirmation = true
                             }) {
                                 Image(systemName: "trash.fill")
-                                    .font(.title3)
-                                    .foregroundColor(.white)
-                                    .padding(7)
-                                    .background(
-                                        Rectangle()
-                                            .foregroundColor(.red)
-                                    )
+                                    .font(.title2)
+                                    .foregroundColor(.red)
                             }
-                            .cornerRadius(8)
                         }
                         .padding(.trailing)
                     }
                                                 
                     }
-                VStack(alignment: .leading, spacing: 16) {
-                    ItemLabel(title: "Name", value: item.name ?? "")
-                    HStack{
-                        Image(systemName: "eyedropper")
-                            .font(.system(size: 20))
-                            .foregroundColor(.accentColor)
-
-                        Text("Color:")
-                            .font(.headline)
-                            .foregroundColor(.accentColor)
-                            .fontWeight(.bold)
-                        HStack {
-                            Circle()
-                                .fill(Color(item.color ?? "Color"))
-                                .frame(width: 15)
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.accentColor, lineWidth: 1.5)
-                                )
+                ZStack {
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.gray.opacity(0.2))
+                        .edgesIgnoringSafeArea(.all)
+                        .frame(width: 235, height: 170)
+                    
+                    VStack(alignment: .leading, spacing: 16) {
+                        ItemLabel(title: "Name", value: item.name ?? "")
+                        HStack{
+                            Image(systemName: "eyedropper")
+                                .font(.system(size: 20))
+                                .foregroundColor(.accentColor)
                             
-                            Text(item.color ?? "")
+                            Text("Color:")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                                .fontWeight(.bold)
+                            HStack {
+                                Circle()
+                                    .fill(Color(item.color ?? "Color"))
+                                    .frame(width: 15)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.accentColor, lineWidth: 1.5)
+                                    )
+                                
+                                Text(item.color ?? "")
+                            }
                         }
-                    }
                         ItemLabel(title: "Type", value: item.itemType ?? "")
                         ItemLabel(title: "Style", value: item.itemStyle ?? "")
                     }
+                }
                     HStack {
                         if let itemType = ItemType(rawValue: item.itemType ?? ""), itemType != .jackets && item.isAvailable {
                             Toggle(isOn: $includeJacket) {
@@ -189,7 +192,7 @@ struct FullView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        isEditing = true // Set isEditing to true to show the edit sheet
+                        isEditing = true 
                     }) {
                         Text("Edit")
                             .foregroundColor(.accentColor)
@@ -206,7 +209,12 @@ struct FullView: View {
     }
     
     func updateAvailability() {
-        item.isAvailable.toggle() 
+        if item.isAvailable {
+            item.isAvailable = false
+        } else if !item.isAvailable {
+            item.isAvailable = true
+        }
+        closetManager.getAllItems()
         CoreDataStack.shared.saveContext()
     }
     
