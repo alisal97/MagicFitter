@@ -125,7 +125,7 @@ struct FullView: View {
                                 .padding(.horizontal, 47)
                                 .padding(.vertical, 13)
                                 .opacity(item.isAvailable ? 1.0 : 0.7)
-                                .padding(.leading)
+                                .padding(.leading, 59)
                             
                             Image(systemName: "wand.and.stars.inverse")
                                 .resizable()
