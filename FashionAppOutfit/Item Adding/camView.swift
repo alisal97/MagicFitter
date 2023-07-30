@@ -186,7 +186,6 @@ extension CamView: AVCapturePhotoCaptureDelegate {
         guard let imageData = photo.fileDataRepresentation() else { return }
         guard let image = UIImage(data: imageData) else { return }
 
-        // Invoke the closure with the captured image
         didCaptureImage?(image)
 
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)

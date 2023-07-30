@@ -82,7 +82,6 @@ struct SectionView: View {
 }
 
 
-//not used anymore
 
 struct CardView: View {
     let item: ClosetItemEntity
