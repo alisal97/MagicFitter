@@ -117,7 +117,7 @@ struct CardView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.accentColor, lineWidth: 2)
                     )
-                    .buttonStyle(PlainButtonStyle()) // Remove the default button style
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         )

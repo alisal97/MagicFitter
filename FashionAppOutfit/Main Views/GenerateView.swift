@@ -48,7 +48,7 @@ struct GenerateView: View {
                 {
                     VStack {
                         Image(systemName: "wand.and.stars.inverse")
-                            .font(.system(size: 64))
+                            .font(.system(size: 65))
                             .foregroundColor(.accentColor)
                             .padding(.bottom, 10)
                         Text("Generate Outfit")
@@ -64,13 +64,13 @@ struct GenerateView: View {
                     Text("Formal").tag(ItemStyle.formal)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding()
                 
-                Toggle(isOn: $includeJacket) {
-                    Text("Include Jacket")
+                Picker(selection: $includeJacket, label: Text("Include Jacket")) {
+                    Text("Summer").tag(false)
+                    Text("Winter").tag(true)
                 }
-                .padding()
-                
+                .pickerStyle(SegmentedPickerStyle())
+                .foregroundColor(.accentColor)
                 Spacer()
                 
                 

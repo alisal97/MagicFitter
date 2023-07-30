@@ -106,23 +106,24 @@ struct FullView: View {
                         ItemLabel(title: "Style", value: item.itemStyle ?? "")
                     }
                 }
-                    HStack {
-                        if let itemType = ItemType(rawValue: item.itemType ?? ""), itemType != .jackets && item.isAvailable {
-                            Toggle(isOn: $includeJacket) {
-                                Text("Include Jacket")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.accentColor)
-                            }
-                        } else {
-                            Toggle(isOn: .constant(true)) {
-                                Text("Include Jacket")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.accentColor)
-                            }
-                            .disabled(true)
+                HStack {
+                    if let itemType = ItemType(rawValue: item.itemType ?? ""), itemType != .jackets && item.isAvailable {
+                        Picker(selection: $includeJacket, label: Text("Include Jacket")) {
+                            Text("Summer").tag(false)
+                            Text("Winter").tag(true)
                         }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .foregroundColor(.accentColor)
+                    } else {
+                        Picker(selection: .constant(true), label: Text("Include Jacket")) {
+                            Text("Summer").tag(true)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .foregroundColor(.accentColor)
+                        .disabled(true)
+                        .hidden()
                     }
-                    .padding()
+                }
                 
                     if showFeedback {
                         Text("No matching items were found in your wardrobe")
