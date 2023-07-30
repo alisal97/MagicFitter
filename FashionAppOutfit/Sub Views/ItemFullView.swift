@@ -17,6 +17,7 @@ struct FullView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var includeJacket = true
     @State private var showDeleteConfirmation = false
+    
 
     var body: some View {
         NavigationStack {

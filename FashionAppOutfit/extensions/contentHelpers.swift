@@ -129,3 +129,27 @@ struct CardView: View {
 
 
 
+struct FloatingButton: View {
+    let action: () -> Void
+    let icon: String
+
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: action) {
+                    Image(systemName: icon)
+                        .font(.title.weight(.semibold))
+                        .padding()
+                        .foregroundColor(.white)
+                }
+                .background(Color.gray)
+                .clipShape(Circle())
+                .shadow(radius: 10)
+                .offset(x: -19, y: -19)
+            }
+        }
+    }
+}
+

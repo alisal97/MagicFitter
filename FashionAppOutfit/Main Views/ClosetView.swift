@@ -18,6 +18,8 @@ struct ClosetView: View {
     @State private var isSelecting: Bool = false
     @State private var laundryFeedback = false
     @State private var showDeleteConfirmation = false
+    @State private var showModal = false
+    
 
     var sortedItems: [ClosetItemEntity] {
         let filteredItems = closetManager.items
@@ -48,93 +50,100 @@ struct ClosetView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                Picker(selection: $selectedItemType, label: Text("Filter")) {
-                    Text("All").tag("All")
-                    Text("Jackets").tag("jackets")
-                    Text("Tops").tag("tops")
-                    Text("Bottoms").tag("bottoms")
-                }
-                .pickerStyle(.segmented)
-                .frame(maxWidth: .infinity, alignment: .center)
-                
-                if closetManager.items.isEmpty {
-                    Spacer()
-                    Text("Your closet is empty. Go to Generate & Tap the \"+\" button in the top right corner to start populating your virtual closet.")
-                        .font(.headline)
-                        .foregroundColor(.gray.opacity(0.7))
-                        .padding(.vertical, 16)
-                        .multilineTextAlignment(.center)
-                    Spacer()
-                } else {
-                    List {
-                        ForEach(sortedItems, id: \.id) { item in
-                            NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
-                                HStack {
-                                    if isSelecting {
-                                        Image(systemName: selectedItems.contains(item) ? "checkmark.square.fill" : "square")
-                                            .onTapGesture {
-                                                toggleSelection(item)
-                                            }
-                                    }
-                                    
-                                    if let imageData = item.imageData, let image = UIImage(data: imageData) {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 100, height: 100)
-                                            .scaledToFill()
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 12)
-                                                    .stroke(Color.accentColor, lineWidth: 2)
-                                            )
-                                    }
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        ItemLabel(title: "Name", value: item.name ?? "")
-                                        HStack{
-                                            Image(systemName: "eyedropper")
-                                                .font(.system(size: 20))
-                                                .foregroundColor(.accentColor)
-                                            Text("Color:")
-                                                .font(.headline)
-                                                .foregroundColor(.accentColor)
-                                                .fontWeight(.bold)
-                                            HStack {
-                                                Circle()
-                                                    .fill(Color(item.color ?? "Color"))
-                                                    .frame(width: 15)
-                                                    .overlay(
-                                                        Circle()
-                                                            .stroke(Color.accentColor, lineWidth: 1.5)
-                                                    )
-                                                
-                                                Text(item.color ?? "")
-                                            }
-                                        }
-                                        ItemLabel(title: "Type", value: item.itemType ?? "")
-                                        ItemLabel(title: "Style", value: item.itemStyle ?? "")
-                                    }
-                                    
-                                }
-                            }
-                            .onTapGesture {
-                                if isSelecting {
-                                    // Toggle the selection state of the item
-                                    if selectedItems.contains(item) {
-                                        selectedItems.remove(item)
-                                    } else {
-                                        selectedItems.insert(item)
-                                    }
-                                }
-                                
-                            }
-                        }
+            ZStack {
+                VStack {
+                    Picker(selection: $selectedItemType, label: Text("Filter")) {
+                        Text("All").tag("All")
+                        Text("Jackets").tag("jackets")
+                        Text("Tops").tag("tops")
+                        Text("Bottoms").tag("bottoms")
                     }
+                    .pickerStyle(.segmented)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
-                    .listStyle(.plain)
+                    if closetManager.items.isEmpty {
+                        Text("Your closet is empty. Tap the \"+\" button in the bottom right corner to start populating your virtual closet!.")
+                            .font(.headline)
+                            .foregroundColor(.gray.opacity(0.7))
+                            .padding(.vertical, 16)
+                            .multilineTextAlignment(.center)
+                        
+                    } else {
+                        List {
+                            ForEach(sortedItems, id: \.id) { item in
+                                NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
+                                    HStack {
+                                        if isSelecting {
+                                            Image(systemName: selectedItems.contains(item) ? "checkmark.square.fill" : "square")
+                                                .onTapGesture {
+                                                    toggleSelection(item)
+                                                }
+                                        }
+                                        
+                                        if let imageData = item.imageData, let image = UIImage(data: imageData) {
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 100, height: 100)
+                                                .scaledToFill()
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 12)
+                                                        .stroke(Color.accentColor, lineWidth: 2)
+                                                )
+                                        }
+                                        VStack(alignment: .leading, spacing: 8) {
+                                            ItemLabel(title: "Name", value: item.name ?? "")
+                                            HStack{
+                                                Image(systemName: "eyedropper")
+                                                    .font(.system(size: 20))
+                                                    .foregroundColor(.accentColor)
+                                                Text("Color:")
+                                                    .font(.headline)
+                                                    .foregroundColor(.accentColor)
+                                                    .fontWeight(.bold)
+                                                HStack {
+                                                    Circle()
+                                                        .fill(Color(item.color ?? "Color"))
+                                                        .frame(width: 15)
+                                                        .overlay(
+                                                            Circle()
+                                                                .stroke(Color.accentColor, lineWidth: 1.5)
+                                                        )
+                                                    
+                                                    Text(item.color ?? "")
+                                                }
+                                            }
+                                            ItemLabel(title: "Type", value: item.itemType ?? "")
+                                            ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                                            
+                                            
+                                        }
+                                        
+                                    }
+                                }
+                                .onTapGesture {
+                                    if isSelecting {
+                                        // Toggle the selection state of the item
+                                        if selectedItems.contains(item) {
+                                            selectedItems.remove(item)
+                                        } else {
+                                            selectedItems.insert(item)
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                        }
+                        
+                        .listStyle(.plain)
+                    }
                 }
+                FloatingButton(action: {
+                    showModal = true
+                }, icon: "plus")
             }
             .onAppear {
                 closetManager.getAllItems()
@@ -188,6 +197,9 @@ struct ClosetView: View {
                         .padding()
                     }
                 }
+            }
+            .sheet(isPresented: $showModal) {
+                AddItemView(closetManager: closetManager)
             }
         }
         .alert(isPresented: $showDeleteConfirmation) {

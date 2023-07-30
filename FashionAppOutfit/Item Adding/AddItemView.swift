@@ -19,7 +19,7 @@ struct AddItemView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    let colors = ["Yellow", "Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray"];
+    let colors = ["Yellow", "Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray", "Denim"];
 
     var itemTypes: [ItemType] = [.jackets, .tops, .bottoms] // Replace with actual cases
     

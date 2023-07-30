@@ -89,7 +89,7 @@ struct GenerateView: View {
                     showModal = true
                 }) {
                     Image(systemName: "plus")
-                        .font(.system(size: 21, weight: .bold))
+                        .font(.system(size: 21, weight: .semibold))
                         .padding(15)
                 }
             )

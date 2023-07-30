@@ -12,8 +12,8 @@ struct GeneratedOutfitView: View {
     var outfitItems: [ClosetItemEntity]
     @EnvironmentObject var closetManager: ClosetManager
     @Environment(\.presentationMode) var presentationMode
-    @State private var isSaved = false // Track whether the outfit is already saved
-    @State var generatedOutfitItems: [ClosetItemEntity] = [] // Update the type to [ClosetItemEntity]
+    @State private var isSaved = false
+    @State var generatedOutfitItems: [ClosetItemEntity] = []
     @State private var includeJacket: Bool
     let item: ClosetItemEntity
     
