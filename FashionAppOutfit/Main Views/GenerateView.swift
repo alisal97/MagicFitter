@@ -85,63 +85,62 @@ struct GenerateView: View {
             .navigationTitle("Generate Outfit")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
-                Button(action: {
-                    showModal = true
-                }) {
-                    Image(systemName: "plus")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 6)
-                        .background(Color.gray)
-                        .cornerRadius(20)
-
-                }
+                                    Button(action: {
+                showModal = true
+            }) {
+                Image(systemName: "plus")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 6)
+                    .background(Color.gray)
+                    .cornerRadius(20)
+                
+            }
                                 
             )
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .scrollIndicators(.hidden)
-
+            
             .sheet(isPresented: $showModal) {
                 AddItemView(closetManager: closetManager)
             }
-
+            
         }
     }
+    
     func generatedOutfitItems(includeJacket: Bool) {
         generatedOutfitItems = []
-
-        var chosenItem: ClosetItemEntity?
+        
+        var availableItems: [ClosetItemEntity] = []
+        
         if selectedStyle == .casual {
-            chosenItem = closetManager.getRandomItem(ofStyle: .casual)
+            availableItems = closetManager.getItems(ofStyle: .casual)
         } else if selectedStyle == .formal {
-            chosenItem = closetManager.getRandomItem(ofStyle: .formal)
-        } 
-
-        if let chosenItem = chosenItem {
-            if let matchingOutfit = closetManager.generateMatchingOutfit(chosenItem: chosenItem, itemStyle: ItemStyle(rawValue: chosenItem.itemStyle!) ?? .casual, includeJacket: includeJacket) {
-                if matchingOutfit.isEmpty {
-                    print("No outfit generated.")
-                } else {
+            availableItems = closetManager.getItems(ofStyle: .formal)
+        }
+        
+        availableItems = availableItems.shuffled()
+        for item in availableItems {
+            if let matchingOutfit = closetManager.generateMatchingOutfit(chosenItem: item, itemStyle: ItemStyle(rawValue: item.itemStyle!) ?? .casual, includeJacket: includeJacket) {
+                if !matchingOutfit.isEmpty {
                     let outfitItems = Array(matchingOutfit.values)
                     generatedOutfitItems = outfitItems
                     showGeneratedOutfit = true
+                    return
                 }
             }
-        } else {
-            print("No matching item found for the selected style.")
         }
+        
+        print("No matching item found for the selected style.")
     }
-
 }
 
 extension ClosetManager {
-    func getRandomItem(ofStyle style: ItemStyle) -> ClosetItemEntity? {
-        let matchingItems = items.filter { $0.itemStyle == style.rawValue && $0.isAvailable }
-        return matchingItems.randomElement()
+    func getItems(ofStyle style: ItemStyle) -> [ClosetItemEntity] {
+        return items.filter { $0.itemStyle == style.rawValue && $0.isAvailable }
     }
 }
-
 
 #Preview {
     GenerateView(item: ClosetItemEntity() , closetManager: ClosetManager())
