@@ -16,6 +16,7 @@
 		106744BE2A705448006E3581 /* GenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744BD2A705448006E3581 /* GenerateView.swift */; };
 		106744C02A70546F006E3581 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744BF2A70546F006E3581 /* TipsView.swift */; };
 		106744C22A705485006E3581 /* LaundryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744C12A705485006E3581 /* LaundryView.swift */; };
+		10B7E65E2A785A03009B69CA /* onBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7E65D2A785A03009B69CA /* onBoardingView.swift */; };
 		10B8AD7C2A1FEAB1009D6A02 /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B8AD7B2A1FEAB1009D6A02 /* AddItemView.swift */; };
 		10CAE7282A1CFCFD009C4084 /* FashionAppOutfitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAE7272A1CFCFD009C4084 /* FashionAppOutfitApp.swift */; };
 		10CAE72A2A1CFCFD009C4084 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAE7292A1CFCFD009C4084 /* ContentView.swift */; };
@@ -42,6 +43,7 @@
 		106744BF2A70546F006E3581 /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		106744C12A705485006E3581 /* LaundryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaundryView.swift; sourceTree = "<group>"; };
 		10ACE4952A30DADE00B38983 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		10B7E65D2A785A03009B69CA /* onBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onBoardingView.swift; sourceTree = "<group>"; };
 		10B8AD7B2A1FEAB1009D6A02 /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 		10CAE7242A1CFCFD009C4084 /* FashionAppOutfit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FashionAppOutfit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CAE7272A1CFCFD009C4084 /* FashionAppOutfitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionAppOutfitApp.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		10B7E65A2A783CF0009B69CA /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				10B7E65D2A785A03009B69CA /* onBoardingView.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				101EB80C2A31BE3700155CD4 /* contentHelpers.swift in Sources */,
 				106744C22A705485006E3581 /* LaundryView.swift in Sources */,
 				1017BFBB2A2B7EF0001D39A7 /* EditView.swift in Sources */,
+				10B7E65E2A785A03009B69CA /* onBoardingView.swift in Sources */,
 				1017BFB92A2B7BBD001D39A7 /* ItemFullView.swift in Sources */,
 				10CAE72A2A1CFCFD009C4084 /* ContentView.swift in Sources */,
 				10CAE7412A1E49B5009C4084 /* colorAlgorithm.swift in Sources */,

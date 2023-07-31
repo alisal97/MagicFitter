@@ -10,7 +10,9 @@ import UIKit
 import CoreData
 
 struct TipsView: View {
-    let tipsTexts = [
+    @State private var showTutorial = false
+
+    let tipsData = [
         ["tips1", "Embrace simplicity in your style choices. Avoid excessive accessories or loud patterns. Opt for clean lines, solid colors, and timeless pieces that can be effortlessly mixed and matched"],
         ["tips2", "Quality fabrics and well-made garments instantly elevate your look. Invest in well-fitted, durable, and classic pieces that will stand the test of time"],
         ["tips3", "Ensure your clothes fit perfectly. Tailoring can make a significant difference in how you present yourself and can elevate even simple outfits to a more refined level."],
@@ -24,7 +26,7 @@ struct TipsView: View {
         NavigationView {
             VStack {
                 TabView {
-                    ForEach(tipsTexts, id: \.self) { tipData in
+                    ForEach(tipsData, id: \.self) { tipData in
                         VStack {
                             Image(tipData[0])
                                 .resizable()
@@ -65,11 +67,14 @@ struct TipsView: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
                 Spacer().frame(height: 15)
             }
+            .sheet(isPresented: $showTutorial) {
+                onBoardingView(showOnboarding: $showTutorial)
+            }
             .padding(.bottom, 27)
             .navigationTitle("Tips")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing: Button(action: {
-
+                showTutorial = true
             }) {
                 Image(systemName: "info.circle")
                     .fontWeight(.semibold)
@@ -82,6 +87,7 @@ struct TipsView: View {
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .scrollIndicators(.hidden)
         }
+
     }
 }
 #Preview {

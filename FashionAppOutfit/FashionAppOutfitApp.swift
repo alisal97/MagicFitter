@@ -13,18 +13,22 @@ struct FashionAppOutfitApp: App {
     @Environment(\.managedObjectContext) private var viewContext
     
     @AppStorage("isFirstLaunch") private var isFirstLaunch = true
-    
+
     var body: some Scene {
         WindowGroup {
-                    ContentView(item: ClosetItemEntity())
-                        .environment(\.managedObjectContext, CoreDataStack.shared.context)
-                        .environmentObject(ClosetManager())
-                        .scrollDismissesKeyboard(.immediately)
-                        .scrollIndicators(.never)
-                        .onAppear {
-                            ClosetManager().getAllItems()
-                        }
-
+            if isFirstLaunch {
+                onBoardingView(showOnboarding: $isFirstLaunch)
+                    .ignoresSafeArea(.all)
+            } else {
+                ContentView(item: ClosetItemEntity())
+                    .environment(\.managedObjectContext, CoreDataStack.shared.context)
+                    .environmentObject(ClosetManager())
+                    .scrollDismissesKeyboard(.immediately)
+                    .scrollIndicators(.never)
+                    .onAppear {
+                        ClosetManager().getAllItems()
+                    }
+            }
         }
     }
 }
