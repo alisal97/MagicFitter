@@ -18,7 +18,7 @@ struct FullView: View {
     @State private var includeJacket = true
     @State private var showDeleteConfirmation = false
     
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -70,8 +70,8 @@ struct FullView: View {
                         }
                         .padding(.trailing)
                     }
-                                                
-                    }
+                    
+                }
                 ZStack {
                     
                     RoundedRectangle(cornerRadius: 20)
@@ -125,49 +125,49 @@ struct FullView: View {
                     }
                 }
                 
-                    if showFeedback {
-                        Text("No matching items were found in your wardrobe")
-                            .foregroundColor(.red)
-                            .font(.subheadline)
-                    }
-                    Button(action: {
-                        if item.isAvailable {
-                            closetManager.generatedOutfitItems(chosenItem: item, includeJacket: includeJacket)
-                            if closetManager.generatedOutfitItems.isEmpty {
-                                showFeedback = true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                                    withAnimation {
-                                        showFeedback = false
-                                    }
+                if showFeedback {
+                    Text("No matching items were found in your wardrobe")
+                        .foregroundColor(.red)
+                        .font(.subheadline)
+                }
+                Button(action: {
+                    if item.isAvailable {
+                        closetManager.generatedOutfitItems(chosenItem: item, includeJacket: includeJacket)
+                        if closetManager.generatedOutfitItems.isEmpty {
+                            showFeedback = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                                withAnimation {
+                                    showFeedback = false
                                 }
-                            } else {
-                                self.generatedOutfitItems = closetManager.generatedOutfitItems.compactMap { $0 }
-                                self.showGeneratedOutfit = true
                             }
+                        } else {
+                            self.generatedOutfitItems = closetManager.generatedOutfitItems.compactMap { $0 }
+                            self.showGeneratedOutfit = true
                         }
-                    }) {
-                        HStack {
-                            Text("Match")
-                                .foregroundColor(item.isAvailable ? .accentColor : .gray)
-                                .fontWeight(.bold)
-                                .padding(.horizontal, 47)
-                                .padding(.vertical, 13)
-                                .opacity(item.isAvailable ? 1.0 : 0.7)
-                                .padding(.leading, 59)
-                            
-                            Image(systemName: "wand.and.stars.inverse")
-                                .resizable()
-                                .frame(width: 65, height: 65)
-                                .foregroundColor(item.isAvailable ? .accentColor : .gray)
-                                .opacity(item.isAvailable ? 1.0 : 0.7)
-                        }
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundColor(Color.gray.opacity(0.35))
-                        )
-                        .opacity(item.isAvailable ? 1.0 : 0.7)
-                        .allowsHitTesting(item.isAvailable)
                     }
+                }) {
+                    HStack {
+                        Text("Match")
+                            .foregroundColor(item.isAvailable ? .accentColor : .gray)
+                            .fontWeight(.bold)
+                            .padding(.horizontal, 47)
+                            .padding(.vertical, 13)
+                            .opacity(item.isAvailable ? 1.0 : 0.7)
+                            .padding(.leading, 59)
+                        
+                        Image(systemName: "wand.and.stars.inverse")
+                            .resizable()
+                            .frame(width: 65, height: 65)
+                            .foregroundColor(item.isAvailable ? .accentColor : .gray)
+                            .opacity(item.isAvailable ? 1.0 : 0.7)
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundColor(Color.gray.opacity(0.35))
+                    )
+                    .opacity(item.isAvailable ? 1.0 : 0.7)
+                    .allowsHitTesting(item.isAvailable)
+                }
                 .alert(isPresented: $showDeleteConfirmation) {
                     Alert(
                         title: Text("Delete Item"),
@@ -190,25 +190,23 @@ struct FullView: View {
             .onAppear {
                 closetManager.getAllItems()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isEditing = true 
-                    }) {
-                        Text("Edit")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white )
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 6)
-                            .background(Color.gray)
-                            .cornerRadius(20)
-                    }
-                    .sheet(isPresented: $isEditing) {
-                        EditView(item: item, closetManager: closetManager, isEditing: $isEditing)
-                    }
-                    
-                }
+            .navigationBarItems(trailing:
+                                    Button(action: {
+                isEditing = true
+            }) {
+                Text("Edit")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white )
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 6)
+                    .background(Color.gray)
+                    .cornerRadius(20)
             }
+            )
+        }
+        .sheet(isPresented: $isEditing) {
+            EditView(item: item, closetManager: closetManager, isEditing: $isEditing)
+            
         }
     }
     

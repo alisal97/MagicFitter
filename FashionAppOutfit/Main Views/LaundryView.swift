@@ -117,8 +117,7 @@ struct LaundryView: View {
             }
             .navigationTitle("Laundry")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+            .navigationBarItems(trailing:
                     Button(action: {
                         isSelecting.toggle()
                         selectedItems.removeAll()
@@ -131,7 +130,8 @@ struct LaundryView: View {
                             .background(Color.gray)
                             .cornerRadius(20)
                     }
-                }
+                )
+                .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     if isSelecting && selectedItems.count > 0 {
                         HStack {

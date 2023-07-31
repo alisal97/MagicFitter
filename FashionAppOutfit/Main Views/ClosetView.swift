@@ -151,25 +151,21 @@ struct ClosetView: View {
             }
             .navigationTitle("Closet")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+            .navigationBarItems(trailing:
                     Button(action: {
                         isSelecting.toggle()
                         selectedItems.removeAll()
                     }) {
-                        if !closetManager.items.isEmpty {
-                            Text(isSelecting ? "Cancel" : "Select")
-                                .fontWeight(.semibold)
-                                .foregroundColor(.accentColor)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 6)
-                                .background(Color.gray)
-                                .cornerRadius(20)
-                        }
-                        
+                        Text(isSelecting ? "Cancel" : "Select")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 6)
+                            .background(Color.gray)
+                            .cornerRadius(20)
                     }
-                    
-                }
+                )
+                .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     if isSelecting && selectedItems.count > 0 {
                         HStack {

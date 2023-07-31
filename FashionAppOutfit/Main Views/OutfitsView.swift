@@ -54,7 +54,9 @@ struct OutfitsView: View {
             .pickerStyle(SegmentedPickerStyle())
             .frame(maxWidth: .infinity, alignment: .top)
             .padding(.horizontal)
+            
             Spacer()
+
             List {
                 ForEach(displayedOutfits, id: \.self) { outfit in
                     NavigationLink(destination: SavedOutfitView(outfit: outfit)) {
@@ -118,9 +120,8 @@ struct OutfitsView: View {
             .listStyle(.plain)
             .navigationTitle("Outfits")
             .navigationBarTitleDisplayMode(.large)
-            
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+            .navigationBarItems(trailing:
+                Group {
                     if isSelectMode {
                         Button(action: cancelSelection) {
                             Text("Cancel")
@@ -143,6 +144,8 @@ struct OutfitsView: View {
                         }
                     }
                 }
+            )
+            .toolbar {
                 if isSelectMode && selectedOutfits.count > 0 {
                     ToolbarItem(placement: .bottomBar) {
                         HStack {
@@ -157,7 +160,8 @@ struct OutfitsView: View {
                             
                             Spacer()
                             
-                            if selectedSegment == 0 {                            Button(action: {
+                            if selectedSegment == 0 {
+                                Button(action: {
                                 for outfit in selectedOutfits {
                                     outfit.isFavorite = true
                                 }
