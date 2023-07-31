@@ -84,21 +84,21 @@ struct GenerateView: View {
             }
             .navigationTitle("Generate Outfit")
             .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                showModal = true
-            }) {
-                Image(systemName: "plus")
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 6)
-                    .background(Color.gray)
-                    .cornerRadius(20)
-                
-            }
-                                
-            )
+//            .navigationBarItems(trailing:
+//                                    Button(action: {
+//                showModal = true
+//            }) {
+//                Image(systemName: "plus")
+//                    .fontWeight(.semibold)
+//                    .foregroundColor(.white)
+//                    .padding(.horizontal, 15)
+//                    .padding(.vertical, 6)
+//                    .background(Color.gray)
+//                    .cornerRadius(20)
+//                
+//            }
+//                                
+//            )
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .scrollIndicators(.hidden)
             

@@ -126,7 +126,7 @@ struct OutfitsView: View {
                         Button(action: cancelSelection) {
                             Text("Cancel")
                                 .fontWeight(.semibold)
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.white)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
                                 .background(Color.gray)
@@ -136,7 +136,7 @@ struct OutfitsView: View {
                         Button(action: enterSelectMode) {
                             Text("Select")
                                 .fontWeight(.semibold)
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.white)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
                                 .background(Color.gray)
