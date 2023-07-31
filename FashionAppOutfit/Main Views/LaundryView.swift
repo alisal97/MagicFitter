@@ -40,8 +40,9 @@ struct LaundryView: View {
                     Text("Bottoms").tag("bottoms")
                 }
                 .pickerStyle(.segmented)
-                .frame(maxWidth: .infinity, alignment: .center)
-                
+                .frame(maxWidth: .infinity, alignment: .top)
+                .padding(.horizontal)
+                Spacer()
                 List {
                     ForEach(sortedItems, id: \.id) { item in
                         NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
@@ -123,8 +124,8 @@ struct LaundryView: View {
                         selectedItems.removeAll()
                     }) {
                         Text(isSelecting ? "Cancel" : "Select")
-                            .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
                             .padding(.horizontal, 15)
                             .padding(.vertical, 6)
                             .background(Color.gray)

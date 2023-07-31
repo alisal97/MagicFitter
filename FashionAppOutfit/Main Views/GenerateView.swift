@@ -89,9 +89,15 @@ struct GenerateView: View {
                     showModal = true
                 }) {
                     Image(systemName: "plus")
-                        .font(.system(size: 21, weight: .semibold))
-                        .padding(15)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 6)
+                        .background(Color.gray)
+                        .cornerRadius(20)
+
                 }
+                                
             )
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .scrollIndicators(.hidden)

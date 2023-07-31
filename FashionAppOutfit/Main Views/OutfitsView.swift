@@ -47,15 +47,15 @@ struct OutfitsView: View {
     
     var body: some View {
         NavigationStack {
+            Picker("Segmented menu", selection: $selectedSegment) {
+                Text("All").tag(0)
+                Text("Favorites").tag(1)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .frame(maxWidth: .infinity, alignment: .top)
+            .padding(.horizontal)
+            Spacer()
             List {
-                HStack {
-                    Picker("Segmented menu", selection: $selectedSegment) {
-                        Text("All").tag(0)
-                        Text("Favorites").tag(1)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                }
-                
                 ForEach(displayedOutfits, id: \.self) { outfit in
                     NavigationLink(destination: SavedOutfitView(outfit: outfit)) {
                         HStack {
@@ -124,7 +124,7 @@ struct OutfitsView: View {
                     if isSelectMode {
                         Button(action: cancelSelection) {
                             Text("Cancel")
-                                .fontWeight(.bold)
+                                .fontWeight(.semibold)
                                 .foregroundColor(.accentColor)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
@@ -134,7 +134,7 @@ struct OutfitsView: View {
                     } else {
                         Button(action: enterSelectMode) {
                             Text("Select")
-                                .fontWeight(.bold)
+                                .fontWeight(.semibold)
                                 .foregroundColor(.accentColor)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)

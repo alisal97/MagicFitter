@@ -39,13 +39,14 @@ struct ClosetView: View {
             selectedItems.removeAll()
         }) {
             Text(isSelecting ? "Cancel" : "Select")
+                .fontWeight(.semibold)
                 .foregroundColor(.white)
                 .padding(.horizontal, 15)
                 .padding(.vertical, 6)
+                .background(Color.gray)
+                .cornerRadius(20)
+
         }
-        .background(Color.gray)
-        .cornerRadius(20)
-        .frame(height: 36)
     }
 
     var body: some View {
@@ -59,15 +60,15 @@ struct ClosetView: View {
                         Text("Bottoms").tag("bottoms")
                     }
                     .pickerStyle(.segmented)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    
+                    .frame(maxWidth: .infinity, alignment: .top)
+                    .padding(.horizontal)
+                    Spacer()
                     if closetManager.items.isEmpty {
                         Text("Your closet is empty. Tap the \"+\" button in the bottom right corner to start populating your virtual closet!.")
                             .font(.headline)
                             .foregroundColor(.gray.opacity(0.7))
-                            .padding(.vertical, 16)
                             .multilineTextAlignment(.center)
-                        
+                            .padding(.bottom, 275)
                     } else {
                         List {
                             ForEach(sortedItems, id: \.id) { item in
@@ -158,7 +159,7 @@ struct ClosetView: View {
                     }) {
                         if !closetManager.items.isEmpty {
                             Text(isSelecting ? "Cancel" : "Select")
-                                .fontWeight(.bold)
+                                .fontWeight(.semibold)
                                 .foregroundColor(.accentColor)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)

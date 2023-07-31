@@ -196,9 +196,12 @@ struct FullView: View {
                         isEditing = true 
                     }) {
                         Text("Edit")
-                            .foregroundColor(.accentColor)
-                            .font(.title3)
-                            .fontWeight(.bold)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white )
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 6)
+                            .background(Color.gray)
+                            .cornerRadius(20)
                     }
                     .sheet(isPresented: $isEditing) {
                         EditView(item: item, closetManager: closetManager, isEditing: $isEditing)
