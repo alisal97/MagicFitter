@@ -121,6 +121,7 @@ struct GenerateView: View {
         }
         
         availableItems = availableItems.shuffled()
+        
         for item in availableItems {
             if let matchingOutfit = closetManager.generateMatchingOutfit(chosenItem: item, itemStyle: ItemStyle(rawValue: item.itemStyle!) ?? .casual, includeJacket: includeJacket) {
                 if !matchingOutfit.isEmpty {
