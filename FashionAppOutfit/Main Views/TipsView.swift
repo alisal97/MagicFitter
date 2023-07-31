@@ -10,11 +10,77 @@ import UIKit
 import CoreData
 
 struct TipsView: View {
+    let tipsTexts = [
+        ["tips1", "Tip 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit."],
+        ["tips2", "Tip 2: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."],
+        ["tips3", "Tip 3: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."],
+        ["tips4", "Tip 4: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore."],
+        ["tips5", "Tip 5: Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia."],
+        ["tips6", "Tip 6: Lorem ipsum dolor sit amet, consectetur adipiscing elit."],
+        ["tips7", "Tip 7: Sed do eiusmod tempor incididunt ut labore et dolore magna al iqua."]
+    ]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 0) {
+                    ForEach(tipsTexts, id: \.self) { tipData in
+                        VStack {
+                            Image(tipData[0])
+                                .resizable()
+                                .scaledToFill()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 300, height: 250)
+                                .overlay(
+                                    GeometryReader { geo in
+                                        ZStack {
+                                            Rectangle()
+                                                .foregroundColor(Color.black.opacity(0.6))
+                                                .cornerRadius(10)
+                                            
+                                            Text(tipData[1])
+                                                .foregroundColor(.white)
+                                                .padding()
+                                                .fixedSize(horizontal: false, vertical: true)
+                                                .lineLimit(nil)
+                                        }
+                                        .padding(8)
+                                        .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+                                    }
+                                )
+                        }
+                        .padding(.horizontal, 50)
+                        .background(Color.clear)
+                        .cornerRadius(8)
+                        .frame(width: 300, height: 250)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.accentColor, lineWidth: 2)
+                        )
+                    }
+                    .navigationTitle("Tips")
+                    .navigationBarTitleDisplayMode(.large)
+                    .navigationBarItems(trailing: Button(action: {
+                    }) {
+                        Image(systemName: "info.circle")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 6)
+                            .background(Color.gray)
+                            .cornerRadius(20)
+                        
+                    }
+                                        
+                    )
+                    .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+                    .scrollIndicators(.hidden)
+
+                }
+                
+            }
+        }
     }
 }
-
 #Preview {
     TipsView()
 }

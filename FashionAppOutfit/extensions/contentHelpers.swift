@@ -109,7 +109,7 @@ struct CardView: View {
                                 .frame(maxWidth: .infinity)
                                 .background(Color.gray.opacity(0.69)) //nice
                                 .cornerRadius(8)
-                                .offset(y: 3) // Adjust the vertical position here
+                                .offset(y: 3) 
                         }
                     }
                     .overlay(
