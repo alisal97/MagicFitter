@@ -127,6 +127,13 @@
 			path = "Item Adding";
 			sourceTree = "<group>";
 		};
+		10B7E65A2A783CF0009B69CA /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
 		10CAE71B2A1CFCFD009C4084 = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +158,7 @@
 				10CAE7272A1CFCFD009C4084 /* FashionAppOutfitApp.swift */,
 				10CAE7292A1CFCFD009C4084 /* ContentView.swift */,
 				106744B82A70528F006E3581 /* Main Views */,
+				10B7E65A2A783CF0009B69CA /* Tutorial */,
 				106744BB2A705311006E3581 /* Sub Views */,
 				106744BC2A705355006E3581 /* Item Adding */,
 				1017BFBE2A2BAC86001D39A7 /* Wardrobe */,
