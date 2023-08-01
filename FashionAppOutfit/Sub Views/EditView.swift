@@ -27,7 +27,7 @@ struct EditView: View {
     @State private var showCameraView = false
     
     var itemTypes: [ItemType] = [.jackets, .tops, .bottoms]
-    let colors = ["Yellow", "Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray", "Denim"];
+    let colors = ["Yellow", "Green", "Olive Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray", "Denim"];
     
     var saveButtonOpacity: Double {
         if selectedImage != nil && !itemName.isEmpty {

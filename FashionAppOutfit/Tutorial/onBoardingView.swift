@@ -13,13 +13,14 @@ struct onBoardingView: View {
     @State private var currentPageIndex = 0
     
     let tutorialData = [
-        ["tutorial1", "First, navigate to the closet and start populating it"],
-        ["tutorial2", "Quality fabrics and well-made garments instantly elevate your look. Invest in well-fitted, durable, and classic pieces that will stand the test of time"],
-        ["tutorial3", "Ensure your clothes fit perfectly. Tailoring can make a significant difference in how you present yourself and can elevate even simple outfits to a more refined level."],
-        ["tutorial4", "Don't be afraid to step out of your comfort zone and try new styles. You might discover unexpected combinations that suit you well."],
-        ["tutorail5", "When in doubt, go for socks that match the color of your trousers or pants. This creates a seamless and elongated look, especially when wearing dressier outfits"],
-        ["tutorial6", "If you wear multiple pieces of jewelry, like rings, bracelets, and necklaces, aim to keep the metals consistent. This creates a harmonious look and prevents your accessories from clashing."],
-        ["tutorial7", "Invest in a collection of neutral-colored basics like plain t-shirts, well-fitted jeans, and classic button-up shirts. These versatile pieces can form the foundation for countless outfits."]
+        ["tutorial1", "First, navigate to the Closet and start populating it by tapping on the \"+\" button "],
+        ["tutorial2", "Now your job is done, MagicFitter will do the rest, just choose any item"],
+        ["tutorial3", "Here you can edit it or add it to laundry, if it's unavailable to wear. If you would like to wear it, press match to generate an outfit around it!"],
+        ["tutorial4", "Ta-da!!, MagicFitter made an outfit for you!, if you like it you can save it!, otherwise press try again"],
+        ["tutorail5", "Do not which item to choose?, you can simply navigate to Generate, choose style and season (jacket or no jacket)"],
+        ["tutorial6", "On Outfits screen, you can see the outfits you saved, you can view them, change the name and add them to favorite by simply pressing one of them"],
+        ["tutorial7", "On Laundry screen you can view the unavailable items which will not be used by magicFitter for outfit generation, you can add them back to closet if "],
+        ["tutorial8", "You can view this tutorial anytime, but navigating to Tips and pressing the \"i\" button in top right corner "]
     ]
     var body: some View {
         NavigationStack {
@@ -29,9 +30,9 @@ struct onBoardingView: View {
                         VStack {
                             Image(tutorialData[index][0])
                                 .resizable()
-                                .scaledToFill()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 200, height: 200)
+                                .scaledToFit()
+                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: 200, height: 200)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .padding(.vertical, 50)
                             
@@ -44,7 +45,20 @@ struct onBoardingView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                                 .lineLimit(nil)
                             
-                            if currentPageIndex == tutorialData.count - 1 {
+                            if currentPageIndex < tutorialData.count - 1 {
+                                Button(action: {
+                                    currentPageIndex += 1
+                                }) {
+                                    Text("Continue")
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                        .frame(width: 175, height: 69, alignment: .center)
+                                        .background(Color.gray)
+                                        .cornerRadius(20)
+                                        .padding()
+                                }
+                            }
+                            else if currentPageIndex == tutorialData.count - 1 {
                                 Button(action: {
                                     showOnboarding = false
                                 }) {
@@ -75,3 +89,6 @@ struct onBoardingView: View {
 #Preview {
     onBoardingView(showOnboarding: .constant(true))
 }
+
+
+//["tutorial9", "All your app data is securely synced to your iCloud account, do not worry about losing progress!"]
