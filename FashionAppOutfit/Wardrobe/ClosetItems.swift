@@ -34,10 +34,9 @@ struct ClosetItem {
 
 
 class ClosetManager: ObservableObject {
-    @Published var items: [ClosetItemEntity] = [] // Update the type to [ClosetItemEntity]
-    @Published var generatedOutfitItems: [ClosetItemEntity] = [] // Update the type to [[ClosetItemEntity]]
-    @Published var showGeneratedOutfit = false // New @Published property for showing generated outfit
-
+    @Published var items: [ClosetItemEntity] = []
+    @Published var generatedOutfitItems: [ClosetItemEntity] = []
+    @Published var showGeneratedOutfit = false 
     
     let colorCombinations = [
         ["Yellow", "Yellow", "Yellow"],
@@ -69,6 +68,8 @@ class ClosetManager: ObservableObject {
         ["Pink", "Green", "Green"],
         ["Pink", "Yellow", "Yellow"],
         ["Black", "Black", "Black"],
+        ["Black", "Black", "White"],
+        ["Black", "Black", "Red"],
         ["Black", "Blue", "Blue"],
         ["Black", "Pink", "Pink"],
         ["Black", "Red", "Red"],
@@ -101,6 +102,7 @@ class ClosetManager: ObservableObject {
         ["Brown", "Black", "Black"],
         ["Brown", "White", "White"],
         ["Denim", "Denim", "Black"],
+        ["Denim", "Black", "Black"],
         ["Denim", "Orange", "Orange"],
         ["Denim", "Red", "Red"],
         ["Denim", "Green", "Green"],

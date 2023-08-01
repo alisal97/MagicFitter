@@ -114,6 +114,10 @@ struct ClosetView: View {
                                                         )
                                                     
                                                     Text(item.color ?? "")
+                                                        .font(.headline)
+                                                        .foregroundColor(.accentColor)
+                                                        .fontWeight(.bold)
+
                                                 }
                                             }
                                             ItemLabel(title: "Type", value: item.itemType ?? "")

@@ -18,16 +18,17 @@ struct ItemLabel: View {
             getImageForTitle(title)
                 .font(.system(size: 20))
                 .foregroundColor(.accentColor)
+                .fontWeight(.semibold)
             
             Text("\(title):")
                 .font(.headline)
                 .foregroundColor(.accentColor)
-                .fontWeight(.bold)
-            
+                .fontWeight(.semibold)
+
             Text(value)
                 .font(.headline)
                 .foregroundColor(.accentColor)
-                .fontWeight(.regular)
+                .fontWeight(.bold)
         }
     }
     
@@ -55,7 +56,7 @@ extension Array where Element == [ClosetItemEntity] {
 }
 
 
-//not used anymore
+//Not used anymore
 struct SectionView: View {
     let title: String
     let items: [ClosetItemEntity]
@@ -82,10 +83,10 @@ struct SectionView: View {
 }
 
 
-
+//Not used anymore
 struct CardView: View {
     let item: ClosetItemEntity
-    @State private var isShowingFullView = false // Track whether the full view is shown
+    @State private var isShowingFullView = false
     @ObservedObject var closetManager: ClosetManager
 
     var body: some View {

@@ -87,6 +87,10 @@ struct LaundryView: View {
                                                 )
                                             
                                             Text(item.color ?? "")
+                                                .font(.headline)
+                                                .foregroundColor(.accentColor)
+                                                .fontWeight(.bold)
+
                                         }
                                     }
 
