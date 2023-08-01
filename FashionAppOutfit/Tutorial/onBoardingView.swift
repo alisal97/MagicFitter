@@ -15,7 +15,7 @@ struct onBoardingView: View {
     let tutorialData = [
         ["tutorial0", "Welcome to MagicFitter! Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!"],
         ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Add a variety of items and colors."],
-        ["tutorial2", "After populating your closet, the hard part is done, MagicFitter will take care of the rest, just tap any item."],
+        ["tutorial2", "After populating your closet, the hard part is done, MagicFitter will take care of the rest, just tap any item! :)"],
         ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Tap \"match\" to generate an outfit centered around it."],
         ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"try again!\""],
         ["tutorial5", "If you're unsure about which item to choose, navigate to Generate, select a style and season (summer means no jacket) and tap \"Generate Outfit\""],
