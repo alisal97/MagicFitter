@@ -13,82 +13,92 @@ struct onBoardingView: View {
     @State private var currentPageIndex = 0
     
     let tutorialData = [
-        ["tutorial1", "First, navigate to the Closet and start populating it by tapping on the \"+\" button "],
-        ["tutorial2", "Now your job is done, MagicFitter will do the rest, just choose any item"],
-        ["tutorial3", "Here you can edit it or add it to laundry, if it's unavailable to wear. If you would like to wear it, press match to generate an outfit around it!"],
-        ["tutorial4", "Ta-da!!, MagicFitter made an outfit for you!, if you like it you can save it!, otherwise press try again"],
-        ["tutorail5", "Do not which item to choose?, you can simply navigate to Generate, choose style and season (jacket or no jacket)"],
-        ["tutorial6", "On Outfits screen, you can see the outfits you saved, you can view them, change the name and add them to favorite by simply pressing one of them"],
-        ["tutorial7", "On Laundry screen you can view the unavailable items which will not be used by magicFitter for outfit generation, you can add them back to closet if "],
-        ["tutorial8", "You can view this tutorial anytime, but navigating to Tips and pressing the \"i\" button in top right corner "]
-    ]
+        ["tutorial0", "Welcome to MagicFitter! Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!"],
+        ["tutorial1", "To begin, head to the Closet and populate it by tapping on the \"+\" button. Add a variety of items and colors, and MagicFitter will take care of the rest."],
+        ["tutorial2", "It should look somewhat similar to this, just tap any item!"],
+        ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Tap \"match\" to generate an outfit centered around it."],
+        ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"try again!\""],
+        ["tutorial5", "If you're unsure about which item to choose, navigate to Generate, select a style and season (summer means no jacket) and tap \"Generate Outfit\""],
+        ["tutorial6", "On the Outfits screen, you can find the outfits you've saved. By tapping one, you can view the items, change outfit name, and add it to your favorites."],
+        ["tutorial7", "The Laundry screen displays unavailable items that MagicFitter won't use for outfit generation. If they're ready to wear again, you can add them back to your closet."],
+        ["tutorial8", "You can access this tutorial anytime by going to Tips and pressing the \"i\" button in the top-right corner!"]
+    ];
+
+
+
+
     var body: some View {
         NavigationStack {
             VStack {
                 TabView(selection: $currentPageIndex) {
                     ForEach(0..<tutorialData.count, id: \.self) { index in
                         VStack {
-                            Image(tutorialData[index][0])
-                                .resizable()
-                                .scaledToFit()
-                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 200, height: 200)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .padding(.vertical, 50)
-                            
+                            if tutorialData[index][0] == "tutorial0" {
+                                Image(tutorialData[index][0])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 300, height: 300)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .padding(.bottom, 50)
+                                    .shadow(color: Color.accentColor, radius: 7)
+                            }
+                            else {
+                                Image(tutorialData[index][0])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.height * 0.5)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    .padding(.bottom, 5)
+                            }
                             Text(tutorialData[index][1])
                                 .foregroundColor(.accentColor)
-                                .font(.title3)
+                                .font(.headline)
                                 .fontWeight(.medium)
                                 .multilineTextAlignment(.center)
                                 .padding()
-                                .fixedSize(horizontal: false, vertical: true)
                                 .lineLimit(nil)
                             
-                            if currentPageIndex < tutorialData.count - 1 {
-                                Button(action: {
-                                    currentPageIndex += 1
-                                }) {
-                                    Text("Continue")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                        .frame(width: 175, height: 69, alignment: .center)
-                                        .background(Color.gray)
-                                        .cornerRadius(20)
-                                        .padding()
-                                }
-                            }
-                            else if currentPageIndex == tutorialData.count - 1 {
-                                Button(action: {
-                                    showOnboarding = false
-                                }) {
-                                    Text("I am ready")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                        .frame(width: 175, height: 69, alignment: .center)
-                                        .background(Color.gray)
-                                        .cornerRadius(20)
-                                        .padding()
-                                }
-                            }
                             Spacer()
+                            
+                            Button(action: {
+                                if currentPageIndex < tutorialData.count - 1 {
+                                    currentPageIndex += 1
+                                } else {
+                                    showOnboarding = false
+                                }
+                            }) {
+                                Text(currentPageIndex < tutorialData.count - 1 ? "Continue" : "I am ready")
+                                    .font(.subheadline)
+                                    .foregroundColor(.accentColor)
+                                    .frame(width: 135, height: 43, alignment: .center)
+                                    .background(Color.gray)
+                                    .cornerRadius(20)
+                            }
+                            .padding(.bottom, 23)
                         }
+                        .padding()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(Color.clear)
-                        .cornerRadius(10)
-                        .frame(width: 300, height: 300)
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+                        .padding()
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-                
+
             }
+            .padding(.top, 20)
         }
     }
 }
+
+
 
 #Preview {
     onBoardingView(showOnboarding: .constant(true))
 }
 
 
-//["tutorial9", "All your app data is securely synced to your iCloud account, do not worry about losing progress!"]
