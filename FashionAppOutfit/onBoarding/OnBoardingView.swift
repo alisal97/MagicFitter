@@ -11,7 +11,7 @@ import SwiftUI
 struct onBoardingView: View {
     @Binding var showOnboarding: Bool
     @State private var currentPageIndex = 0
-    
+
     let tutorialData = [
         ["tutorial0", "Welcome to MagicFitter! Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!"],
         ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Add a variety of items and colors!"],
