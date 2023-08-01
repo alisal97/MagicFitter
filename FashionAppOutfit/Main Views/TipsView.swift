@@ -23,7 +23,7 @@ struct TipsView: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 TabView {
                     ForEach(tipsData, id: \.self) { tipData in
@@ -64,19 +64,20 @@ struct TipsView: View {
                         )
                     }
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-                Spacer().frame(height: 15)
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                .padding(.bottom)
             }
             .sheet(isPresented: $showTutorial) {
                 onBoardingView(showOnboarding: $showTutorial)
             }
-            .padding(.bottom, 27)
+            .padding(.bottom)
             .navigationTitle("Tips")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing: Button(action: {
                 showTutorial = true
             }) {
-                Image(systemName: "info.circle")
+                Image(systemName: "info")
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
                     .padding(.horizontal, 15)

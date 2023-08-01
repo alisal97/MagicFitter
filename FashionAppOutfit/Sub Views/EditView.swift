@@ -20,7 +20,8 @@ struct EditView: View {
     @State private var selectedImage: UIImage?
     @State private var selectedItemStyle: ItemStyle
     
-    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     @State private var showContextMenu = false
     @State private var showImagePicker = false
     @State private var showCameraView = false
@@ -114,7 +115,7 @@ struct EditView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.gray.opacity(0.2))
                         .edgesIgnoringSafeArea(.all)
-                        .frame(width: 373, height: 420)
+                        .frame(width: horizontalSizeClass == .regular ? UIScreen.main.bounds.width * 0.67 : 373, height: 420)
                     VStack {
                         VStack(alignment: .leading) {
                             TextField("Name", text: $itemName)

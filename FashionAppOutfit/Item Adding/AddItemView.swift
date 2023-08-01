@@ -18,7 +18,8 @@ struct AddItemView: View {
     @State private var showCameraView = false
     
     @Environment(\.presentationMode) var presentationMode
-    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     let colors = ["Yellow", "Green", "Orange", "Violet", "Blue", "Red", "Pink", "Black", "White", "Beige", "Light Blue", "Brown", "Gray", "Denim"];
 
     var itemTypes: [ItemType] = [.jackets, .tops, .bottoms] // Replace with actual cases
@@ -102,7 +103,7 @@ struct AddItemView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.gray.opacity(0.2))
                     .edgesIgnoringSafeArea(.all)
-                    .frame(width: 373, height: 420)
+                    .frame(width: horizontalSizeClass == .regular ? UIScreen.main.bounds.width * 0.67 : 373, height: 420)
                 VStack {
                     VStack(alignment: .leading) {
                         TextField("Name", text: $itemName)
