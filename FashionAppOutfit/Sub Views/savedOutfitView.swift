@@ -13,10 +13,10 @@ struct SavedOutfitView: View {
     let outfit: OutfitEntity
     @EnvironmentObject var closetManager: ClosetManager
     @Environment(\.presentationMode) var presentationMode
-    @State private var isFavorite = false // Track the favorite state
-    @State private var showDeleteConfirmation = false // Track whether the delete confirmation should be shown
-    @State private var isEditingOutfitName = false // Track whether the outfit name is being edited
-    @State private var editedOutfitName = "" // Track the edited outfit name
+    @State private var isFavorite = false
+    @State private var showDeleteConfirmation = false
+    @State private var isEditingOutfitName = false
+    @State private var editedOutfitName = "" 
     
     @State private var selectedItem: ClosetItemEntity? = nil
 
