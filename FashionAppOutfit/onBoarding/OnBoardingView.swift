@@ -2,7 +2,7 @@
 //  onBoardingView.swift
 //  FashionAppOutfit
 //
-//  Created by Aly Salman on 31/07/23.
+//  Created by Aly Salman on 31/07/23.1
 //
 
 import Foundation
@@ -39,7 +39,7 @@ struct onBoardingView: View {
                                     .foregroundStyle(Color.accentColor)
                                     .font(.title)
                                     .fontWeight(.heavy)
-                                    .padding(.top, 35)
+                                    .padding(.top, 47)
                                     .multilineTextAlignment(.center)
                                     .lineLimit(nil)
                             }
