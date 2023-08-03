@@ -13,8 +13,8 @@ struct onBoardingView: View {
     @State private var currentPageIndex = 0
 
     let tutorialData = [
-        ["tutorial0", "Welcome to MagicFitter! Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!"],
-        ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Add a variety of items and colors!"],
+        ["tutorial0", ""],
+        ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Repeat until you have a variety of items and colors!"],
         ["tutorial2", "After populating your closet, the hard part is done, MagicFitter will take care of the rest, just tap any item!"],
         ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Or Tap \"match\" to use it to generate an outfit."],
         ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"try again!\""],
@@ -34,14 +34,14 @@ struct onBoardingView: View {
                     ForEach(0..<tutorialData.count, id: \.self) { index in
                         VStack {
                             if tutorialData[index][0] == "tutorial0" {
-                                Image(tutorialData[index][0])
-                                    .resizable()
-                                    .scaledToFit()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 350, height: 350)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    .padding(.bottom, 50)
-                                    .shadow(color: Color.accentColor, radius: 7)
+                                Spacer()
+                                Text("Welcome to MagicFitter! Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!")
+                                    .foregroundStyle(Color.accentColor)
+                                    .font(.title)
+                                    .fontWeight(.heavy)
+                                    .padding(.top, 35)
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(nil)
                             }
                             else {
                                 Image(tutorialData[index][0])

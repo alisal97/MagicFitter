@@ -406,7 +406,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FashionAppOutfit/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MagicFitter;
+				INFOPLIST_KEY_CFBundleDisplayName = "MagicFitter Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "in order to take a photo of the item you which to add to your wardrobe, access to camera is required.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "in order to select a photo of the item you which to add to your wardrobe, access to gallery is required.";
@@ -423,7 +423,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.04;
-				PRODUCT_BUNDLE_IDENTIFIER = ali.karlpro.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magicfitter.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -447,7 +447,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FashionAppOutfit/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MagicFitter;
+				INFOPLIST_KEY_CFBundleDisplayName = "MagicFitter Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "in order to take a photo of the item you which to add to your wardrobe, access to camera is required.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "in order to select a photo of the item you which to add to your wardrobe, access to gallery is required.";
@@ -464,7 +464,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.04;
-				PRODUCT_BUNDLE_IDENTIFIER = ali.karlpro.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magicfitter.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
