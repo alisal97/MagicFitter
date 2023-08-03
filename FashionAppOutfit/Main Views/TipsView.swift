@@ -13,11 +13,11 @@ struct TipsView: View {
     @State private var showTutorial = false
 
     let tipsData = [
-        ["tips1", "Embrace simplicity in your style choices. Avoid excessive accessories or loud patterns. Opt for clean lines, solid colors, and timeless pieces that can be effortlessly mixed and matched"],
-        ["tips2", "Quality fabrics and well-made garments instantly elevate your look. Invest in well-fitted, durable, and classic pieces that will stand the test of time"],
+        ["tips1", "Embrace simplicity in your style choices. Avoid excessive accessories or loud patterns. Opt for clean lines, solid colors, and timeless pieces that can be effortlessly mixed and matched."],
+        ["tips2", "Quality fabrics and well-made garments instantly elevate your look. Invest in well-fitted, durable, and classic pieces that will stand the test of time."],
         ["tips3", "Ensure your clothes fit perfectly. Tailoring can make a significant difference in how you present yourself and can elevate even simple outfits to a more refined level."],
         ["tips4", "Don't be afraid to step out of your comfort zone and try new styles. You might discover unexpected combinations that suit you well."],
-        ["tips5", "When in doubt, go for socks that match the color of your trousers or pants. This creates a seamless and elongated look, especially when wearing dressier outfits"],
+        ["tips5", "When in doubt, go for socks that match the color of your trousers or pants. This creates a seamless and elongated look, especially when wearing dressier outfits."],
         ["tips6", "If you wear multiple pieces of jewelry, like rings, bracelets, and necklaces, aim to keep the metals consistent. This creates a harmonious look and prevents your accessories from clashing."],
         ["tips7", "Invest in a collection of neutral-colored basics like plain t-shirts, well-fitted jeans, and classic button-up shirts. These versatile pieces can form the foundation for countless outfits."]
     ]
