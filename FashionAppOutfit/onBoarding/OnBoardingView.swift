@@ -35,9 +35,11 @@ struct onBoardingView: View {
                         VStack {
                             if tutorialData[index][0] == "tutorial0" {
                                 Spacer()
-                                Text("Welcome to MagicFitter! Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!")
+                                Text("""
+                                        Welcome to MagicFitter!, MagicFitter is an automatic outfit generator that creates outfits for you based on colors, using clothing items you already own!. Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!
+                                        """)
                                     .foregroundStyle(Color.accentColor)
-                                    .font(.title)
+                                    .font(.title3)
                                     .fontWeight(.heavy)
                                     .padding(.top, 47)
                                     .multilineTextAlignment(.center)
