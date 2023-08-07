@@ -39,10 +39,7 @@ class ClosetManager: ObservableObject {
     @Published var generatedOutfitItems: [ClosetItemEntity] = []
     @Published var showGeneratedOutfit = false 
     
-    @FetchRequest(entity: OutfitEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \OutfitEntity.date, ascending: false)])
-    var savedOutfits: FetchedResults<OutfitEntity>
 
-    
     let colorCombinations = [
         ["Yellow", "Yellow", "Yellow"],
         ["Yellow", "Green", "Orange"],

@@ -24,6 +24,7 @@
     <entity name="OutfitScheduler" representedClassName="OutfitScheduler" syncable="YES" codeGenerationType="class">
         <attribute name="schedOfID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="scheduleDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="scheduledOutfitPic" optional="YES" attributeType="Binary"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="getOutfit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="outfitSchedule" inverseEntity="OutfitEntity"/>
     </entity>

@@ -14,19 +14,40 @@ struct ScheduleViewController: View {
     @State private var title = ""
     @ObservedObject var closetManager: ClosetManager
     
+    @FetchRequest(entity: OutfitEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \OutfitEntity.date, ascending: false)])
+    var allOutfits: FetchedResults<OutfitEntity>
+    
     var body: some View {
         NavigationView {
+            Form {
                 Section(header: Text("Scheduling Details")) {
                     TextField("Title", text: $title)
                     DatePicker("Date", selection: $scheduleDate, displayedComponents: [.date, .hourAndMinute])
                 }
-            Form {
                 Section(header: Text("Select Outfit")) {
-                    List(closetManager.savedOutfits, id: \.self) { outfit in
+                    List(allOutfits, id: \.self) { outfit in
                         Button(action: {
                             saveScheduledOutfit(outfit: outfit)
                         }) {
-                            Text(outfit.outfitName ?? "")
+                            HStack {
+                                if let imageData = outfit.outfitPic, let image = UIImage(data: imageData) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 55, height: 55)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(Color.accentColor, lineWidth: 2)
+                                        )
+                                }
+                                
+                                Text(outfit.outfitName ?? "")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                            }
                         }
                     }
                 }
@@ -45,7 +66,9 @@ struct ScheduleViewController: View {
         scheduledOutfit.scheduleDate = scheduleDate
         scheduledOutfit.title = title
         scheduledOutfit.schedOfID = outfit.outfitID
+        scheduledOutfit.scheduledOutfitPic = outfit.outfitPic
         CoreDataStack.shared.saveContext()
+    
         presentationMode.wrappedValue.dismiss()
     }
 }
