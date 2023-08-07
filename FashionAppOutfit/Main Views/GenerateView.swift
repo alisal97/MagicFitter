@@ -17,8 +17,8 @@ struct GenerateView: View {
     @State var generatedOutfitItems: [ClosetItemEntity] = []
     @State private var showFeedback = false
     @State var showGeneratedOutfit = false
-    @State private var showModal = false 
-    
+    @State private var showTutorial = false
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -76,19 +76,19 @@ struct GenerateView: View {
                 
             }
             .padding()
-            .sheet(isPresented: $showGeneratedOutfit) {
-                GeneratedOutfitView(outfitItems: generatedOutfitItems, item: item)
-                    .onAppear {
-                        closetManager.getAllItems()
-                    }
+            .sheet(isPresented: $showTutorial) {
+                onBoardingView(showOnboarding: $showTutorial)
+            }
+            .onAppear {
+                closetManager.getAllItems()
             }
             .navigationTitle("Generate Outfit")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
                                     Button(action: {
-                showModal = true
+                showTutorial = true
             }) {
-                Image(systemName: "calendar.badge.plus")
+                Image(systemName: "info")
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
                     .padding(.horizontal, 15)
@@ -101,11 +101,7 @@ struct GenerateView: View {
             )
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .scrollIndicators(.hidden)
-            
-            .sheet(isPresented: $showModal) {
-                ScheduleViewController(closetManager: closetManager)
-            }
-            
+                        
         }
     }
     

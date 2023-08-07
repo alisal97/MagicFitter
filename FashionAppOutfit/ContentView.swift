@@ -46,10 +46,10 @@ struct ContentView: View {
                 }
                 .tag(4)
 
-            TipsView()
+            ScheduleView(closetManager: closetManager)
                 .tabItem {
-                    Image(systemName: "lightbulb.fill")
-                    Text("Tips")
+                    Image(systemName: "calendar")
+                    Text("Scheduled")
                 }
                 .tag(5)
         }
