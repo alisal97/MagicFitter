@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22189.1" systemVersion="23A5286i" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22203.2" systemVersion="23A5301g" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ClosetItemEntity" representedClassName="ClosetItemEntity" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -19,9 +19,17 @@
         <attribute name="outfitName" optional="YES" attributeType="String"/>
         <attribute name="outfitPic" optional="YES" attributeType="Binary"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClosetItemEntity" inverseName="outfits" inverseEntity="ClosetItemEntity"/>
+        <relationship name="outfitSchedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OutfitScheduler" inverseName="getOutfit" inverseEntity="OutfitScheduler"/>
+    </entity>
+    <entity name="OutfitScheduler" representedClassName="OutfitScheduler" syncable="YES" codeGenerationType="class">
+        <attribute name="schedOfID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="scheduleDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="getOutfit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="outfitSchedule" inverseEntity="OutfitEntity"/>
     </entity>
     <configuration name="userWardrobe" usedWithCloudKit="YES">
         <memberEntity name="OutfitEntity"/>
         <memberEntity name="ClosetItemEntity"/>
+        <memberEntity name="OutfitScheduler"/>
     </configuration>
 </model>

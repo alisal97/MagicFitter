@@ -28,6 +28,7 @@
 		10CAE73D2A1E4616009C4084 /* dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10CAE73B2A1E4616009C4084 /* dataModel.xcdatamodeld */; };
 		10CAE73F2A1E4718009C4084 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAE73E2A1E4718009C4084 /* CoreDataStack.swift */; };
 		10E677D72A2E73E7004AEBCF /* savedOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E677D62A2E73E7004AEBCF /* savedOutfitView.swift */; };
+		10E9D3982A8113BC000828C3 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D3972A8113BC000828C3 /* ScheduleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		10CAE73C2A1E4616009C4084 /* dataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dataModel.xcdatamodel; sourceTree = "<group>"; };
 		10CAE73E2A1E4718009C4084 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		10E677D62A2E73E7004AEBCF /* savedOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = savedOutfitView.swift; sourceTree = "<group>"; };
+		10E9D3972A8113BC000828C3 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				1017BFBA2A2B7EF0001D39A7 /* EditView.swift */,
 				1017BFB42A28D30E001D39A7 /* generatedOutfitView.swift */,
 				10E677D62A2E73E7004AEBCF /* savedOutfitView.swift */,
+				10E9D3972A8113BC000828C3 /* ScheduleViewController.swift */,
 			);
 			path = "Sub Views";
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				1017BFBB2A2B7EF0001D39A7 /* EditView.swift in Sources */,
 				10B7E65E2A785A03009B69CA /* OnBoardingView.swift in Sources */,
 				1017BFB92A2B7BBD001D39A7 /* ItemFullView.swift in Sources */,
+				10E9D3982A8113BC000828C3 /* ScheduleViewController.swift in Sources */,
 				10CAE72A2A1CFCFD009C4084 /* ContentView.swift in Sources */,
 				10CAE7282A1CFCFD009C4084 /* FashionAppOutfitApp.swift in Sources */,
 				106744B72A705233006E3581 /* ClosetView.swift in Sources */,
