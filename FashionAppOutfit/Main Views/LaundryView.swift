@@ -218,6 +218,3 @@ struct LaundryView: View {
 
 }
 
-#Preview {
-    LaundryView(closetManager: ClosetManager())
-}

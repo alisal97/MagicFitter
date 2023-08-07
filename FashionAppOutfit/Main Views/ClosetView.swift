@@ -254,6 +254,3 @@ struct ClosetView: View {
     }
 }
 
-#Preview {
-    ClosetView(closetManager: ClosetManager())
-}

@@ -143,6 +143,3 @@ extension ClosetManager {
     }
 }
 
-#Preview {
-    GenerateView(item: ClosetItemEntity() , closetManager: ClosetManager())
-}

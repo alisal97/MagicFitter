@@ -99,8 +99,4 @@ struct onBoardingView: View {
 
 
 
-#Preview {
-    onBoardingView(showOnboarding: .constant(true))
-}
-
 

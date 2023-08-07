@@ -265,9 +265,3 @@ struct OutfitsView: View {
     }
 
 
-
-
-
-#Preview {
-    OutfitsView(closetManager: ClosetManager())
-}
