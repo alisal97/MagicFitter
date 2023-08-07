@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SwiftUI
 
 enum ItemType: String {
     case tops
@@ -37,6 +38,10 @@ class ClosetManager: ObservableObject {
     @Published var items: [ClosetItemEntity] = []
     @Published var generatedOutfitItems: [ClosetItemEntity] = []
     @Published var showGeneratedOutfit = false 
+    
+    @FetchRequest(entity: OutfitEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \OutfitEntity.date, ascending: false)])
+    var savedOutfits: FetchedResults<OutfitEntity>
+
     
     let colorCombinations = [
         ["Yellow", "Yellow", "Yellow"],

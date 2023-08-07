@@ -20,7 +20,7 @@ struct ScheduleViewController: View {
                     TextField("Title", text: $title)
                     DatePicker("Date", selection: $scheduleDate, displayedComponents: [.date, .hourAndMinute])
                 }
-                
+            Form {
                 Section(header: Text("Select Outfit")) {
                     List(closetManager.savedOutfits, id: \.self) { outfit in
                         Button(action: {
@@ -29,6 +29,7 @@ struct ScheduleViewController: View {
                             Text(outfit.outfitName ?? "")
                         }
                     }
+                }
             }
             .navigationBarTitle("Schedule Outfit")
             .navigationBarItems(trailing: Button("Done", action: {
@@ -64,6 +65,7 @@ struct ScheduleViewController: View {
 //        }
 //    }
 //}
-//#Preview {
-//    ScheduleViewController()
-//}
+
+#Preview {
+    ScheduleViewController( closetManager: ClosetManager())
+}
