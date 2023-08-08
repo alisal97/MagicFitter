@@ -96,13 +96,7 @@ struct ScheduleItemView: View {
                     .lineLimit(1)
                     .truncationMode(.tail)
             }
-            .swipeActions{
-                Button(action: {
-                    //
-                }) {
-                    Image(systemName: "pencil")
-                }
-                
+            .swipeActions{                
                 Button(action: {
                     closetManager.deleteScheduledOutfit(outfit: outfitScheduler)
                 }) {
