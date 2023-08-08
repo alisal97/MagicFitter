@@ -12,44 +12,24 @@ struct ScheduleView: View {
     @ObservedObject var closetManager: ClosetManager
     @FetchRequest(entity: OutfitScheduler.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \OutfitScheduler.scheduleDate, ascending: true)])
     var outfits: FetchedResults<OutfitScheduler>
-    
+    @State private var selectedOutfitEntity: OutfitEntity? = nil
+
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
         return formatter
     }
-
+    
     var body: some View {
         NavigationView {
             List {
                 ForEach(groupedOutfits, id: \.0) { date, scheduledOutfits in
-                Section(header: Text(dateFormatter.string(from: date))) {
-                            ForEach(scheduledOutfits, id: \.self) { outfit in
-                                NavigationLink(
-                                    destination: SavedOutfitView(outfitID: outfit.schedOfID),
-                                label: {
-                                    HStack {
-                                        if let imageData = outfit.scheduledOutfitPic, let image = UIImage(data: imageData) {
-                                            Image(uiImage: image)
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: 55, height: 55)
-                                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        }
-                                        
-                                        Text(outfit.title ?? "")
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .lineLimit(1)
-                                            .truncationMode(.tail)
-                                    }
-                                }
-                            )
+                    Section(header: Text(dateFormatter.string(from: date))) {
+                        ForEach(scheduledOutfits, id: \.self) { outfit in
+                            ScheduleItemView(outfitScheduler: outfit, closetManager: closetManager, selectedOutfitEntity: $selectedOutfitEntity)
+                            
                         }
-                    }
-                
-                .onAppear {
-                        closetManager.deleteOutdatedScheduledOutfits()
                     }
                 }
             }
@@ -71,6 +51,14 @@ struct ScheduleView: View {
             .sheet(isPresented: $showModal) {
                 ScheduleViewController(closetManager: closetManager)
             }
+            .onAppear {
+                closetManager.deleteOutdatedScheduledOutfits()
+            }
+        }
+        .sheet(item: $selectedOutfitEntity) { outfitEntity in
+            NavigationView {
+                SavedOutfitView(outfit: outfitEntity)
+            }
         }
     }
     
@@ -81,3 +69,49 @@ struct ScheduleView: View {
 }
 
 
+
+struct ScheduleItemView: View {
+    let outfitScheduler: OutfitScheduler
+    @ObservedObject var closetManager: ClosetManager
+    @Binding var selectedOutfitEntity: OutfitEntity?
+
+    var body: some View {
+        Button(action: {
+            if let outfitID = outfitScheduler.schedOfID,
+               let outfitEntity = closetManager.getOutfitEntity(withID: outfitID) {
+                selectedOutfitEntity = outfitEntity
+            }
+            }) {
+            HStack {
+                if let imageData = outfitScheduler.scheduledOutfitPic, let image = UIImage(data: imageData) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 55, height: 55)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                
+                Text(outfitScheduler.title ?? "")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+            .swipeActions{
+                Button(action: {
+                    //
+                }) {
+                    Image(systemName: "pencil")
+                }
+                
+                Button(action: {
+                    closetManager.deleteScheduledOutfit(outfit: outfitScheduler)
+                }) {
+                    Image(systemName: "trash")
+                }
+                .tint(.red)
+                
+            }
+        
+        }
+    }
+}

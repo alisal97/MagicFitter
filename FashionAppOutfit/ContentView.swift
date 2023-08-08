@@ -49,7 +49,7 @@ struct ContentView: View {
             ScheduleView(closetManager: closetManager)
                 .tabItem {
                     Image(systemName: "calendar")
-                    Text("Scheduled")
+                    Text("Schedule")
                 }
                 .tag(5)
         }

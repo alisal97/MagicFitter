@@ -26,7 +26,7 @@
         <attribute name="scheduleDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduledOutfitPic" optional="YES" attributeType="Binary"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="getOutfit" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="outfitSchedule" inverseEntity="OutfitEntity"/>
+        <relationship name="getOutfit" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="outfitSchedule" inverseEntity="OutfitEntity" spotlightIndexingEnabled="YES"/>
     </entity>
     <configuration name="userWardrobe" usedWithCloudKit="YES">
         <memberEntity name="OutfitEntity"/>

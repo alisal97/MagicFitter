@@ -377,6 +377,19 @@ class ClosetManager: ObservableObject {
         }
     }
 
+    func getOutfitEntity(withID id: UUID) -> OutfitEntity? {
+        
+        let context = CoreDataStack.shared.context
+        let fetchRequest: NSFetchRequest<OutfitEntity> = OutfitEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "outfitID == %@", id as CVarArg)
+        do {
+            let fetchedOutfits = try context.fetch(fetchRequest)
+            return fetchedOutfits.first
+        } catch {
+            print("Error fetching OutfitEntity: \(error)")
+            return nil
+        }
+    }
 
 }
 
