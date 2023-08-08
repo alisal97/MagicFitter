@@ -48,12 +48,17 @@ struct ScheduleViewController: View {
                                     .lineLimit(1)
                                     .truncationMode(.tail)
                             }
+                            .simultaneousGesture(TapGesture()
+                                .onEnded({ _ in
+                                    saveScheduledOutfit(outfit: outfit)
+                                }))
+                            
                         }
                     }
                 }
             }
             .navigationBarTitle("Schedule Outfit")
-            .navigationBarItems(trailing: Button("Done", action: {
+            .navigationBarItems(trailing: Button("Cancel", action: {
                 presentationMode.wrappedValue.dismiss()
             }))
         }
@@ -66,20 +71,13 @@ struct ScheduleViewController: View {
         scheduledOutfit.scheduleDate = scheduleDate
         scheduledOutfit.title = title
         scheduledOutfit.schedOfID = outfit.outfitID
+        scheduledOutfit.scheduledOutfitPic = outfit.outfitPic
+        
         CoreDataStack.shared.saveContext()
-        
-        let dateFormatter = DateFormatter() 
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Change the format according to your preference
-        let formattedDate = dateFormatter.string(from: scheduleDate)
-        
-        let alert = UIAlertController(title: "Success", message: "Outfit Scheduled for: \(formattedDate)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            presentationMode.wrappedValue.dismiss()
-        }))
-        
-        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+        closetManager.deleteOutdatedScheduledOutfits()
+        closetManager.getAllItems()
+        presentationMode.wrappedValue.dismiss()
     }
-
 }
 //// Step 5: Button to Trigger Scheduling
 //struct ContentView: View {

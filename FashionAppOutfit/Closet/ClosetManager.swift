@@ -344,6 +344,39 @@ class ClosetManager: ObservableObject {
         CoreDataStack.shared.saveContext()
         
     }
+    func deleteScheduledOutfit(outfit: OutfitScheduler) {
+        let context = CoreDataStack.shared.context
+        
+        context.delete(outfit)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error deleting scheduled outfit: \(error)")
+        }
+    }
+    func deleteOutdatedScheduledOutfits() {
+        let context = CoreDataStack.shared.context
+        
+        let fetchRequest: NSFetchRequest<OutfitScheduler> = OutfitScheduler.fetchRequest()
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let twentyFourHoursAgo = calendar.date(byAdding: .hour, value: -24, to: currentDate)!
+
+        fetchRequest.predicate = NSPredicate(format: "scheduleDate < %@", twentyFourHoursAgo as NSDate)
+
+        do {
+            let outdatedOutfits = try context.fetch(fetchRequest)
+            for outfit in outdatedOutfits {
+                context.delete(outfit)
+            }
+            
+            try context.save()
+        } catch {
+            print("Error deleting outdated scheduled outfits: \(error)")
+        }
+    }
+
 
 }
 
