@@ -25,8 +25,6 @@ struct onBoardingView: View {
     ];
 
 
-
-
     var body: some View {
         NavigationStack {
             VStack {
@@ -56,7 +54,7 @@ struct onBoardingView: View {
                             }
                             Text(tutorialData[index][1])
                                 .foregroundColor(.accentColor)
-                                .font(.headline)
+                                .font(.subheadline)
                                 .fontWeight(.heavy)
                                 .multilineTextAlignment(.center)
                                 .padding()
@@ -72,7 +70,7 @@ struct onBoardingView: View {
                                 }
                             }) {
                                 Text(currentPageIndex < tutorialData.count - 1 ? "Continue" : "I am ready")
-                                    .font(.subheadline)
+                                    .font(.headline)
                                     .foregroundColor(.accentColor)
                                     .frame(width: 135, height: 43, alignment: .center)
                                     .background(Color.gray)
@@ -90,17 +88,20 @@ struct onBoardingView: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-
+                .navigationBarItems(trailing: Button(action: {
+                    showOnboarding = false
+                }) {
+                    Text("Skip")
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.gray)
+                        .cornerRadius(20)
+                })
             }
-            .padding(.top, 20)
         }
     }
 }
 
-
-
-#Preview {
-    onBoardingView(showOnboarding: .constant(true))
-}
 
 
