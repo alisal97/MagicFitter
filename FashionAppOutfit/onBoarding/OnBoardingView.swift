@@ -20,7 +20,7 @@ struct onBoardingView: View {
         ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"try again!\""],
         ["tutorial5", "If you're unsure about which item to wear, head to Generate, select a style and season (summer means no jacket) and tap \"Generate Outfit!\""],
         ["tutorial6", "On the Outfits screen, you can find the outfits you've saved. By tapping one, you can view the items, change outfit name, and add it to your favorites!"],
-        ["tutorial7", "The Laundry screen displays unavailable items that MagicFitter won't use for outfit generation. If they're ready to wear again, you can add them back to your closet!"],
+        ["tutorial7", "The Laundry screen displays unavailable items that MagicFitter won't use for outfit generation. You can add them back to your closet easily!"],
         ["tutorial8", "You can access this tutorial anytime by going to Tips and pressing the \"i\" button in the top-right corner!"]
     ];
 
