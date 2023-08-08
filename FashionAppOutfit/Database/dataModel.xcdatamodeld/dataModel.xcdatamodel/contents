@@ -19,14 +19,14 @@
         <attribute name="outfitName" optional="YES" attributeType="String"/>
         <attribute name="outfitPic" optional="YES" attributeType="Binary"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClosetItemEntity" inverseName="outfits" inverseEntity="ClosetItemEntity"/>
-        <relationship name="outfitSchedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OutfitScheduler" inverseName="getOutfit" inverseEntity="OutfitScheduler"/>
+        <relationship name="outfitSchedule" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OutfitScheduler" inverseName="getOutfit" inverseEntity="OutfitScheduler"/>
     </entity>
     <entity name="OutfitScheduler" representedClassName="OutfitScheduler" syncable="YES" codeGenerationType="class">
         <attribute name="schedOfID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="scheduleDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduledOutfitPic" optional="YES" attributeType="Binary"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="getOutfit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="outfitSchedule" inverseEntity="OutfitEntity"/>
+        <relationship name="getOutfit" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OutfitEntity" inverseName="outfitSchedule" inverseEntity="OutfitEntity"/>
     </entity>
     <configuration name="userWardrobe" usedWithCloudKit="YES">
         <memberEntity name="OutfitEntity"/>

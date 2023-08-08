@@ -24,35 +24,35 @@ struct ScheduleView: View {
         NavigationView {
             List {
                 ForEach(groupedOutfits, id: \.0) { date, scheduledOutfits in
-                    Section(header: Text(dateFormatter.string(from: date))) {
-                        ForEach(scheduledOutfits, id: \.self) { outfit in
-                            HStack {
-                                if let imageData = outfit.scheduledOutfitPic, let image = UIImage(data: imageData) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 55, height: 55)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                Section(header: Text(dateFormatter.string(from: date))) {
+                            ForEach(scheduledOutfits, id: \.self) { outfit in
+                                NavigationLink(
+                                    destination: SavedOutfitView(outfitID: outfit.schedOfID),
+                                label: {
+                                    HStack {
+                                        if let imageData = outfit.scheduledOutfitPic, let image = UIImage(data: imageData) {
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 55, height: 55)
+                                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        }
+                                        
+                                        Text(outfit.title ?? "")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .lineLimit(1)
+                                            .truncationMode(.tail)
+                                    }
                                 }
-                                Text(outfit.title ?? "")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
-                                Button(action: {
-                                    closetManager.deleteScheduledOutfit(outfit: outfit)
-                                }) {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(.red)
-                                }
-                            }
-                            
+                            )
                         }
                     }
-                    .onAppear {
+                
+                .onAppear {
                         closetManager.deleteOutdatedScheduledOutfits()
                     }
                 }
-            } 
+            }
             .navigationTitle("Scheduled Outfits")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
