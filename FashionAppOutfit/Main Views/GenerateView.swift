@@ -79,8 +79,11 @@ struct GenerateView: View {
             .sheet(isPresented: $showTutorial) {
                 onBoardingView(showOnboarding: $showTutorial)
             }
-            .onAppear {
-                closetManager.getAllItems()
+            .sheet(isPresented: $showGeneratedOutfit) {
+                GeneratedOutfitView(outfitItems: generatedOutfitItems, item: item)
+                    .onAppear {
+                        closetManager.getAllItems()
+                    }
             }
             .navigationTitle("Generate Outfit")
             .navigationBarTitleDisplayMode(.large)

@@ -27,7 +27,9 @@ struct ScheduleViewController: View {
                 Section(header: Text("Select Outfit")) {
                     List(allOutfits, id: \.self) { outfit in
                         Button(action: {
-                            saveScheduledOutfit(outfit: outfit)
+                            if !title.isEmpty {
+                                saveScheduledOutfit(outfit: outfit)
+                            }
                         }) {
                             HStack {
                                 if let imageData = outfit.outfitPic, let image = UIImage(data: imageData) {
@@ -50,13 +52,16 @@ struct ScheduleViewController: View {
                             }
                             .simultaneousGesture(TapGesture()
                                 .onEnded({ _ in
-                                    saveScheduledOutfit(outfit: outfit)
+                                    if !title.isEmpty {
+                                        saveScheduledOutfit(outfit: outfit)
+                                    }
                                 }))
                             
                         }
                     }
                 }
             }
+            .scrollIndicators(.never)
             .navigationBarTitle("Schedule Outfit")
             .navigationBarItems(trailing: Button("Cancel", action: {
                 presentationMode.wrappedValue.dismiss()
@@ -78,24 +83,4 @@ struct ScheduleViewController: View {
         closetManager.getAllItems()
         presentationMode.wrappedValue.dismiss()
     }
-}
-//// Step 5: Button to Trigger Scheduling
-//struct ContentView: View {
-//    @State private var isPresentingScheduleView = false
-//    @ObservedObject var closetManager: ClosetManager // Pass your closet manager here
-//
-//    var body: some View {
-//        VStack {
-//            Button("Schedule Outfit") {
-//                isPresentingScheduleView = true
-//            }
-//            .sheet(isPresented: $isPresentingScheduleView) {
-//                ScheduleOutfitView(closetManager: closetManager)
-//            }
-//        }
-//    }
-//}
-
-#Preview {
-    ScheduleViewController( closetManager: ClosetManager())
 }
