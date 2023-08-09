@@ -12,7 +12,6 @@
 		1017BFBB2A2B7EF0001D39A7 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017BFBA2A2B7EF0001D39A7 /* EditView.swift */; };
 		101EB80C2A31BE3700155CD4 /* contentHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017BFB62A2B7396001D39A7 /* contentHelpers.swift */; };
 		106744B72A705233006E3581 /* ClosetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744B62A705233006E3581 /* ClosetView.swift */; };
-		106744BA2A7052BF006E3581 /* OutfitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744B92A7052BF006E3581 /* OutfitsView.swift */; };
 		106744BE2A705448006E3581 /* GenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744BD2A705448006E3581 /* GenerateView.swift */; };
 		106744C22A705485006E3581 /* LaundryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106744C12A705485006E3581 /* LaundryView.swift */; };
 		10B7E65E2A785A03009B69CA /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7E65D2A785A03009B69CA /* OnBoardingView.swift */; };
@@ -264,7 +263,6 @@
 				10B8AD7C2A1FEAB1009D6A02 /* AddItemView.swift in Sources */,
 				10CAE73A2A1E340B009C4084 /* ClosetManager.swift in Sources */,
 				10E9D39A2A817FE7000828C3 /* ScheduleView.swift in Sources */,
-				106744BA2A7052BF006E3581 /* OutfitsView.swift in Sources */,
 				10CAE73D2A1E4616009C4084 /* dataModel.xcdatamodeld in Sources */,
 				106744BE2A705448006E3581 /* GenerateView.swift in Sources */,
 				10CAE7362A1CFDE8009C4084 /* camView.swift in Sources */,
