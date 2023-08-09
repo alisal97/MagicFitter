@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UIKit
-
+import Photos
 
 struct SavedOutfitView: View {
     let outfit: OutfitEntity
@@ -19,6 +19,9 @@ struct SavedOutfitView: View {
     @State private var editedOutfitName = "" 
     
     @State private var selectedItem: ClosetItemEntity? = nil
+    
+
+    @State private var url = ""
 
     var body: some View {
         NavigationStack {
@@ -125,23 +128,34 @@ struct SavedOutfitView: View {
                         FullView(item: selectedItem, closetManager: closetManager)
                     }
                 }
-                
-                Spacer()
-                
+    
                 HStack {
-                    Button(action: {
-                        showDeleteConfirmation = true // Show the delete confirmation alert
-                    }) {
-                        Text("Delete outfit")
-                            .foregroundColor(.red)
-                            .frame(maxWidth: 175)
-                            .padding()
-                            .background(Color.gray.opacity(0.35))
-                            .cornerRadius(12)
+                    ShareLink(item: url) {
+                            Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(Color.accentColor)
+                            .font(.title)
+                            .frame(alignment: .leading)
                     }
+                    .padding(25)
+                    
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        showDeleteConfirmation = true
+                        
+                    }) {
+                        Image(systemName: "trash.fill")
+                            .font(.title)
+                            .foregroundColor(.red)
+                            .frame(alignment: .trailing)
+                            .padding(25)
+                        
+                    }
+                    
                 }
                 
-                Spacer(minLength: 25)
+                Spacer()
             }
             .ignoresSafeArea(.keyboard)
             .listStyle(.plain)
@@ -203,7 +217,8 @@ struct SavedOutfitView: View {
             }
         }
 
-    }
+    
+}
 
 extension OutfitEntity {
     var closetItemArray: [ClosetItemEntity] {
