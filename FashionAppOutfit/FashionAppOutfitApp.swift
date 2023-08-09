@@ -27,6 +27,7 @@ struct FashionAppOutfitApp: App {
                     .scrollDismissesKeyboard(.immediately)
                     .scrollIndicators(.never)
                     .onAppear {
+                        UIApplication.shared.applicationIconBadgeNumber = 0
                         ClosetManager().getAllItems()
                     }
             }

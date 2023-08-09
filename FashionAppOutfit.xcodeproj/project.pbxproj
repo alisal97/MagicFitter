@@ -30,7 +30,6 @@
 		10E9D3982A8113BC000828C3 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D3972A8113BC000828C3 /* ScheduleViewController.swift */; };
 		10E9D39A2A817FE7000828C3 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D3992A817FE7000828C3 /* ScheduleView.swift */; };
 		10E9D39C2A83C14E000828C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D39B2A83C14E000828C3 /* AppDelegate.swift */; };
-		10E9D39E2A83C868000828C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D39D2A83C868000828C3 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +59,6 @@
 		10E9D3972A8113BC000828C3 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		10E9D3992A817FE7000828C3 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		10E9D39B2A83C14E000828C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		10E9D39D2A83C868000828C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +162,6 @@
 				10ACE4952A30DADE00B38983 /* Info.plist */,
 				10CAE7272A1CFCFD009C4084 /* FashionAppOutfitApp.swift */,
 				10E9D39B2A83C14E000828C3 /* AppDelegate.swift */,
-				10E9D39D2A83C868000828C3 /* SceneDelegate.swift */,
 				10CAE7292A1CFCFD009C4084 /* ContentView.swift */,
 				10B7E65A2A783CF0009B69CA /* onBoarding */,
 				106744B82A70528F006E3581 /* Main Views */,
@@ -268,7 +265,6 @@
 				10CAE73A2A1E340B009C4084 /* ClosetManager.swift in Sources */,
 				10E9D39A2A817FE7000828C3 /* ScheduleView.swift in Sources */,
 				106744BA2A7052BF006E3581 /* OutfitsView.swift in Sources */,
-				10E9D39E2A83C868000828C3 /* SceneDelegate.swift in Sources */,
 				10CAE73D2A1E4616009C4084 /* dataModel.xcdatamodeld in Sources */,
 				106744BE2A705448006E3581 /* GenerateView.swift in Sources */,
 				10CAE7362A1CFDE8009C4084 /* camView.swift in Sources */,

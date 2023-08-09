@@ -361,9 +361,9 @@ class ClosetManager: ObservableObject {
         let fetchRequest: NSFetchRequest<OutfitScheduler> = OutfitScheduler.fetchRequest()
         let currentDate = Date()
         let calendar = Calendar.current
-        let eightHourAgo = calendar.date(byAdding: .hour, value: -8, to: currentDate)!
+        let expireTime = calendar.date(byAdding: .hour, value: -24, to: currentDate)!
 
-        fetchRequest.predicate = NSPredicate(format: "scheduleDate < %@", eightHourAgo as NSDate)
+        fetchRequest.predicate = NSPredicate(format: "scheduleDate < %@", expireTime as NSDate)
 
         do {
             let outdatedOutfits = try context.fetch(fetchRequest)

@@ -10,8 +10,6 @@ import UIKit
 import SwiftUI
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    
-    @State private var navigationIsActive = false
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -24,22 +22,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
         return true
     }
-    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-            let scheduleView = ScheduleView(closetManager: ClosetManager())
-                .environment(\.managedObjectContext, CoreDataStack.shared.context)
-                .environmentObject(ClosetManager())
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                let window = UIWindow(windowScene: windowScene)
-                let navigationController = UINavigationController(rootViewController: UIHostingController(rootView: scheduleView))
-                window.rootViewController = navigationController
-                self.window = window
-                window.makeKeyAndVisible()
-            }
-        }
-        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
         completionHandler()
     }
 }

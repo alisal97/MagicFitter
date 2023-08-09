@@ -69,7 +69,6 @@ struct ScheduleView: View {
 }
 
 
-
 struct ScheduleItemView: View {
     let outfitScheduler: OutfitScheduler
     @ObservedObject var closetManager: ClosetManager
@@ -81,8 +80,8 @@ struct ScheduleItemView: View {
                let outfitEntity = closetManager.getOutfitEntity(withID: outfitID) {
                 selectedOutfitEntity = outfitEntity
             }
-            }) {
-            HStack {
+        }) {
+            HStack(spacing: 8) {
                 if let imageData = outfitScheduler.scheduledOutfitPic, let image = UIImage(data: imageData) {
                     Image(uiImage: image)
                         .resizable()
@@ -95,17 +94,32 @@ struct ScheduleItemView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
                     .truncationMode(.tail)
+                
+                Text(formatScheduleDate(outfitScheduler.scheduleDate))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .foregroundColor(.secondary)
             }
-            .swipeActions{                
+            .swipeActions {
                 Button(action: {
                     closetManager.deleteScheduledOutfit(outfit: outfitScheduler)
                 }) {
                     Image(systemName: "trash")
                 }
                 .tint(.red)
-                
             }
-        
         }
+    }
+
+    func formatScheduleDate(_ date: Date?) -> String {
+        guard let date = date else {
+            return ""
+        }
+
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }

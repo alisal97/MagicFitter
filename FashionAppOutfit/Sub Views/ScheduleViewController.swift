@@ -98,27 +98,25 @@ struct ScheduleViewController: View {
         scheduledOutfit.remindMeBefore = remindMeBefore
         
         
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Outfit Reminder!"
-        content.body = "Don't forget to wear your \(title) outfit!"
-        content.sound = .default
-        content.badge = 1
-        
-        
-        let now = Date()
-        let timeInterval = scheduleDate.timeIntervalSince(now) - remindMeBefore
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling local notification: \(error.localizedDescription)")
-            } else {
-                print("Local notification scheduled successfully")
+        if remindMeBefore > 1 {
+            let content = UNMutableNotificationContent()
+            content.title = "Your Outfit Reminder!"
+            content.body = "Don't forget to wear your \(title) outfit!"
+            content.sound = .default            
+            
+            let now = Date()
+            let timeInterval = scheduleDate.timeIntervalSince(now) - remindMeBefore
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling local notification: \(error.localizedDescription)")
+                } else {
+                    print("Local notification scheduled successfully")
+                }
             }
         }
-        
         CoreDataStack.shared.saveContext()
         closetManager.deleteOutdatedScheduledOutfits()
         closetManager.getAllItems()
