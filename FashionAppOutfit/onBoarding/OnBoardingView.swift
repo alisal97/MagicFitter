@@ -21,7 +21,7 @@ struct onBoardingView: View {
         ["tutorial5", "If you're unsure about which item to wear, head to Generate, select a style and season (summer means no jacket) and tap \"Generate Outfit!\""],
         ["tutorial6", "On the Outfits screen, you can find the outfits you've saved. By tapping one, you can view the items, change outfit name, and add it to your favorites!"],
         ["tutorial7", "Laundry screen contains excluded items from outfit generation. You can move them back to closet anytime!"],
-        ["tutorial8", "Schedule screen: View planned outfits events, add an outfit event. Swipe left to simply delete a scheduled event."],
+        ["tutorial8", "In Schedule screen you can view planned outfits events, add an outfit event. Swipe left to simply delete a scheduled event."],
         ["tutorial9", "You can access this tutorial anytime by going to Generate and pressing the \"i\" button in the top-right corner!"]
     ];
 
