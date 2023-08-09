@@ -103,6 +103,7 @@ struct ScheduleViewController: View {
             content.title = "Your Outfit Reminder!"
             content.body = "Don't forget to wear your \(title) outfit!"
             content.sound = .default            
+            content.badge = 1
             
             let now = Date()
             let timeInterval = scheduleDate.timeIntervalSince(now) - remindMeBefore

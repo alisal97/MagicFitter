@@ -14,6 +14,7 @@ struct FashionAppOutfitApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @AppStorage("isFirstLaunch") private var isFirstLaunch = true
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -27,12 +28,15 @@ struct FashionAppOutfitApp: App {
                     .scrollDismissesKeyboard(.immediately)
                     .scrollIndicators(.never)
                     .onAppear {
-                        UIApplication.shared.applicationIconBadgeNumber = 0
                         ClosetManager().getAllItems()
+                    }
+                    .onChange(of: scenePhase) { newPhase in
+                        if newPhase == .background {
+                            UIApplication.shared.applicationIconBadgeNumber = 0
+                        }
                     }
             }
         }
+        
     }
-    
-    
 }
