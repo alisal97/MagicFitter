@@ -92,11 +92,13 @@ struct ScheduleItemView: View {
                 
                 Text(outfitScheduler.title ?? "")
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.subheadline)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 
                 Text(formatScheduleDate(outfitScheduler.scheduleDate))
                     .frame(maxWidth: .infinity, alignment: .trailing)
+                    .font(.caption)
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .foregroundColor(.secondary)

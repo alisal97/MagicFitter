@@ -27,9 +27,9 @@ struct ScheduleViewController: View {
                     
                     Picker("Remind me before", selection: $remindMeBefore) {
                         Text("None").tag(Double(0))
-                        Text("30 minutes").tag(Double(30 * 60))
                         Text("1 hour").tag(Double(60 * 60))
-                        Text("8 hours").tag(Double(8 * 60 * 60))
+                        Text("6 hours").tag(Double(8 * 60 * 60))
+                        Text("12 hours").tag(Double(12 * 60 * 60))
                         Text("24 hours").tag(Double(24 * 60 * 60))
                     }
                     .pickerStyle(.menu)
@@ -60,13 +60,6 @@ struct ScheduleViewController: View {
                                         .lineLimit(1)
                                         .truncationMode(.tail)
                                 }
-//                                .simultaneousGesture(TapGesture()
-//                                    .onEnded({ _ in
-//                                        if !title.isEmpty {
-//                                            saveScheduledOutfit(outfit: outfit)
-//                                        }
-//                                    }))
-//                                
                             }
                         }
                     }
@@ -97,17 +90,17 @@ struct ScheduleViewController: View {
         scheduledOutfit.scheduledOutfitPic = outfit.outfitPic
         scheduledOutfit.remindMeBefore = remindMeBefore
         
-        
         if remindMeBefore > 1 {
             let content = UNMutableNotificationContent()
             content.title = "Your Outfit Reminder!"
             content.body = "Don't forget to wear your \(title) outfit!"
-            content.sound = .default            
+            content.sound = .default
             content.badge = 1
             
-            let now = Date()
-            let timeInterval = scheduleDate.timeIntervalSince(now) - remindMeBefore
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+            let reminderTimeInSeconds = remindMeBefore
+            let triggerTimeInterval = max(scheduleDate.timeIntervalSinceNow - reminderTimeInSeconds, 1)
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerTimeInterval, repeats: false)
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { error in
