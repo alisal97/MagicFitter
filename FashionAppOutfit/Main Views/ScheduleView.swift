@@ -33,7 +33,7 @@ struct ScheduleView: View {
                     }
                 }
             }
-            .navigationTitle("Scheduled Outfits")
+            .navigationTitle("Schedule")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
                 Button(action: {

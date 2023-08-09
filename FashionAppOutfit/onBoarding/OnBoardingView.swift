@@ -34,7 +34,7 @@ struct onBoardingView: View {
                             if tutorialData[index][0] == "tutorial0" {
                                 Spacer()
                                 Text("""
-                                        Welcome to MagicFitter!, MagicFitter is an automatic outfit generator that creates outfits for you based on colors, using clothing items you already own!. Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!
+                                        Welcome to MagicFitter!, MagicFitter is an automatic outfit generator that creates outfits for you based on colors, using clothing items you already own. You can also manage your virtual closet and schedule outfits for special ocassions with ease. Let's get started!
                                         """)
                                     .foregroundStyle(Color.accentColor)
                                     .font(.title3)
@@ -42,6 +42,12 @@ struct onBoardingView: View {
                                     .padding(.top, 47)
                                     .multilineTextAlignment(.center)
                                     .lineLimit(nil)
+                                Text("Your app data is securely synced to your iCloud account, ensuring you never lose progress.")
+                                foregroundStyle(Color.accentColor)
+                                .font(.subheadline)
+                                .fontWeight(.heavy)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
                             }
                             else {
                                 Image(tutorialData[index][0])

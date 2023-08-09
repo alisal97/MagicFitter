@@ -11,6 +11,7 @@ import CoreData
 @main
 struct FashionAppOutfitApp: App {
     @Environment(\.managedObjectContext) private var viewContext
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @AppStorage("isFirstLaunch") private var isFirstLaunch = true
 
@@ -31,4 +32,6 @@ struct FashionAppOutfitApp: App {
             }
         }
     }
+    
+    
 }

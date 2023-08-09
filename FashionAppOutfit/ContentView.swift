@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 struct ContentView: View {
-    
     let closetManager = ClosetManager()
     @Environment(\.colorScheme) var colorScheme
     @State private var selection = 3
