@@ -13,7 +13,7 @@ struct onBoardingView: View {
     @State private var currentPageIndex = 0
 
     let tutorialData = [
-        ["tutorial0", ""],
+        ["tutorial0", "Your app data is securely synced to your iCloud account, ensuring you never lose progress"],
         ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Repeat until you have a variety of items and colors!"],
         ["tutorial2", "After populating your closet, the hard part is done, MagicFitter will take care of the rest, just tap any item!"],
         ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Or Tap \"match\" to use it to generate an outfit!"],
@@ -36,18 +36,12 @@ struct onBoardingView: View {
                                 Text("""
                                         Welcome to MagicFitter!, MagicFitter is an automatic outfit generator that creates outfits for you based on colors, using clothing items you already own. You can also manage your virtual closet and schedule outfits for special ocassions with ease. Let's get started!
                                         """)
-                                    .foregroundStyle(Color.accentColor)
+                                     .foregroundStyle(Color.accentColor)
                                     .font(.title3)
                                     .fontWeight(.heavy)
                                     .padding(.top, 47)
                                     .multilineTextAlignment(.center)
                                     .lineLimit(nil)
-                                Text("Your app data is securely synced to your iCloud account, ensuring you never lose progress.")
-                                foregroundStyle(Color.accentColor)
-                                .font(.subheadline)
-                                .fontWeight(.heavy)
-                                .multilineTextAlignment(.center)
-                                .lineLimit(nil)
                             }
                             else {
                                 Image(tutorialData[index][0])
