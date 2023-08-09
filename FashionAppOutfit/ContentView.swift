@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 struct ContentView: View {
-    
     let closetManager = ClosetManager()
     @Environment(\.colorScheme) var colorScheme
     @State private var selection = 3
@@ -46,10 +45,10 @@ struct ContentView: View {
                 }
                 .tag(4)
 
-            TipsView()
+            ScheduleView(closetManager: closetManager)
                 .tabItem {
-                    Image(systemName: "lightbulb.fill")
-                    Text("Tips")
+                    Image(systemName: "calendar")
+                    Text("Schedule")
                 }
                 .tag(5)
         }

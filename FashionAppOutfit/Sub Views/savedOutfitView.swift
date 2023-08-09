@@ -21,7 +21,7 @@ struct SavedOutfitView: View {
     @State private var selectedItem: ClosetItemEntity? = nil
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                  HStack {
                     if isEditingOutfitName {

@@ -17,8 +17,8 @@ struct GenerateView: View {
     @State var generatedOutfitItems: [ClosetItemEntity] = []
     @State private var showFeedback = false
     @State var showGeneratedOutfit = false
-    @State private var showModal = false 
-    
+    @State private var showTutorial = false
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -76,6 +76,9 @@ struct GenerateView: View {
                 
             }
             .padding()
+            .sheet(isPresented: $showTutorial) {
+                onBoardingView(showOnboarding: $showTutorial)
+            }
             .sheet(isPresented: $showGeneratedOutfit) {
                 GeneratedOutfitView(outfitItems: generatedOutfitItems, item: item)
                     .onAppear {
@@ -84,28 +87,24 @@ struct GenerateView: View {
             }
             .navigationTitle("Generate Outfit")
             .navigationBarTitleDisplayMode(.large)
-//            .navigationBarItems(trailing:
-//                                    Button(action: {
-//                showModal = true
-//            }) {
-//                Image(systemName: "plus")
-//                    .fontWeight(.semibold)
-//                    .foregroundColor(.white)
-//                    .padding(.horizontal, 15)
-//                    .padding(.vertical, 6)
-//                    .background(Color.gray)
-//                    .cornerRadius(20)
-//                
-//            }
-//                                
-//            )
+            .navigationBarItems(trailing:
+                                    Button(action: {
+                showTutorial = true
+            }) {
+                Image(systemName: "info")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 6)
+                    .background(Color.gray)
+                    .cornerRadius(20)
+                
+            }
+                                
+            )
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .scrollIndicators(.hidden)
-            
-            .sheet(isPresented: $showModal) {
-                AddItemView(closetManager: closetManager)
-            }
-            
+                        
         }
     }
     

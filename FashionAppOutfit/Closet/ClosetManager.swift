@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SwiftUI
 
 enum ItemType: String {
     case tops
@@ -38,6 +39,7 @@ class ClosetManager: ObservableObject {
     @Published var generatedOutfitItems: [ClosetItemEntity] = []
     @Published var showGeneratedOutfit = false 
     
+
     let colorCombinations = [
         ["Yellow", "Yellow", "Yellow"],
         ["Yellow", "Green", "Orange"],
@@ -341,6 +343,52 @@ class ClosetManager: ObservableObject {
         context.delete(outfit)
         CoreDataStack.shared.saveContext()
         
+    }
+    func deleteScheduledOutfit(outfit: OutfitScheduler) {
+        let context = CoreDataStack.shared.context
+        
+        context.delete(outfit)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error deleting scheduled outfit: \(error)")
+        }
+    }
+    func deleteOutdatedScheduledOutfits() {
+        let context = CoreDataStack.shared.context
+        
+        let fetchRequest: NSFetchRequest<OutfitScheduler> = OutfitScheduler.fetchRequest()
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let expireTime = calendar.date(byAdding: .hour, value: -24, to: currentDate)!
+
+        fetchRequest.predicate = NSPredicate(format: "scheduleDate < %@", expireTime as NSDate)
+
+        do {
+            let outdatedOutfits = try context.fetch(fetchRequest)
+            for outfit in outdatedOutfits {
+                context.delete(outfit)
+            }
+            
+            try context.save()
+        } catch {
+            print("Error deleting outdated scheduled outfits: \(error)")
+        }
+    }
+
+    func getOutfitEntity(withID id: UUID) -> OutfitEntity? {
+        
+        let context = CoreDataStack.shared.context
+        let fetchRequest: NSFetchRequest<OutfitEntity> = OutfitEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "outfitID == %@", id as CVarArg)
+        do {
+            let fetchedOutfits = try context.fetch(fetchRequest)
+            return fetchedOutfits.first
+        } catch {
+            print("Error fetching OutfitEntity: \(error)")
+            return nil
+        }
     }
 
 }

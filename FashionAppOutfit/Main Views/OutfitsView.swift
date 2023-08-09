@@ -97,10 +97,6 @@ struct OutfitsView: View {
                             .tint(.blue)
                         }
                     }
-                    .onDisappear {
-                        cancelSelection()
-                    }
-                    
                     .onTapGesture {
                         if isSelectMode {
                             toggleSelection(for: outfit)
@@ -162,10 +158,8 @@ struct OutfitsView: View {
                             
                             if selectedSegment == 0 {
                                 Button(action: {
-                                for outfit in selectedOutfits {
-                                    outfit.isFavorite = true
-                                }
-                            }) {
+                                    favSelectedOutfits()
+                                }) {
                                 Text("Add to Favorites")
                                     .padding()
                                     .foregroundColor(.blue)
@@ -174,9 +168,7 @@ struct OutfitsView: View {
                             }
                             else if selectedSegment == 1 {
                                 Button(action: {
-                                    for outfit in selectedOutfits {
-                                        outfit.isFavorite = false
-                                    }
+                                    favSelectedOutfits()
                                 }) {
                                     Text("Remove from Favorites")
                                         .padding()
@@ -233,7 +225,12 @@ struct OutfitsView: View {
         cancelSelection()
     }
     
-    
+    func favSelectedOutfits() {
+        for outfit in selectedOutfits {
+            toggleFavorite(for: outfit)
+        }
+        cancelSelection()
+    }
     func toggleSelection(for outfit: OutfitEntity) {
         outfit.isSelected.toggle()
         

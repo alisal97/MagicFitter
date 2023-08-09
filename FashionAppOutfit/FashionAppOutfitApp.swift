@@ -11,8 +11,10 @@ import CoreData
 @main
 struct FashionAppOutfitApp: App {
     @Environment(\.managedObjectContext) private var viewContext
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @AppStorage("isFirstLaunch") private var isFirstLaunch = true
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -28,7 +30,13 @@ struct FashionAppOutfitApp: App {
                     .onAppear {
                         ClosetManager().getAllItems()
                     }
+                    .onChange(of: scenePhase) { newPhase in
+                        if newPhase == .background {
+                            UIApplication.shared.applicationIconBadgeNumber = 0
+                        }
+                    }
             }
         }
+        
     }
 }

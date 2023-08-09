@@ -13,19 +13,17 @@ struct onBoardingView: View {
     @State private var currentPageIndex = 0
 
     let tutorialData = [
-        ["tutorial0", ""],
+        ["tutorial0", "Your app data is securely synced to your iCloud account, ensuring you never lose progress"],
         ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Repeat until you have a variety of items and colors!"],
         ["tutorial2", "After populating your closet, the hard part is done, MagicFitter will take care of the rest, just tap any item!"],
         ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Or Tap \"match\" to use it to generate an outfit!"],
         ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"try again!\""],
         ["tutorial5", "If you're unsure about which item to wear, head to Generate, select a style and season (summer means no jacket) and tap \"Generate Outfit!\""],
         ["tutorial6", "On the Outfits screen, you can find the outfits you've saved. By tapping one, you can view the items, change outfit name, and add it to your favorites!"],
-        ["tutorial7", "The Laundry screen displays unavailable items that MagicFitter won't use for outfit generation. If they're ready to wear again, you can add them back to your closet!"],
-        ["tutorial8", "You can access this tutorial anytime by going to Tips and pressing the \"i\" button in the top-right corner!"]
+        ["tutorial7", "The Laundry screen displays unavailable items that MagicFitter won't use for outfit generation. You can add them back to your closet easily!"],
+        ["tutorial8", "On the Schedule screen, you can schedule your outfits for future events, and view the outfit schedule ahead of you!"],
+        ["tutorial9", "You can access this tutorial anytime by going to Generate and pressing the \"i\" button in the top-right corner!"]
     ];
-
-
-
 
     var body: some View {
         NavigationStack {
@@ -36,9 +34,9 @@ struct onBoardingView: View {
                             if tutorialData[index][0] == "tutorial0" {
                                 Spacer()
                                 Text("""
-                                        Welcome to MagicFitter!, MagicFitter is an automatic outfit generator that creates outfits for you based on colors, using clothing items you already own!. Your app data is securely synced to your iCloud account, ensuring you never lose progress. Let's get started!
+                                        Welcome to MagicFitter!, MagicFitter is an automatic outfit generator that creates outfits for you based on colors, using clothing items you already own. You can also manage your virtual closet and schedule outfits for special ocassions with ease. Let's get started!
                                         """)
-                                    .foregroundStyle(Color.accentColor)
+                                     .foregroundStyle(Color.accentColor)
                                     .font(.title3)
                                     .fontWeight(.heavy)
                                     .padding(.top, 47)
@@ -56,7 +54,7 @@ struct onBoardingView: View {
                             }
                             Text(tutorialData[index][1])
                                 .foregroundColor(.accentColor)
-                                .font(.headline)
+                                .font(.subheadline)
                                 .fontWeight(.heavy)
                                 .multilineTextAlignment(.center)
                                 .padding()
@@ -72,7 +70,7 @@ struct onBoardingView: View {
                                 }
                             }) {
                                 Text(currentPageIndex < tutorialData.count - 1 ? "Continue" : "I am ready")
-                                    .font(.subheadline)
+                                    .font(.headline)
                                     .foregroundColor(.accentColor)
                                     .frame(width: 135, height: 43, alignment: .center)
                                     .background(Color.gray)
@@ -90,13 +88,20 @@ struct onBoardingView: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-
+                .navigationBarItems(trailing: Button(action: {
+                    showOnboarding = false
+                }) {
+                    Text("Skip")
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.gray)
+                        .cornerRadius(20)
+                })
             }
-            .padding(.top, 20)
         }
     }
 }
-
 
 
 
