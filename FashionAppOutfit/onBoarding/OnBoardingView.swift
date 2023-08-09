@@ -16,12 +16,12 @@ struct onBoardingView: View {
         ["tutorial0", "Your app data is securely synced to your iCloud account, ensuring you never lose progress"],
         ["tutorial1", "To start, head to the Closet and populate it by tapping on the \"+\" button. Repeat until you have a variety of items and colors!"],
         ["tutorial2", "After populating your closet, the hard part is done, MagicFitter will take care of the rest, just tap any item!"],
-        ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Or Tap \"match\" to use it to generate an outfit!"],
-        ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"try again!\""],
+        ["tutorial3", "Here you can edit it or add it to the laundry if it's not available to wear. Or Tap \"Match\" to use it to generate an outfit!"],
+        ["tutorial4", "Voila! MagicFitter has created an outfit for you! If you like it, save it. If not, simply press \"Try again!\""],
         ["tutorial5", "If you're unsure about which item to wear, head to Generate, select a style and season (summer means no jacket) and tap \"Generate Outfit!\""],
         ["tutorial6", "On the Outfits screen, you can find the outfits you've saved. By tapping one, you can view the items, change outfit name, and add it to your favorites!"],
-        ["tutorial7", "The Laundry screen displays unavailable items that won't be used for outfit generation. You can also move items from Laundry to Closet easily!"],
-        ["tutorial8", "On the Schedule screen, you can schedule your outfits for future events, and view your outfit schedule!"],
+        ["tutorial7", "Laundry screen contains excluded items from outfit generation. You can move them back to closet anytime!"],
+        ["tutorial8", "Schedule screen: View planned outfits events, add an outfit event. Swipe left to simply delete a scheduled event."],
         ["tutorial9", "You can access this tutorial anytime by going to Generate and pressing the \"i\" button in the top-right corner!"]
     ];
 
