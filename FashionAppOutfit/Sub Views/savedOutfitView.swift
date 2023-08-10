@@ -20,9 +20,8 @@ struct SavedOutfitView: View {
     
     @State private var selectedItem: ClosetItemEntity? = nil
     
-
-    @State private var url = ""
-
+    @State private var image: Image? = nil
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -72,8 +71,7 @@ struct SavedOutfitView: View {
                     }
                     .padding()
                 }
-
-                
+            
                 List(outfit.closetItemArray, id: \.id) { item in
                     HStack {
                         if let imageData = item.imageData, let image = UIImage(data: imageData) {
@@ -130,15 +128,20 @@ struct SavedOutfitView: View {
                 }
     
                 HStack {
-                    ShareLink(item: url) {
+                    ShareLink(
+                        item: image ?? Image("FallbackImage"),
+                        preview: SharePreview(
+                            "Share \(outfit.outfitName ?? "") ",
+                            image: image ?? Image("FallbackImage")
+                        )
+                    ) {
                             Image(systemName: "square.and.arrow.up")
                             .foregroundStyle(Color.accentColor)
                             .font(.title)
                             .frame(alignment: .leading)
                     }
                     .padding(25)
-                    
-                    
+
                     Spacer()
                     
                     Button(action: {
@@ -161,6 +164,7 @@ struct SavedOutfitView: View {
             .listStyle(.plain)
             .onAppear {
                 isFavorite = outfit.isFavorite
+                captureSnapshot()
             }
         }
         .scrollDismissesKeyboard(.immediately)
@@ -178,6 +182,17 @@ struct SavedOutfitView: View {
         }
     }
     
+    func captureSnapshot() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            if let windowScene = UIApplication.shared.connectedScenes
+                .first(where: { $0 is UIWindowScene }) as? UIWindowScene,
+               let uiImage = windowScene.windows.first?.screenshot() {
+                // Convert UIImage to SwiftUI Image
+                self.image = Image(uiImage: uiImage)
+            }
+        }
+    }
+
     func deleteOutfit() {
         presentationMode.wrappedValue.dismiss()
         closetManager.deleteOutfit(outfit: outfit)
@@ -218,6 +233,24 @@ struct SavedOutfitView: View {
         }
 
     
+}
+
+extension UIWindow {
+    func screenshot() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.nativeScale)
+        defer { UIGraphicsEndImageContext() }
+        drawHierarchy(in: bounds, afterScreenUpdates: true)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+}
+
+extension UIView {
+    func screenshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.nativeScale)
+        defer { UIGraphicsEndImageContext() }
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        return UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+    }
 }
 
 extension OutfitEntity {
