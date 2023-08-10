@@ -16,7 +16,7 @@ struct ScheduleView: View {
 
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
+        formatter.dateStyle = .full
         formatter.timeStyle = .none
         return formatter
     }
@@ -28,8 +28,17 @@ struct ScheduleView: View {
                     Section(header: Text(dateFormatter.string(from: date))) {
                         ForEach(scheduledOutfits, id: \.self) { outfit in
                             ScheduleItemView(outfitScheduler: outfit, closetManager: closetManager, selectedOutfitEntity: $selectedOutfitEntity)
+                                .swipeActions {
+                                    Button(action: {
+                                        closetManager.deleteScheduledOutfit(outfit: outfit)
+                                    }) {
+                                        Image(systemName: "trash")
+                                    }
+                                    .tint(.red)
+                                }
                             
                         }
+
                     }
                 }
             }
@@ -102,14 +111,6 @@ struct ScheduleItemView: View {
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .foregroundColor(.secondary)
-            }
-            .swipeActions {
-                Button(action: {
-                    closetManager.deleteScheduledOutfit(outfit: outfitScheduler)
-                }) {
-                    Image(systemName: "trash")
-                }
-                .tint(.red)
             }
         }
     }

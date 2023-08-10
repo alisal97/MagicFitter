@@ -187,7 +187,6 @@ struct SavedOutfitView: View {
             if let windowScene = UIApplication.shared.connectedScenes
                 .first(where: { $0 is UIWindowScene }) as? UIWindowScene,
                let uiImage = windowScene.windows.first?.screenshot() {
-                // Convert UIImage to SwiftUI Image
                 self.image = Image(uiImage: uiImage)
             }
         }
