@@ -143,7 +143,7 @@ struct ClosetView: View {
                             
                         }
                         
-                        .listStyle(.automatic)
+                        .listStyle(.plain)
                     }
                 }
                 FloatingButton(action: {

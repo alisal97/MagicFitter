@@ -113,7 +113,7 @@ struct LaundryView: View {
                     }
                 }
                 
-                .listStyle(.automatic)
+                .listStyle(.plain)
                 
             }
             .onAppear {
