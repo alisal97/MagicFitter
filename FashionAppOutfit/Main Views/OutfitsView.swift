@@ -55,8 +55,6 @@ struct OutfitsView: View {
             .frame(maxWidth: .infinity, alignment: .top)
             .padding(.horizontal)
             
-            Spacer()
-
             List {
                 ForEach(displayedOutfits, id: \.self) { outfit in
                     NavigationLink(destination: SavedOutfitView(outfit: outfit)) {

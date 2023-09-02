@@ -62,8 +62,8 @@ struct ClosetView: View {
                     .pickerStyle(.segmented)
                     .frame(maxWidth: .infinity, alignment: .top)
                     .padding(.horizontal)
-                    Spacer()
                     if closetManager.items.isEmpty {
+                        Spacer()
                         Text("Your closet is empty. Tap the \"+\" button in the bottom right corner to start populating your virtual closet!.")
                             .font(.headline)
                             .foregroundColor(.gray.opacity(0.7))

@@ -39,6 +39,7 @@ struct GeneratedOutfitView: View {
                 .foregroundColor(.accentColor)
             List {
                 ForEach(outfitItems, id: \.id) { item in
+                    HStack {
                     if let imageData = item.imageData, let image = UIImage(data: imageData) {
                         Image(uiImage: image)
                             .resizable()
@@ -52,40 +53,40 @@ struct GeneratedOutfitView: View {
                                     .stroke(Color.accentColor, lineWidth: 2)
                             )
                     }
-                    VStack(alignment: .leading, spacing: 8) {
-                        ItemLabel(title: "Name", value: item.name ?? "")
-                        HStack{
-                            Image(systemName: "eyedropper")
-                                .font(.system(size: 20))
-                                .foregroundColor(.accentColor)
-                            Text("Color:")
-                                .font(.headline)
-                                .foregroundColor(.accentColor)
-                                .fontWeight(.bold)
-                            HStack {
-                                Circle()
-                                    .fill(Color(item.color ?? "Color"))
-                                    .frame(width: 15)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.accentColor, lineWidth: 1.5)
-                                    )
-                                
-                                Text(item.color ?? "")
+                        VStack(alignment: .leading, spacing: 8) {
+                            ItemLabel(title: "Name", value: item.name ?? "")
+                            HStack{
+                                Image(systemName: "eyedropper")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.accentColor)
+                                Text("Color:")
                                     .font(.headline)
                                     .foregroundColor(.accentColor)
                                     .fontWeight(.bold)
-                                
+                                HStack {
+                                    Circle()
+                                        .fill(Color(item.color ?? "Color"))
+                                        .frame(width: 15)
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color.accentColor, lineWidth: 1.5)
+                                        )
+                                    
+                                    Text(item.color ?? "")
+                                        .font(.headline)
+                                        .foregroundColor(.accentColor)
+                                        .fontWeight(.bold)
+                                    
+                                }
                             }
+                            ItemLabel(title: "Type", value: item.itemType ?? "")
+                            ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                            
                         }
-                        ItemLabel(title: "Type", value: item.itemType ?? "")
-                        ItemLabel(title: "Style", value: item.itemStyle ?? "")
-                        
-                        
                     }
                 }
             }
-            .listStyle(.plain)
+            .listStyle(.automatic)
     Spacer()
             VStack {
                 Button(action: {

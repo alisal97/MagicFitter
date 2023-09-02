@@ -42,7 +42,6 @@ struct LaundryView: View {
                 .pickerStyle(.segmented)
                 .frame(maxWidth: .infinity, alignment: .top)
                 .padding(.horizontal)
-                Spacer()
                 List {
                     ForEach(sortedItems, id: \.id) { item in
                         NavigationLink(destination: FullView(item: item, closetManager: closetManager))  {
@@ -115,6 +114,7 @@ struct LaundryView: View {
                 }
                 
                 .listStyle(.automatic)
+                
             }
             .onAppear {
                 closetManager.getAllItems()
