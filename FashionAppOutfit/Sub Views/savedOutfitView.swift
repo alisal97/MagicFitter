@@ -161,7 +161,7 @@ struct SavedOutfitView: View {
                 Spacer()
             }
             .ignoresSafeArea(.keyboard)
-            .listStyle(.plain)
+            .listStyle(.automatic)
             .onAppear {
                 isFavorite = outfit.isFavorite
                 captureSnapshot()

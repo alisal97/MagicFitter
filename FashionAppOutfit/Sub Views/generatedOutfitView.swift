@@ -34,48 +34,59 @@ struct GeneratedOutfitView: View {
                     .padding()
             }
             Spacer()
-            Text("Your outfit is ready!")
-                .font(.title2)
+            Text("Outfit Generated Successfully!")
+                .font(.title3)
                 .foregroundColor(.accentColor)
-                .padding(.bottom, 35)
-            LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: 16),
-                GridItem(.flexible(), spacing: 16)
-            ], spacing: 16) {
+            List {
                 ForEach(outfitItems, id: \.id) { item in
-                    ZStack(alignment: .bottom) {
-                        Image(uiImage: UIImage(data: item.imageData!)!)
+                    if let imageData = item.imageData, let image = UIImage(data: imageData) {
+                        Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .scaledToFill()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 169, height: 169)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.accentColor, lineWidth: 2)
                             )
-                        
-                        
-                        if let name = item.name {
-                            Text(name)
-                                .foregroundColor(.white)
-                                .font(.subheadline)
-                                .padding(8)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.gray.opacity(0.69))
-                                .cornerRadius(8)
-                                .offset(y: 1)
-                        }
                     }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.accentColor, lineWidth: 2)
-                    )
-
+                    VStack(alignment: .leading, spacing: 8) {
+                        ItemLabel(title: "Name", value: item.name ?? "")
+                        HStack{
+                            Image(systemName: "eyedropper")
+                                .font(.system(size: 20))
+                                .foregroundColor(.accentColor)
+                            Text("Color:")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                                .fontWeight(.bold)
+                            HStack {
+                                Circle()
+                                    .fill(Color(item.color ?? "Color"))
+                                    .frame(width: 15)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.accentColor, lineWidth: 1.5)
+                                    )
+                                
+                                Text(item.color ?? "")
+                                    .font(.headline)
+                                    .foregroundColor(.accentColor)
+                                    .fontWeight(.bold)
+                                
+                            }
+                        }
+                        ItemLabel(title: "Type", value: item.itemType ?? "")
+                        ItemLabel(title: "Style", value: item.itemStyle ?? "")
+                        
+                        
+                    }
                 }
             }
-            .padding(.horizontal)
-            Spacer()
+            .listStyle(.plain)
+    Spacer()
             VStack {
                 Button(action: {
                     saveOutfit()

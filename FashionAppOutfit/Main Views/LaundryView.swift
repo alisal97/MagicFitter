@@ -114,7 +114,7 @@ struct LaundryView: View {
                     }
                 }
                 
-                .listStyle(.plain)
+                .listStyle(.automatic)
             }
             .onAppear {
                 closetManager.getAllItems()

@@ -113,7 +113,7 @@ struct OutfitsView: View {
                     showDeleteConfirmation = true
                 }
             }
-            .listStyle(.plain)
+            .listStyle(.automatic)
             .navigationTitle("Outfits")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
@@ -260,5 +260,4 @@ struct OutfitsView: View {
             }
         }
     }
-
 
