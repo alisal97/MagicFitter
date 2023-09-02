@@ -87,7 +87,6 @@ struct GeneratedOutfitView: View {
                 }
             }
             .listStyle(.automatic)
-    Spacer()
             VStack {
                 Button(action: {
                     saveOutfit()
@@ -104,9 +103,8 @@ struct GeneratedOutfitView: View {
                             .background(Color.gray.opacity(0.35))
                             .cornerRadius(12)
                     }
-                    .padding(.top, 35)
                     .padding(.horizontal, 32)
-                    .padding(.bottom, 8) // Reduce the bottom padding of the "Save" button
+                    .padding(.bottom, 8)
                 }
                 
                 Button(action: {
@@ -127,12 +125,10 @@ struct GeneratedOutfitView: View {
                     .padding()
                     .background(Color.gray.opacity(0.35))
                     .cornerRadius(12)
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 15)
                     .padding(.horizontal, 100)
                 }
             }
-
-            .padding(.top, 23)
         }
         .onAppear {
             closetManager.getAllItems()

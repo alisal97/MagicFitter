@@ -41,43 +41,29 @@ struct FullView: View {
                         }
                     }
                     HStack {
-                        VStack {
                             Button(action: {
                                 updateAvailability()
                             }) {
-                                HStack {
-                                    Image(systemName: item.isAvailable ? "square" : "checkmark.square.fill")
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
+                                    Image(systemName: item.isAvailable ? "washer" : "washer.fill")
+                                        .font(.title)
                                         .foregroundColor(.accentColor)
-                                        .padding(3)
-                                    Text(item.isAvailable ? "Add to Laundry" : "In Laundry")
-                                        .foregroundColor(.accentColor)
-                                }
-                                .cornerRadius(8)
-                                .padding(10)
                             }
-                        }
-                        .padding(.leading)
-                        VStack {
-                            Button(action: {
+                            .padding(.horizontal, 75)
+                        Button(action: {
                                 showDeleteConfirmation = true
                             }) {
                                 Image(systemName: "trash.fill")
-                                    .font(.title2)
+                                    .font(.title)
                                     .foregroundColor(.red)
                             }
-                        }
-                        .padding(.trailing)
+                            .padding(.horizontal, 75)
                     }
-                    
                 }
                 ZStack {
-                    
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.gray.opacity(0.2))
                         .edgesIgnoringSafeArea(.all)
-                        .frame(width: 235, height: 170)
+                        .frame(width: 370 * 0.75, height: 170)
                     
                     VStack(alignment: .leading, spacing: 16) {
                         ItemLabel(title: "Name", value: item.name ?? "")
@@ -118,12 +104,15 @@ struct FullView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .foregroundColor(.accentColor)
+                        .frame(maxWidth: 370 * 0.75)
+                        .padding(.horizontal)
                     } else {
                         Picker(selection: .constant(true), label: Text("Include Jacket")) {
                             Text("Summer").tag(true)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .foregroundColor(.accentColor)
+                        .padding(.horizontal)
                         .disabled(true)
                         .hidden()
                     }
