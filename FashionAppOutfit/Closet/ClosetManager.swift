@@ -347,6 +347,8 @@ class ClosetManager: ObservableObject {
     func deleteScheduledOutfit(outfit: OutfitScheduler) {
         let context = CoreDataStack.shared.context
         
+        outfit.scheduleDate = nil
+        outfit.remindMeBefore = 0.0
         context.delete(outfit)
         
         do {
