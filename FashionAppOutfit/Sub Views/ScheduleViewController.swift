@@ -97,12 +97,17 @@ struct ScheduleViewController: View {
             content.sound = .default
             content.badge = 1
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let notificationIdentifier = "outfitReminder_\(dateFormatter.string(from: scheduleDate))"
+
+            
             let reminderTimeInSeconds = remindMeBefore
             let triggerTimeInterval = max(scheduleDate.timeIntervalSinceNow - reminderTimeInSeconds, 1)
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerTimeInterval, repeats: false)
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            
+            let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+
             UNUserNotificationCenter.current().add(request) { error in
                 if let error = error {
                     print("Error scheduling local notification: \(error.localizedDescription)")

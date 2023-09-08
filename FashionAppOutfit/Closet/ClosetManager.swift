@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CoreData
 import SwiftUI
+import UserNotifications
 
 enum ItemType: String {
     case tops
@@ -346,11 +347,18 @@ class ClosetManager: ObservableObject {
     }
     func deleteScheduledOutfit(outfit: OutfitScheduler) {
         let context = CoreDataStack.shared.context
-        
-        outfit.scheduleDate = nil
-        outfit.remindMeBefore = 0.0
+
+        // Retrieve the unique identifier based on scheduled date and time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMddHHmmss"
+        let notificationIdentifier = "outfitReminder_\(dateFormatter.string(from: outfit.scheduleDate!))"
+
+        // Cancel the notification using the unique identifier
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
+
+        // Delete the outfit
         context.delete(outfit)
-        
+
         do {
             try context.save()
         } catch {
