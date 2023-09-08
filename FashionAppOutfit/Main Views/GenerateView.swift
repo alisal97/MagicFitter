@@ -18,6 +18,7 @@ struct GenerateView: View {
     @State private var showFeedback = false
     @State var showGeneratedOutfit = false
     @State private var showTutorial = false
+    @State private var showModal = false
 
     var body: some View {
         NavigationStack {
@@ -30,6 +31,26 @@ struct GenerateView: View {
                         .font(.headline)
                 }
                 Spacer()
+                
+                
+                Button(action: {
+                    showModal = true
+                })
+                {
+                    VStack {
+                        Image(systemName: "square.and.pencil")
+                            .font(.system(size: 65))
+                            .foregroundColor(.accentColor)
+                            .padding(.bottom, 10)
+                        Text("Make Outfit")
+                            .foregroundColor(.accentColor)
+                    }
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(15)
+                }
+                
+                Divider()
                 
                 Button(action: {
                     generatedOutfitItems(includeJacket: includeJacket)
@@ -85,7 +106,14 @@ struct GenerateView: View {
                         closetManager.getAllItems()
                     }
             }
-            .navigationTitle("Generate Outfit")
+            .sheet(isPresented: $showModal) {
+                OutfitCreationViewController(closetManager: closetManager)
+                    .onAppear {
+                        closetManager.getAllItems()
+                    }
+            }
+
+            .navigationTitle("Make Outfit")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
                                     Button(action: {

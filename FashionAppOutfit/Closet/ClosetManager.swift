@@ -40,6 +40,30 @@ class ClosetManager: ObservableObject {
     @Published var generatedOutfitItems: [ClosetItemEntity] = []
     @Published var showGeneratedOutfit = false 
     
+    
+    func createOutfitWithItems(items: [ClosetItemEntity]) {
+        let context = CoreDataStack.shared.context
+        
+        let newOutfit = OutfitEntity(context: context)
+        let outfitDate = Date()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        
+        let outfitName = ""
+        newOutfit.outfitName = outfitName
+        newOutfit.outfitID = UUID()
+        
+        newOutfit.date = outfitDate
+        newOutfit.isFavorite = false
+        
+        for item in items {
+            newOutfit.addToItems(item)
+        }
+        
+        CoreDataStack.shared.saveContext()
+    }
+
 
     let colorCombinations = [
         ["Yellow", "Yellow", "Yellow"],

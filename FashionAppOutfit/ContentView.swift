@@ -34,7 +34,7 @@ struct ContentView: View {
             GenerateView(item: item, closetManager: closetManager)
                 .tabItem {
                     Image(systemName: "wand.and.stars.inverse")
-                    Text("Generate")
+                    Text("Make")
                 }
                 .tag(3)
             
