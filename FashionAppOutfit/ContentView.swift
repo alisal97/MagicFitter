@@ -14,6 +14,8 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var selection = 3
     let item: ClosetItemEntity
+    @Binding var selectedItem: ClosetItemEntity?
+
     
     var body: some View {
         TabView(selection:$selection) {
@@ -31,7 +33,7 @@ struct ContentView: View {
                 }
                 .tag(2)
 
-            GenerateView(item: item, closetManager: closetManager)
+            GenerateView(item: item, closetManager: closetManager, selectedItem: $selectedItem)
                 .tabItem {
                     Image(systemName: "wand.and.stars.inverse")
                     Text("Make")
@@ -60,10 +62,10 @@ struct ContentView: View {
     
 }
 
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(item: ClosetItemEntity())
-    }
-}
-
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(item: ClosetItemEntity())
+//    }
+//}
+//

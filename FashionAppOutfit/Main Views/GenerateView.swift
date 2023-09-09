@@ -19,7 +19,10 @@ struct GenerateView: View {
     @State var showGeneratedOutfit = false
     @State private var showTutorial = false
     @State private var showModal = false
+    @Binding var selectedItem: ClosetItemEntity?
 
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -38,7 +41,7 @@ struct GenerateView: View {
                 })
                 {
                     VStack {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: "wand.and.stars.inverse")
                             .font(.system(size: 65))
                             .foregroundColor(.accentColor)
                             .padding(.bottom, 10)
@@ -107,7 +110,7 @@ struct GenerateView: View {
                     }
             }
             .sheet(isPresented: $showModal) {
-                OutfitCreationViewController(closetManager: closetManager)
+                OutfitCreationViewController(closetManager: closetManager, selectedItem: $selectedItem)
                     .onAppear {
                         closetManager.getAllItems()
                     }

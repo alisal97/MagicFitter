@@ -10,7 +10,7 @@ import SwiftUI
 struct OutfitCreationViewController: View {
     @ObservedObject var closetManager: ClosetManager
     @Environment(\.presentationMode) var presentationMode
-    
+    @Binding var selectedItem: ClosetItemEntity?
     @State private var selectedJacket: ClosetItemEntity?
     @State private var selectedTops: ClosetItemEntity?
     @State private var selectedBottoms: ClosetItemEntity?
@@ -115,6 +115,38 @@ struct OutfitCreationViewController: View {
             )
         }
     }
+    func filterItemsWithMatchingColors(chosenItem: ClosetItemEntity, closetManager: ClosetManager) -> [ClosetItemEntity] {
+        // Check if the chosenItem has a valid color and style
+        guard let chosenColor = chosenItem.color,
+              let chosenStyle = ItemStyle(rawValue: chosenItem.itemStyle ?? ""),
+              !chosenColor.isEmpty else {
+            return []
+        }
+
+        // Initialize an array to store matching items
+        var matchingItems: [ClosetItemEntity] = []
+
+        // Iterate through the color combinations
+        for colorCombination in colorCombinations {
+            // Check if the chosenColor matches any color in the combination
+            if colorCombination.contains(chosenColor) {
+                // Iterate through the available items
+                for item in closetManager.items {
+                    // Check if the item's color and style match the color combination and chosen style
+                    if let itemColor = item.color,
+                       let itemStyle = ItemStyle(rawValue: item.itemStyle ?? ""),
+                       itemColor != chosenColor,
+                       colorCombination.contains(itemColor),
+                       (itemStyle == chosenStyle || chosenStyle == .both),
+                       item.isAvailable {
+                        matchingItems.append(item)
+                    }
+                }
+            }
+        }
+
+        return matchingItems
+    }
 
     private func createOutfit() {
         guard let selectedTops = selectedTops, let selectedBottoms = selectedBottoms else {
@@ -132,6 +164,6 @@ struct OutfitCreationViewController: View {
     }
 }
 
-#Preview {
-    OutfitCreationViewController(closetManager: ClosetManager())
-}
+//#Preview {
+//    OutfitCreationViewController(closetManager: ClosetManager())
+//}

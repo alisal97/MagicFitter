@@ -31,6 +31,7 @@
 		10E9D39A2A817FE7000828C3 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D3992A817FE7000828C3 /* ScheduleView.swift */; };
 		10E9D39C2A83C14E000828C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E9D39B2A83C14E000828C3 /* AppDelegate.swift */; };
 		10F08B1E2AAAF9D80075B098 /* OutfitCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F08B1D2AAAF9D80075B098 /* OutfitCreationViewController.swift */; };
+		10F08B202AAD38230075B098 /* ColorComb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F08B1F2AAD38230075B098 /* ColorComb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		10E9D3992A817FE7000828C3 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		10E9D39B2A83C14E000828C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10F08B1D2AAAF9D80075B098 /* OutfitCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitCreationViewController.swift; sourceTree = "<group>"; };
+		10F08B1F2AAD38230075B098 /* ColorComb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorComb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				10CAE7392A1E340B009C4084 /* ClosetManager.swift */,
+				10F08B1F2AAD38230075B098 /* ColorComb.swift */,
 			);
 			path = Closet;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				10E58FB32A8403270086E1C7 /* OutfitsView.swift in Sources */,
 				106744BE2A705448006E3581 /* GenerateView.swift in Sources */,
 				10CAE7362A1CFDE8009C4084 /* camView.swift in Sources */,
+				10F08B202AAD38230075B098 /* ColorComb.swift in Sources */,
 				101EB80C2A31BE3700155CD4 /* contentHelpers.swift in Sources */,
 				106744C22A705485006E3581 /* LaundryView.swift in Sources */,
 				1017BFBB2A2B7EF0001D39A7 /* EditView.swift in Sources */,
