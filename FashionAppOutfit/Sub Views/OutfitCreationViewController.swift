@@ -15,7 +15,9 @@ struct OutfitCreationViewController: View {
     @State private var selectedTops: ClosetItemEntity?
     @State private var selectedBottoms: ClosetItemEntity?
     @State private var outfitName = ""
+    var matchingItems: [ClosetItemEntity] = []
     
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,23 +29,46 @@ struct OutfitCreationViewController: View {
                     // Picker for Jacket / Coat
                     Picker("Select a Jacket / Coat", selection: $selectedJacket) {
                         Text("None").tag(nil as ClosetItemEntity?)
-                        ForEach(closetManager.items.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.self) { item in
-                            HStack {
-                                if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 55, height: 55)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.accentColor, lineWidth: 2)
-                                        )
+                        if selectedItem == nil {
+                            ForEach(closetManager.items.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.self) { item in
+                                HStack {
+                                    if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 55, height: 55)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    Text(item.name ?? "")
                                 }
-                                Text(item.name ?? "")
+                                .tag(item)
                             }
-                            .tag(item)
+
+                        }
+                        else {
+                            ForEach(matchingItems.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.self) { item in
+                                HStack {
+                                    if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 55, height: 55)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    Text(item.name ?? "")
+                                }
+                                .tag(item)
+                            }
                         }
                     }
                     .pickerStyle(.navigationLink)
@@ -51,23 +76,46 @@ struct OutfitCreationViewController: View {
                     // Picker for Top
                     Picker("Select a Top", selection: $selectedTops) {
                         Text("None").tag(nil as ClosetItemEntity?)
-                        ForEach(closetManager.items.filter { $0.itemType == ItemType.tops.rawValue }, id: \.self) { item in
-                            HStack {
-                                if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 55, height: 55)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.accentColor, lineWidth: 2)
-                                        )
+                        if selectedItem == nil {
+                            ForEach(closetManager.items.filter { $0.itemType == ItemType.tops.rawValue }, id: \.self) { item in
+                                HStack {
+                                    if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 55, height: 55)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    Text(item.name ?? "")
                                 }
-                                Text(item.name ?? "")
+                                .tag(item)
                             }
-                            .tag(item)
+
+                        }
+                        else {
+                            ForEach(matchingItems.filter { $0.itemType == ItemType.tops.rawValue }, id: \.self) { item in
+                                HStack {
+                                    if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 55, height: 55)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    Text(item.name ?? "")
+                                }
+                                .tag(item)
+                            }
                         }
                     }
                     .pickerStyle(.navigationLink)
@@ -75,23 +123,44 @@ struct OutfitCreationViewController: View {
                     // Picker for Bottom
                     Picker("Select a Bottom", selection: $selectedBottoms) {
                         Text("None").tag(nil as ClosetItemEntity?)
-                        ForEach(closetManager.items.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.self) { item in
-                            HStack {
-                                if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 55, height: 55)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.accentColor, lineWidth: 2)
-                                        )
+                        if selectedItem == nil {
+                            ForEach(closetManager.items.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.self) { item in
+                                HStack {
+                                    if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 55, height: 55)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    Text(item.name ?? "")
                                 }
-                                Text(item.name ?? "")
+                                .tag(item)
                             }
-                            .tag(item)
+                        } else {
+                            ForEach(matchingItems.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.self) { item in
+                                HStack {
+                                    if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 55, height: 55)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.accentColor, lineWidth: 2)
+                                            )
+                                    }
+                                    Text(item.name ?? "")
+                                }
+                                .tag(item)
+                            }
                         }
                     }
                     .pickerStyle(.navigationLink)
@@ -107,6 +176,20 @@ struct OutfitCreationViewController: View {
                 .cornerRadius(12)
                 .disabled(selectedTops == nil || selectedBottoms == nil)
             }
+            .onAppear {
+                if selectedJacket != nil {
+                    selectedItem = selectedJacket
+                }
+                if selectedTops != nil {
+                    selectedItem = selectedTops
+                }
+                if selectedBottoms != nil {
+                    selectedItem = selectedTops
+                }
+                
+
+            }
+        
             .navigationBarTitle("Create Outfit")
             .navigationBarItems(
                 leading: Button("Cancel") {
@@ -115,16 +198,13 @@ struct OutfitCreationViewController: View {
             )
         }
     }
-    func filterItemsWithMatchingColors(chosenItem: ClosetItemEntity, closetManager: ClosetManager) -> [ClosetItemEntity] {
+    mutating func filterItemsWithMatchingColors(chosenItem: ClosetItemEntity, closetManager: ClosetManager) -> [ClosetItemEntity] {
         // Check if the chosenItem has a valid color and style
         guard let chosenColor = chosenItem.color,
               let chosenStyle = ItemStyle(rawValue: chosenItem.itemStyle ?? ""),
               !chosenColor.isEmpty else {
             return []
         }
-
-        // Initialize an array to store matching items
-        var matchingItems: [ClosetItemEntity] = []
 
         // Iterate through the color combinations
         for colorCombination in colorCombinations {

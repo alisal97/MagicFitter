@@ -14,9 +14,9 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var selection = 3
     let item: ClosetItemEntity
+
     @Binding var selectedItem: ClosetItemEntity?
 
-    
     var body: some View {
         TabView(selection:$selection) {
             LaundryView(closetManager: closetManager)
