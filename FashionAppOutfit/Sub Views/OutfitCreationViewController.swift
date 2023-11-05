@@ -30,7 +30,7 @@ struct OutfitCreationViewController: View {
                     Picker("Select a Jacket / Coat", selection: $selectedJacket) {
                         Text("None").tag(nil as ClosetItemEntity?)
                         if selectedItem == nil {
-                            ForEach(closetManager.items.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.self) { item in
+                            ForEach(closetManager.items.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.id) { item in
                                 HStack {
                                     if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
                                         Image(uiImage: uiImage)
@@ -46,12 +46,11 @@ struct OutfitCreationViewController: View {
                                     }
                                     Text(item.name ?? "")
                                 }
-                                .tag(item)
                             }
 
                         }
                         else {
-                            ForEach(matchingItems.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.self) { item in
+                            ForEach(matchingItems.filter { $0.itemType == ItemType.jackets.rawValue }, id: \.id) { item in
                                 HStack {
                                     if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
                                         Image(uiImage: uiImage)
@@ -67,7 +66,6 @@ struct OutfitCreationViewController: View {
                                     }
                                     Text(item.name ?? "")
                                 }
-                                .tag(item)
                             }
                         }
                     }
@@ -77,7 +75,7 @@ struct OutfitCreationViewController: View {
                     Picker("Select a Top", selection: $selectedTops) {
                         Text("None").tag(nil as ClosetItemEntity?)
                         if selectedItem == nil {
-                            ForEach(closetManager.items.filter { $0.itemType == ItemType.tops.rawValue }, id: \.self) { item in
+                            ForEach(closetManager.items.filter { $0.itemType == ItemType.tops.rawValue }, id: \.id) { item in
                                 HStack {
                                     if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
                                         Image(uiImage: uiImage)
@@ -93,12 +91,11 @@ struct OutfitCreationViewController: View {
                                     }
                                     Text(item.name ?? "")
                                 }
-                                .tag(item)
                             }
 
                         }
                         else {
-                            ForEach(matchingItems.filter { $0.itemType == ItemType.tops.rawValue }, id: \.self) { item in
+                            ForEach(matchingItems.filter { $0.itemType == ItemType.tops.rawValue }, id: \.id) { item in
                                 HStack {
                                     if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
                                         Image(uiImage: uiImage)
@@ -114,7 +111,6 @@ struct OutfitCreationViewController: View {
                                     }
                                     Text(item.name ?? "")
                                 }
-                                .tag(item)
                             }
                         }
                     }
@@ -124,7 +120,7 @@ struct OutfitCreationViewController: View {
                     Picker("Select a Bottom", selection: $selectedBottoms) {
                         Text("None").tag(nil as ClosetItemEntity?)
                         if selectedItem == nil {
-                            ForEach(closetManager.items.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.self) { item in
+                            ForEach(closetManager.items.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.id) { item in
                                 HStack {
                                     if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
                                         Image(uiImage: uiImage)
@@ -140,10 +136,9 @@ struct OutfitCreationViewController: View {
                                     }
                                     Text(item.name ?? "")
                                 }
-                                .tag(item)
                             }
                         } else {
-                            ForEach(matchingItems.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.self) { item in
+                            ForEach(matchingItems.filter { $0.itemType == ItemType.bottoms.rawValue }, id: \.id) { item in
                                 HStack {
                                     if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
                                         Image(uiImage: uiImage)
@@ -159,7 +154,6 @@ struct OutfitCreationViewController: View {
                                     }
                                     Text(item.name ?? "")
                                 }
-                                .tag(item)
                             }
                         }
                     }
@@ -184,9 +178,8 @@ struct OutfitCreationViewController: View {
                     selectedItem = selectedTops
                 }
                 if selectedBottoms != nil {
-                    selectedItem = selectedTops
+                    selectedItem = selectedBottoms
                 }
-                
 
             }
         

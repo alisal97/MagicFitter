@@ -72,6 +72,7 @@ let colorCombinations = [
     ["Brown", "Pink", "Pink"],
     ["Brown", "Black", "Black"],
     ["Brown", "White", "White"],
+    //new color combinations
     ["Denim", "Denim", "Black"],
     ["Denim", "Black", "Black"],
     ["Denim", "Orange", "Orange"],
