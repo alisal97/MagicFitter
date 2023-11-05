@@ -104,6 +104,7 @@ class ClosetManager: ObservableObject {
         ["Brown", "Pink", "Pink"],
         ["Brown", "Black", "Black"],
         ["Brown", "White", "White"],
+        //new colors
         ["Denim", "Denim", "Black"],
         ["Denim", "Black", "Black"],
         ["Denim", "Orange", "Orange"],
